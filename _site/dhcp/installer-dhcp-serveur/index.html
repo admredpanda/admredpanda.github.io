@@ -1,0 +1,872 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Installer un serveur DHCP sur Windows Server 2016 - LabVL</title>
+<meta name="description" content="Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="Installer un serveur DHCP sur Windows Server 2016">
+<meta property="og:url" content="http://localhost:4000/dhcp/installer-dhcp-serveur/">
+
+
+  <meta property="og:description" content="Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/Posts/2019-03-11-installer-dhcp-serveur/logo-dhcp-server.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="Installer un serveur DHCP sur Windows Server 2016">
+  <meta name="twitter:description" content="Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients">
+  <meta name="twitter:url" content="http://localhost:4000/dhcp/installer-dhcp-serveur/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/Posts/2019-03-11-installer-dhcp-serveur/logo-dhcp-server.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-03-11T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/dhcp/installer-dhcp-serveur/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/88x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/articles/" >Articles</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Catégories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/a-propos/" >À propos</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Administrateur système
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Contact</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Installer un serveur DHCP sur Windows Server 2016">
+    <meta itemprop="description" content="Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients">
+    <meta itemprop="datePublished" content="March 11, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Installer un serveur DHCP sur Windows Server 2016
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 11/03/2019 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute(s) de lecture
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p style="text-align: justify;"><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/logo-dhcp-server.png" class="align-left" /><strong>Dynamic Host Configuration Protocol (DHCP)</strong> est un protocole réseau qui permet la configuration automatique des paramètres IP de clients<!--more-->, en leur distribuant automatiquement une <strong>IP address</strong> et <strong>subnet mask</strong>. Il peut également configurer la <strong>gateway</strong>, les serveurs <strong>DNS</strong> et des serveurs <strong>WINS</strong>. Les messages DHCP sont transmis via le protocole <strong>UDP</strong>, le client utilise le <strong>port 68</strong> pour émettre et recevoir les messages. Le serveur lui utilise le <strong>port 67</strong> pour envoyer et recevoir les messages.</p>
+
+<h2>Le fonctionnement</h2>
+<p style="text-align: justify;">Voici un schéma qui explique les échanges entre un client et un serveur pour obtenir les paramètres IP :</p>
+
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/DHCP-requetes.jpg" class="align-center" /></p>
+
+<ul>
+  <li style="text-align: justify;"><strong>DHCP Discover :</strong> le client envoi une trame permettant de trouver un serveur DHCP via un <strong>broadcast</strong> à l'adresse MAC <strong>FF:FF:FF:FF:FF:FF</strong>.</li>
+  <li style="text-align: justify;"><strong>DHCP Offer :</strong> le serveur répond par une proposition d'une ou plusieurs <strong>IP address</strong>, avec un <strong>subnet mask</strong>. Disponible dans son <strong>pool</strong> d'adresses disponible.</li>
+  <li style="text-align: justify;"><strong>DHCP Request :</strong> le client retient une des offres du serveur, et renvoi une réponse au serveur pour stipuler son choix.</li>
+  <li style="text-align: justify;"><strong>DHCP Ack :</strong> réponse du serveur qui accuse réception du choix de l'<strong>IP adress</strong> du client. Cette trame contient également le <strong>subnet</strong> et la durée du <strong>bail</strong> alloué. Elle inclut aussi la <strong>gateway</strong>, les serveurs <strong>DNS</strong> et le serveur <strong>WINS</strong>.</li>
+</ul>
+
+<h3>Prérequis</h3>
+<p style="text-align: justify;">Voici les prérequis minimum pour un serveur hébergent le rôle DHCP.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardware</th>
+      <th>Spécification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CPU :</strong></td>
+      <td>1.4 GHz 64-bit</td>
+    </tr>
+    <tr>
+      <td><strong>RAM :</strong></td>
+      <td>2048Mo (512Mo pour la version core)</td>
+    </tr>
+    <tr>
+      <td><strong>Disque dur :</strong></td>
+      <td>32Go d’espace disque</td>
+    </tr>
+    <tr>
+      <td><strong>Réseau :</strong></td>
+      <td>Une connexion réseau</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="text-align: justify;">Pour ce tutoriel, j'utiliserais la machine virtuel <strong>CORPWADS1</strong> créée précédemment dans l'article <a href="/active%20directory/installer-active-directory/">Installer un contrôleur de domaine Active Directory sur Windows Server 2016</a>.</p>
+
+<h2>Installation du rôle DHCP</h2>
+
+<p style="text-align: justify;">Ouvrez le <strong>"Server Manager"</strong>.</p>
+<p style="text-align: justify;">Cliquer sur <strong>"Manage"</strong>. Cliquer sur <strong>"Add Roles and Features"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_10_33-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Defore You Begin :</strong> la page vous affiche un petit rappel des pré-requis avant l'installation d'un rôle. Si vous voulez que cette page n'apparaisse plus, cocher la casse <strong>"Skip this page by default"</strong> et cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_11_55-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select installation type :</strong> Nous souhaitons installer le rôle sur le serveur en question, laisser le choix par défaut et cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_12_19-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select destination server :</strong> Le choix par défaut sélectionne automatiquement notre serveur, cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_12_35-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> Select server roles : Dans la liste des rôles, sélectionner <strong>"DHCP Server"</strong>. Une fenêtre apparaît listant toutes les fonctionnalités, cliquer sur <strong>"Add Features"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_13-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> Le rôle a bien été sélectionné, cliquer sur <strong>"Next &gt;"</strong></p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_32-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select features :</strong> Nous n'avons pas besoin de sélectionner de fonctionnalités supplémentaires, cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_48-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>DHCP Server :</strong> Un rappel de la fonction du serveur DHCP. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_14_06-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Confirm installation selections :</strong> L'assistant nous liste les rôles et fonnalitées qui seront installés, cliquer sur <strong>"Install"</strong></p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_14_23-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Installation progress :</strong> L'installation est maintenant finie. Nous allons passer à la configuration, cliquer sur <strong>"Close"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_15_33-1.png" class="align-center" /></p>
+
+<h2>Configuration post-déploiement</h2>
+
+<p style="text-align: justify;">Ouvrez le <strong>"Server Manager"</strong>, en haut a droite cliquer sur le petit drapeau. Cliquer sur <strong>"Compete DHCP configuration"</strong>.</p>
+
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_15_53-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Description :</strong> L'assistant nous décris la nature des opérations, cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_17_53-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Authorization :</strong> Ici, nous allons sélectionner l'utilisateur autorisé a gérer le rôle DHCP. Puis cliquer sur <strong>"Commit"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_18_11-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Summary :</strong> Pour finir le post-déploiement, assistant créé deux groupes dans <strong>"l'Active Directory"</strong> :
+<ul>
+  <li><strong>DHCP Administrators :</strong> Groupe donnant accès a la gestion du <strong>"DHCP Service"</strong>.</li>
+  <li><strong>DHCP Users :</strong> Groupe donnant accès en lecture seule access au <strong>"DHCP service"</strong>.</li>
+</ul>  
+Cliquer sur <strong>"Close"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_18_32-1.png" class="align-center" /></p>
+
+<h2>Configuration du serveur DHCP</h2>
+
+<p style="text-align: justify;">Ouvrez le <strong>"Server Manager"</strong>, en haut a droite cliquer sur <strong>"Tools"</strong>. Dans la liste, cliquer sur <strong>"DHCP"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_19_49-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Cliquer sur <strong>"IPV4"</strong>. Cliquer sur <strong>"New Scope..."</strong> pour ajouter une nouvelle étendue.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_21_20-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>New Scope Wizard :</strong> Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_21_47-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Scope Name :</strong> Renseigner le champ <strong>"Name :"</strong> avec le nom de votre scope. Puis cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_22_24-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>IP Address Range :</strong> Définisser la plage d'adresse que vous voulez affecter, ex: <strong>"192.168.100.50"</strong> <strong>"192.168.100.60"</strong>. Ensuite, choisissez un <strong>subnet</strong>, ex : <strong>"255.255.255.0"</strong>. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_23_26-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Add Exclusions and Delay :</strong> Dans cette partie, il est possible d'exclure de la plage d'adresse une ou plusieurs adresses. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_23_48-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Lease Duration :</strong> Ici vous pouvez spécifier la durée du bail. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_24_09-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Configure DHCP Options :</strong> Sélectionner l'option <strong>"Yes, I want to configure these options now"</strong>. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_24_26-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Router (Default Gateway) :</strong> Renseigner le champs <strong>"IP address"</strong> avec l'IP address de la gateway <strong>"192.168.10.254"</strong>. Cliquer ensuite sur <strong>"Add"</strong> et celui-ci s'ajoute à la liste en dessous. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_25_16-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Domain Name and DNS Servers :</strong> Indiquer le nom du <strong>"Parent domain :"</strong> ex : <strong>"corp.priv"</strong>. Renseigner le champs <strong>"IP address"</strong> avec l'IP address du serveur DNS <strong>"192.168.10.1"</strong>. Cliquer ensuite sur <strong>"Add"</strong>. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_25_41-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>WINS Servers :</strong> Renseigner le champs <strong>"IP address"</strong> avec l'IP address de du serveur WINS <strong>"192.168.10.254"</strong>. Cliquer ensuite sur <strong>"Add"</strong>. Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_26_13-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Active Scope :</strong> Sélectionner l'option <strong>"Yes, Iwant to active this scope now"</strong>. <br />Cliquer sur <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_26_51-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Completing the New Scope Wizard :</strong> Cliquer sur <strong>"Finish"</strong>.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_27_06-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Le scope apparaît bien dans la fenêtre.</p>
+<p><img src="/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_27_51-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Et voilà ! Nous avons maintenant un serveur DHCP. Vous pouvez obtenir automatiquement une IP address sur votre réseau.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags : </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#dhcp" class="page__taxonomy-item" rel="tag">DHCP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-server-2016" class="page__taxonomy-item" rel="tag">Windows Server 2016</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-server" class="page__taxonomy-item" rel="tag">Windows Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Catégories : </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#dhcp" class="page__taxonomy-item" rel="tag">DHCP</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Mis à jour :</strong> <time datetime="2019-03-11T00:00:00+00:00">11/03/2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Partager sur</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=Installer+un+serveur+DHCP+sur+Windows+Server+2016%20http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstaller-dhcp-serveur%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstaller-dhcp-serveur%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstaller-dhcp-serveur%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstaller-dhcp-serveur%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/active%20directory/installer-active-directory/" class="pagination--pager" title="Installer un contrôleur de domaine Active Directory sur Windows Server 2016
+">Précédent</a>
+    
+    
+      <a href="/sql/installer-sql-server-2016/" class="pagination--pager" title="Installer Microsoft SQL Server 2016 sur Windows server 2016
+">Suivant</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Laisser un commentaire</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Vous pourriez aimer aussi</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-06-15-installer-SCCM-1902/logo-sccm-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/installer-SCCM-1902/" rel="permalink">Installer System Center Configuration Manager 1902
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 15/06/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/logo-sccm-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/installer-prerequis-SCCM-1902/" rel="permalink">Installer les prérequis pour System Center Configuration Manager 1902
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 05/06/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  10 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-06-02-creer-une-fakecompany/logo-fakecompany.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/powershell/creer-une-fakecompany/" rel="permalink">Créer une FakeCompany avec Powershell
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 02/06/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  10 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+En fessant des tests dans mon lab, j'en ai eu marre de créer des utilisateurs User01 des groupes, etc... J'ai donc décidé de créer un script Powershell 
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-03-26-installer-SQL-server-2016/logo-sql-server-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sql/installer-sql-server-2016/" rel="permalink">Installer Microsoft SQL Server 2016 sur Windows server 2016
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 26/03/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  9 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+SQL server désigne un serveur de base de données. La définition du SQL server est étroitement liée à celle du langage SQL (Structured Query Language)
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Entrez votre recherche..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Contact</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Flux</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Valentin LÉPINE. Propulsé par <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/dhcp/installer-dhcp-serveur/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/dhcp/installer-dhcp-serveur"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://labvl-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+
+
+  </body>
+</html>

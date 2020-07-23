@@ -1,0 +1,1062 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Créer une FakeCompany avec Powershell - LabVL</title>
+<meta name="description" content="En fessant des tests dans mon lab, j&#39;en ai eu marre de créer des utilisateurs User01 des groupes, etc... J&#39;ai donc décidé de créer un script Powershell ">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="Créer une FakeCompany avec Powershell">
+<meta property="og:url" content="http://localhost:4000/powershell/creer-une-fakecompany/">
+
+
+  <meta property="og:description" content="En fessant des tests dans mon lab, j&#39;en ai eu marre de créer des utilisateurs User01 des groupes, etc... J&#39;ai donc décidé de créer un script Powershell ">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/Posts/2019-06-02-creer-une-fakecompany/logo-fakecompany.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="Créer une FakeCompany avec Powershell">
+  <meta name="twitter:description" content="En fessant des tests dans mon lab, j&#39;en ai eu marre de créer des utilisateurs User01 des groupes, etc... J&#39;ai donc décidé de créer un script Powershell ">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/creer-une-fakecompany/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/Posts/2019-06-02-creer-une-fakecompany/logo-fakecompany.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-06-02T00:00:00+00:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/creer-une-fakecompany/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/88x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/articles/" >Articles</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Catégories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/a-propos/" >À propos</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Administrateur système
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Contact</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Créer une FakeCompany avec Powershell">
+    <meta itemprop="description" content="En fessant des tests dans mon lab, j&#39;en ai eu marre de créer des utilisateurs User01 des groupes, etc... J&#39;ai donc décidé de créer un script Powershell ">
+    <meta itemprop="datePublished" content="June 02, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Créer une FakeCompany avec Powershell
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 02/06/2019 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute(s) de lecture
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p style="text-align: justify;"><img src="/assets/images/Posts/2019-06-02-creer-une-fakecompany/logo-fakecompany.png" class="align-left" />
+En fessant des tests dans mon lab, j'en ai eu marre de créer des utilisateurs User01 des groupes, etc... J'ai donc décidé de créer un script Powershell <!--more-->permettant de créer une structure semblable a celle d'une entreprise, me permetant de créer automatiquement les OU, utilisateurs, groupes, ordinateurs, a partir d'un fichier CSV.</p>
+
+<h2>Schéma de la Company</h2>
+<p><img src="/assets/images/Posts/2019-06-02-creer-une-fakecompany/FakeCompany_Schema.jpg" class="align-center" /></p>
+
+<h2>Fonctionnement</h2>
+
+<p style="text-align: justify;"><strong>Les données :</strong> Les données sont stockées dans un fichier au format CSV appelé <strong>new_FakeCompany.csv</strong>. Chaque champ est nommé de la manière suivante : field01,field02...</p>
+
+<p style="text-align: justify;"><strong>La fonction :</strong> La fonction permettant de créer la structure se trouve dans le fichier <strong>FakeCompany.ps1</strong>. Cette fonction est basée sur un switch qui s'appuie sur le premier champ du fichier CSV.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span><span class="nv">$Content</span>.<span class="o">(</span><span class="s1">'field01'</span><span class="o">))</span> <span class="o">{</span>
+        <span class="s1">'OU'</span> <span class="o">{</span><span class="c1">## Start create OU ##; Break }</span>
+        <span class="s1">'Groups'</span> <span class="o">{</span> <span class="c1">## Start create Groups ##; Break }</span>
+        <span class="s1">'Users'</span> <span class="o">{</span> <span class="c1">## Start create Users ##; Break }</span>
+        <span class="s1">'Computers'</span> <span class="o">{</span><span class="c1">## Start create Computers ##; Break }</span>
+        Default <span class="o">{</span><span class="nb">Write-Host</span> <span class="s2">"The file format is invalid"</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p style="text-align: justify;">Pour appeler la fonction, il suffit de préciser avec l'argument <strong>-CSVFile</strong> l'emplacement du fichier CSV.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>C:\&gt; FakeCompany -CSVFile C:\new_FakeCompany.csv
+</code></pre></div></div>
+
+<h2>FakeCompany</h2>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">Function </span>FakeCompany
+    <span class="o">{</span>
+    <span class="cm">&lt;#
+    .SYNOPSIS
+        This function allows you to create Active Directory OU, Groups, Users, Computers from CSV file.
+    .DESCRIPTION
+        This function allows you to create Active Directory OU, Groups, Users, Computers from CSV file.
+    .PARAMETER FilePath
+        Specify the path of a CSV file containing Active Directory OU, Groups, Users, Computers informations.
+    .EXAMPLE
+        PS C:\&gt; FakeCompany -CSVFile C:\new_FakeCompany.csv
+    .NOTES
+        Valentin LEPINE
+        Email : vlepineadm@outlook.com
+        Twitter : @vlepineadm
+        Github : https://github.com/vlepineadm/FakeCompany
+    #&gt;</span>
+
+        <span class="o">[</span><span class="na">CmdletBinding</span><span class="o">()]</span>
+        <span class="o">[</span>OutputType<span class="o">(</span> <span class="o">[</span>System.Object] <span class="o">)]</span>
+        <span class="k">PARAM</span>
+        <span class="o">(</span>
+            <span class="o">[</span>System.String]<span class="nv">$CSVFile</span>
+        <span class="o">)</span>
+
+        <span class="c1">## Global variables ##</span>
+
+        <span class="c1"># Global Groups variables #</span>
+        <span class="nv">$GroupCategory</span> <span class="o">=</span> <span class="s2">"Security"</span>
+        <span class="nv">$GroupScope</span> <span class="o">=</span> <span class="s2">"Global"</span>
+
+        <span class="c1"># Global Users variables #</span>
+        <span class="nv">$LocalDomain</span> <span class="o">=</span> <span class="s2">"corp.priv"</span>
+        <span class="nv">$ExternalDomain</span> <span class="o">=</span> <span class="s2">"corporate.com"</span>
+        <span class="nv">$Password</span> <span class="o">=</span> <span class="s1">'P@ssW0rd!'</span>
+
+        <span class="c1">## Global Computers variables ##</span>
+        <span class="nv">$Domain</span> <span class="o">=</span> <span class="nv">$LocalDomain</span>
+        <span class="nv">$OperatingSystem</span> <span class="o">=</span> <span class="s2">"Windows 10 Enterprise"</span>
+        <span class="nv">$OperatingSystemVersion</span> <span class="o">=</span> <span class="s2">"10.0 (17763)"</span>
+
+
+        <span class="c1">## Function ##</span>
+        <span class="k">function </span>Remove-StringLatinCharacters
+        <span class="o">{</span>
+        <span class="k">PARAM</span> <span class="o">([</span><span class="kt">string</span><span class="o">]</span><span class="nv">$String</span><span class="o">)</span>
+            <span class="o">[</span>Text.Encoding]::ASCII.GetString<span class="o">([</span>Text.Encoding]::GetEncoding<span class="o">(</span><span class="s2">"Cyrillic"</span><span class="o">)</span>.GetBytes<span class="o">(</span><span class="nv">$String</span><span class="o">))</span>
+        <span class="o">}</span>
+
+        <span class="k">function </span>FormattingVar
+        <span class="o">{</span>
+        <span class="o">[</span><span class="na">CmdletBinding</span><span class="o">()]</span>
+        <span class="o">[</span>OutputType<span class="o">(</span> <span class="o">[</span>System.Object] <span class="o">)]</span>
+        <span class="k">PARAM</span>
+        <span class="o">(</span>
+            <span class="o">[</span>System.string]<span class="nv">$String</span>
+        <span class="o">)</span>
+            <span class="nv">$String</span> <span class="o">=</span> Remove-StringLatinCharacters <span class="nv">$String</span>
+            <span class="nv">$String</span> <span class="o">=</span> <span class="nv">$String</span>.replace<span class="o">(</span><span class="s1">' '</span>,<span class="s1">''</span><span class="o">)</span>
+            <span class="nv">$String</span> <span class="o">=</span> <span class="nv">$String</span>.ToLower<span class="o">()</span>
+            <span class="k">return</span> ,<span class="nv">$String</span>
+        <span class="o">}</span>
+
+
+        <span class="c1"># Active Directory module import</span>
+        <span class="k">Try</span>
+        <span class="o">{</span>
+            Import-Module ActiveDirectory
+        <span class="o">}</span>
+        <span class="k">Catch</span> <span class="o">[</span>FileNotFoundException]
+        <span class="o">{</span>
+            <span class="nb">Write-Error</span> <span class="s2">"The Active Directory module could not be loaded"</span>
+        <span class="o">}</span>
+
+
+        <span class="k">If</span> <span class="o">((</span><span class="nb">Test-Path</span> <span class="nv">$CSVFile</span><span class="o">)</span> -eq <span class="nv">$True</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="nv">$Contents</span> <span class="o">=</span> <span class="nb">Import-Csv</span> -Path <span class="s2">"</span><span class="nv">$CSVFile</span><span class="s2">"</span>
+            <span class="nb">Write-Host</span> <span class="s2">"Launching the FakeCompanyOU function"</span>
+
+            <span class="k">foreach</span> <span class="o">(</span><span class="nv">$Content</span> <span class="k">in</span> <span class="nv">$Contents</span><span class="o">)</span>
+            <span class="o">{</span>
+                <span class="k">switch</span> <span class="o">(</span><span class="nv">$Content</span>.<span class="o">(</span><span class="s1">'field01'</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="c1">## Start create OU ##</span>
+                    <span class="s1">'OU'</span> <span class="o">{</span>
+                        <span class="c1">## Name ###</span>
+                        <span class="nv">$Name</span> <span class="o">=</span> <span class="k">$(</span><span class="nv">$Content</span>.field02<span class="k">)</span>
+
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Name</span>
+                        <span class="nb">Write-Verbose</span> <span class="k">$(</span><span class="nv">$Content</span>.field03<span class="k">)</span>
+
+                        <span class="c1">## If the OU exist</span>
+                        <span class="nv">$ADOUExist</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADOrganizationalUnit</span> -Filter <span class="o">{</span>Name -like <span class="nv">$Name</span><span class="o">}</span> -SearchBase <span class="s2">"DC=corp,DC=priv"</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                        <span class="k">If</span> <span class="o">(</span><span class="nv">$ADOUExist</span><span class="o">)</span>
+                        <span class="o">{</span>
+                            <span class="nb">Write-Host</span> <span class="s2">"The OU </span><span class="nv">$Name</span><span class="s2"> already exists"</span>
+                        <span class="o">}</span>
+                        <span class="k">else</span>
+                        <span class="o">{</span>
+                            <span class="nb">New-ADOrganizationalUnit</span> -Name <span class="nv">$Name</span> -Path <span class="s2">"</span><span class="k">$(</span><span class="nv">$Content</span>.field03<span class="k">)</span><span class="s2">"</span> -PassThru -ProtectedFromAccidentalDeletion <span class="nv">$false</span>
+
+                            <span class="nb">Write-Host</span> <span class="s2">"The OU </span><span class="nv">$Name</span><span class="s2"> was created"</span>
+                        <span class="o">}</span>
+                    ; <span class="k">Break</span> <span class="o">}</span>
+                    <span class="c1">## End create OU ##</span>
+
+                    <span class="c1">## Start create Groups ##</span>
+                    <span class="s1">'Groups'</span> <span class="o">{</span>
+                        <span class="c1">## Name ##</span>
+                        <span class="nv">$Name</span> <span class="o">=</span> <span class="k">$(</span><span class="nv">$Content</span>.field02<span class="k">)</span>
+
+                        <span class="c1">## DisplayName ##</span>
+                        <span class="nv">$DisplayName</span> <span class="o">=</span> <span class="k">$(</span><span class="nv">$Content</span>.field02<span class="k">)</span>
+
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Name</span> <span class="c1">## GRP_DPT_JUR</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$DisplayName</span> <span class="c1">## GRP_DPT_JUR</span>
+                        <span class="nb">Write-Verbose</span> <span class="k">$(</span><span class="nv">$Content</span>.field03<span class="k">)</span> <span class="c1">## Département Juridique</span>
+                        <span class="nb">Write-Verbose</span> <span class="k">$(</span><span class="nv">$Content</span>.field04<span class="k">)</span> <span class="c1">## OU=Groups,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv</span>
+
+                        <span class="c1">## If the Group exist</span>
+                        <span class="nv">$ADGroupExist</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADGroup</span> <span class="nv">$Name</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                        <span class="k">If</span> <span class="o">(</span><span class="nv">$ADGroupExist</span><span class="o">)</span>
+                        <span class="o">{</span>
+                            <span class="nb">Write-Host</span> <span class="s2">"The group </span><span class="nv">$Name</span><span class="s2"> already exists"</span>
+                        <span class="o">}</span>
+                        <span class="k">else</span>
+                        <span class="o">{</span>
+                            <span class="nb">New-ADGroup</span> -Name <span class="nv">$Name</span> <span class="se">`</span>
+                            -DisplayName <span class="nv">$DisplayName</span> <span class="se">`</span>
+                            -Description <span class="k">$(</span><span class="nv">$Content</span>.field03<span class="k">)</span> <span class="se">`</span>
+                            -Path <span class="k">$(</span><span class="nv">$Content</span>.field04<span class="k">)</span> <span class="se">`</span>
+                            -GroupCategory <span class="nv">$GroupCategory</span> <span class="se">`</span>
+                            -GroupScope <span class="nv">$GroupScope</span>
+
+                            <span class="nb">Write-Host</span> <span class="s2">"The group </span><span class="nv">$Name</span><span class="s2"> was created"</span>
+                        <span class="o">}</span>
+
+                    ; <span class="k">Break</span> <span class="o">}</span>
+                    <span class="c1">## End create Groups ##</span>
+
+                    <span class="c1">## Start create Users ##</span>
+                    <span class="s1">'Users'</span> <span class="o">{</span>
+                        <span class="c1">## GivenName ##</span>
+                        <span class="nv">$GivenName</span> <span class="o">=</span> <span class="nv">$Content</span>.field02.substring<span class="o">(</span>0,1<span class="o">)</span>.toupper<span class="o">()</span>+<span class="nv">$Content</span>.field02.substring<span class="o">(</span>1<span class="o">)</span>.tolower<span class="o">()</span>
+
+                        <span class="c1">## Surname ##</span>
+                        <span class="nv">$SurName</span> <span class="o">=</span> <span class="nv">$Content</span>.field03.ToUpper<span class="o">()</span>
+
+                        <span class="c1">## SamAccountName ##</span>
+                        <span class="nv">$GivenNameFormat</span> <span class="o">=</span> FormattingVar <span class="nv">$GivenName</span>
+                        <span class="nv">$SurNameFormat</span> <span class="o">=</span> FormattingVar <span class="nv">$SurName</span>
+                        <span class="nv">$SamAccountName</span> <span class="o">=</span> <span class="nv">$GivenNameFormat</span>.ToLower<span class="o">()</span>+<span class="s2">"."</span>+<span class="nv">$SurNameFormat</span>.ToLower<span class="o">()</span>
+
+                        <span class="c1">## Name ##</span>
+                        <span class="nv">$Name</span> <span class="o">=</span> <span class="nv">$SurName</span>+<span class="s2">" "</span>+<span class="nv">$GivenName</span>+<span class="s2">" ("</span>+<span class="nv">$SamAccountName</span>+<span class="s2">")"</span>
+
+                        <span class="c1">## Password ##</span>
+                        <span class="nv">$Password</span> <span class="o">=</span> <span class="nb">ConvertTo-SecureString</span> -AsPlainText <span class="nv">$Password</span> -force
+
+                        <span class="c1">## Email ##</span>
+                        <span class="nv">$Email</span> <span class="o">=</span> <span class="nv">$SamAccountName</span>+<span class="s2">"@"</span>+<span class="nv">$ExternalDomain</span>
+
+                        <span class="c1">## UserPrincipalName ##</span>
+                        <span class="nv">$UserPrincipalName</span> <span class="o">=</span> <span class="nv">$SamAccountName</span>+<span class="s2">"@"</span>+<span class="nv">$LocalDomain</span>
+
+                        <span class="c1">## DisplayName ##</span>
+                        <span class="nv">$DisplayName</span> <span class="o">=</span> <span class="nv">$Content</span>.field03+<span class="s2">" "</span>+<span class="nv">$Content</span>.field02
+
+                        <span class="c1">## Initials ##</span>
+                        <span class="nv">$Initials</span> <span class="o">=</span> <span class="nv">$Content</span>.field03.substring<span class="o">(</span>0,1<span class="o">)</span>.toupper<span class="o">()</span>+<span class="nv">$Content</span>.field02.substring<span class="o">(</span>0,1<span class="o">)</span>.toupper<span class="o">()</span>
+
+                        <span class="c1">## department group ##</span>
+                        <span class="nv">$DepartmentGroup</span> <span class="o">=</span> <span class="nv">$Content</span>.field16
+
+                        <span class="c1">## Business group ##</span>
+                        <span class="nv">$BusinessGroup</span> <span class="o">=</span> <span class="nv">$Content</span>.field17
+
+
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Name</span> <span class="c1">## DOE Jane</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$GivenName</span> <span class="c1">## Jane</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$SurName</span> <span class="c1">## DOE</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field04 <span class="c1">## OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Password</span> <span class="c1">## System.Security.SecureString</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Email</span> <span class="c1">## jane.doe@corporate.com</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$SamAccountName</span> <span class="c1">## jane.doe</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$UserPrincipalName</span> <span class="c1">## DOE Jane</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$DisplayName</span> <span class="c1">## DOE Jane</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field05 <span class="c1">## Corporate</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field06 <span class="c1">## Direction</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field07 <span class="c1">## Chief executive officer</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field08 <span class="c1">## 110</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field09 <span class="c1">## +33 1 60 84 00 26</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field10 <span class="c1">## 75008</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field11 <span class="c1">## Paris</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field12 <span class="c1">## 55 Rue du Faubourg Saint-Honoré</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field13 <span class="c1">## Corporate User</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field14 <span class="c1">## OU=Users,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field15 <span class="c1">## FR</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$DepartmentGroup</span> <span class="c1">## GRP_DPT_DIR</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$BusinessGroup</span> <span class="c1">## GRP_MET_DIR</span>
+
+
+                        <span class="nv">$ADUserExist</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADUser</span> <span class="nv">$SamAccountName</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                        <span class="k">If</span> <span class="o">(</span><span class="nv">$ADUserExist</span><span class="o">)</span>
+                        <span class="o">{</span>
+                            <span class="nb">Write-Host</span> <span class="s2">"The user </span><span class="nv">$Name</span><span class="s2"> already exists"</span>
+                        <span class="o">}</span>
+                        <span class="k">else</span>
+                        <span class="o">{</span>
+                            <span class="nb">New-ADuser</span> -Name <span class="nv">$Name</span> <span class="se">`</span>
+                            -GivenName <span class="nv">$GivenName</span> <span class="se">`</span>
+                            -Surname <span class="nv">$SurName</span> <span class="se">`</span>
+                            -Path <span class="nv">$Content</span>.field04 <span class="se">`</span>
+                            -AccountPassword <span class="nv">$Password</span> <span class="se">`</span>
+                            -EmailAddress <span class="nv">$Email</span> <span class="se">`</span>
+                            -SamAccountName <span class="nv">$SamAccountName</span> <span class="se">`</span>
+                            -UserPrincipalName <span class="nv">$UserPrincipalName</span> <span class="se">`</span>
+                            -DisplayName <span class="nv">$DisplayName</span> <span class="se">`</span>
+                            -Company <span class="nv">$Content</span>.field05 <span class="se">`</span>
+                            -Department <span class="nv">$Content</span>.field06 <span class="se">`</span>
+                            -Title <span class="nv">$Content</span>.field07 <span class="se">`</span>
+                            -Office <span class="nv">$Content</span>.field08 <span class="se">`</span>
+                            -OfficePhone <span class="nv">$Content</span>.field09 <span class="se">`</span>
+                            -PostalCode <span class="nv">$Content</span>.field10 <span class="se">`</span>
+                            -City <span class="nv">$Content</span>.field11 <span class="se">`</span>
+                            -StreetAddress <span class="nv">$Content</span>.field12 <span class="se">`</span>
+                            -Description <span class="nv">$Content</span>.field13 <span class="se">`</span>
+                            -Country <span class="nv">$Content</span>.field15 <span class="se">`</span>
+                            -Initials <span class="nv">$Initials</span> <span class="se">`</span>
+                            -Enabled <span class="nv">$true</span> <span class="se">`</span>
+                            -CannotChangePassword <span class="nv">$true</span> <span class="se">`</span>
+                            -PasswordNeverExpires <span class="nv">$true</span>
+
+                            <span class="k">If</span> <span class="o">(</span><span class="nv">$Content</span>.field14<span class="o">)</span>
+                            <span class="o">{</span>
+                                <span class="nb">Set-ADUser</span> -Identity <span class="nv">$SamAccountName</span> <span class="se">`</span>
+                                -Manager <span class="nv">$Content</span>.field14
+                            <span class="o">}</span>
+
+                            <span class="c1">## If the Departement Group exist</span>
+                            <span class="nv">$ADGroupExistDep</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADGroup</span> <span class="nv">$DepartmentGroup</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                            <span class="k">If</span> <span class="o">(</span><span class="nv">$ADGroupExistDep</span><span class="o">)</span>
+                            <span class="o">{</span>
+                                <span class="nb">Add-ADGroupMember</span> <span class="nv">$DepartmentGroup</span> -Members <span class="nv">$SamAccountName</span>
+                            <span class="o">}</span>
+
+                            <span class="c1">## If the Business Group exist</span>
+                            <span class="nv">$ADGroupExistBus</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADGroup</span> <span class="nv">$BusinessGroup</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                            <span class="k">If</span> <span class="o">(</span><span class="nv">$ADGroupExistBus</span><span class="o">)</span>
+                            <span class="o">{</span>
+                                <span class="nb">Add-ADGroupMember</span> <span class="nv">$BusinessGroup</span> -Members <span class="nv">$SamAccountName</span>
+                            <span class="o">}</span>
+
+                            <span class="nb">Write-Host</span> <span class="s2">"The user </span><span class="nv">$Name</span><span class="s2"> was created"</span>
+                        <span class="o">}</span>
+                    ; <span class="k">Break</span> <span class="o">}</span>
+                    <span class="c1">## End create Users ##</span>
+
+                    <span class="c1">## Start create Computers ##</span>
+                    <span class="s1">'Computers'</span> <span class="o">{</span>
+                        <span class="c1">## Name ##</span>
+                        <span class="nv">$Name</span> <span class="o">=</span> <span class="nv">$Content</span>.field02
+
+                        <span class="c1">## SamAccountName ##</span>
+                        <span class="nv">$SamAccountName</span> <span class="o">=</span> <span class="nv">$Content</span>.field02
+
+                        <span class="c1">## DNSHostName ##</span>
+                        <span class="nv">$DNSHostName</span> <span class="o">=</span> <span class="nv">$Name</span>+<span class="s2">""</span>+<span class="nv">$Domain</span>
+
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Name</span> <span class="c1">## WD01</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$SamAccountName</span> <span class="c1">## WD01</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$DNSHostName</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$Content</span>.field03 <span class="c1">## OU=Computers,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$OperatingSystem</span> <span class="c1">## Windows 10 Enterprise</span>
+                        <span class="nb">Write-Verbose</span> <span class="nv">$OperatingSystemVersion</span> <span class="c1">## 10.0 (17763)</span>
+
+                        <span class="c1">## If the Computer exist</span>
+                        <span class="nv">$ADComputerExist</span> <span class="o">=</span> <span class="k">$(try</span> <span class="o">{</span><span class="nb">Get-ADComputer</span> <span class="nv">$Name</span><span class="o">}</span> <span class="k">catch</span> <span class="o">{</span><span class="nv">$null</span><span class="o">}</span><span class="k">)</span>
+                        <span class="k">If</span> <span class="o">(</span><span class="nv">$ADComputerExist</span><span class="o">)</span>
+                        <span class="o">{</span>
+                            <span class="nb">Write-Host</span> <span class="s2">"The Computer </span><span class="nv">$Name</span><span class="s2"> already exists"</span>
+                        <span class="o">}</span>
+                        <span class="k">else</span>
+                        <span class="o">{</span>
+                            <span class="nb">New-ADComputer</span> -Name <span class="nv">$Name</span> <span class="se">`</span>
+                            -SamAccountName <span class="nv">$SamAccountName</span>  <span class="se">`</span>
+                            -DNSHostName <span class="nv">$DNSHostName</span> <span class="se">`</span>
+                            -Path <span class="nv">$Content</span>.field03 <span class="se">`</span>
+                            -OperatingSystem <span class="nv">$OperatingSystem</span> <span class="se">`</span>
+                            -OperatingSystemVersion <span class="nv">$OperatingSystemVersion</span>
+
+                            <span class="nb">Write-Host</span> <span class="s2">"The Computer </span><span class="nv">$Name</span><span class="s2"> was created"</span>
+                        <span class="o">}</span>
+                    ; <span class="k">Break</span> <span class="o">}</span>
+                    <span class="c1">## End create Computers ##</span>
+
+                    <span class="c1"># Start default switch #</span>
+                    Default <span class="o">{</span>
+                        <span class="nb">Write-Host</span> <span class="s2">"The file format is invalid"</span>
+                    <span class="o">}</span> <span class="c1"># End default switch #</span>
+                <span class="o">}</span> <span class="c1"># End of switch #</span>
+            <span class="o">}</span> <span class="c1"># End of foreach #</span>
+        <span class="o">}</span>
+        <span class="k">else</span>
+        <span class="o">{</span>
+            <span class="nb">Write-Error</span> <span class="s2">"Could not find the file </span><span class="nv">$CSVFile</span><span class="s2">"</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="c1">## End to create Fake Company ##</span>
+</code></pre></div></div>
+
+<p style="text-align: justify;"><strong>GitHub :</strong> <a href="https://github.com/vlepineadm/FakeCompany">Voici le lien du repo.</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags : </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Catégories : </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Mis à jour :</strong> <time datetime="2019-06-02T00:00:00+00:00">02/06/2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Partager sur</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=Cr%C3%A9er+une+FakeCompany+avec+Powershell%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fcreer-une-fakecompany%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fcreer-une-fakecompany%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fcreer-une-fakecompany%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fcreer-une-fakecompany%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Partager sur LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sql/installer-sql-server-2016/" class="pagination--pager" title="Installer Microsoft SQL Server 2016 sur Windows server 2016
+">Précédent</a>
+    
+    
+      <a href="/sccm/installer-prerequis-SCCM-1902/" class="pagination--pager" title="Installer les prérequis pour System Center Configuration Manager 1902
+">Suivant</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Laisser un commentaire</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">Vous pourriez aimer aussi</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-06-15-installer-SCCM-1902/logo-sccm-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/installer-SCCM-1902/" rel="permalink">Installer System Center Configuration Manager 1902
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 15/06/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/logo-sccm-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/installer-prerequis-SCCM-1902/" rel="permalink">Installer les prérequis pour System Center Configuration Manager 1902
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 05/06/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  10 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-03-26-installer-SQL-server-2016/logo-sql-server-2016.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sql/installer-sql-server-2016/" rel="permalink">Installer Microsoft SQL Server 2016 sur Windows server 2016
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 26/03/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  8 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+SQL server désigne un serveur de base de données. La définition du SQL server est étroitement liée à celle du langage SQL (Structured Query Language)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/Posts/2019-03-11-installer-dhcp-serveur/logo-dhcp-server.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/dhcp/installer-dhcp-serveur/" rel="permalink">Installer un serveur DHCP sur Windows Server 2016
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 11/03/2019 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  8 minute(s) de lecture
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Entrez votre recherche..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Contact</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Flux</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Valentin LÉPINE. Propulsé par <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/powershell/creer-une-fakecompany/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/powershell/creer-une-fakecompany"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://labvl-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+
+
+  </body>
+</html>

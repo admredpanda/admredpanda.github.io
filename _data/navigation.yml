@@ -1,0 +1,8 @@
+# main links
+main:
+  - title: "Articles"
+    url: /articles/
+  - title: "Catégories"
+    url: /categories/
+  - title: "À propos"
+    url: /a-propos/

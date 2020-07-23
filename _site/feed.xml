@@ -1,0 +1,1311 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-24T21:12:08+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">LabVL</title><subtitle>Bienvenue dans mon lab !</subtitle><author><name>Valentin LÉPINE</name></author><entry><title type="html">Installer System Center Configuration Manager 1902</title><link href="http://localhost:4000/sccm/installer-SCCM-1902/" rel="alternate" type="text/html" title="Installer System Center Configuration Manager 1902" /><published>2019-06-15T00:00:00+00:00</published><updated>2019-06-15T00:00:00+00:00</updated><id>http://localhost:4000/sccm/installer-SCCM-1902</id><content type="html" xml:base="http://localhost:4000/sccm/installer-SCCM-1902/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/logo-sccm-2016.png&quot; class=&quot;align-left&quot; /&gt;&lt;strong&gt;System Center Configuration Manager (SCCM)&lt;/strong&gt; est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.&lt;!--more--&gt; Il permet : la prise de main à distance, la gestion et déploiement des mises à jour et correctifs, l’automatisation de tâches, la télédistribution d’applications, l’inventaire matériel et logiciel, la gestion de la conformité, l’administration des politiques de sécurité, le déploiement de systèmes d’exploitation.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Rendez-vous sur &lt;strong&gt;&quot;Z:\&quot;&lt;/strong&gt; sur votre CD d'installation de SCCM, et exécutez &lt;strong&gt;&quot;splash.exe&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-16_54_15-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'assistant d'installation de Microsoft System Center Configuration Manager démarre.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-16_55_56-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt; pour commencer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-16_57_01-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Before You Begin :&lt;/strong&gt; l'assistant énumère les conditions préalables à l'installation. Cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-16_59_45-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Getting Started :&lt;/strong&gt; séléctionnez &lt;strong&gt;&quot;Install a Configuration Manager primary site&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_00_10-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Product Key :&lt;/strong&gt; séléctionnez &lt;strong&gt;&quot;Install the licensed edition of this product&quot;&lt;/strong&gt;, entrez votre clé de produit dans le champ et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_01_27-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Product License Terms :&lt;/strong&gt; cochez les cases suivantes :
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;I accept these License Terms and Privacy Statement.&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;I accept these License Terms.&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;I accept these License Terms.&quot;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.
+&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_02_19-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Prerequisite Downloads :&lt;/strong&gt; sélectionnez &lt;strong&gt;&quot;Download required files&quot;&lt;/strong&gt;, entrez le chemin suivant : &lt;strong&gt;&quot;C:\Users\administrator.CORP\Downloads&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_02_46-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'assistant télécharge les fichiers nécessaires à l'installation.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_03_08-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Server Language Selection :&lt;/strong&gt; sélectionnez les langues que vous souhaitez ajouter pour le gestionnaire de configuration et cliquez sur  &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_10_30-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Server Language Selection :&lt;/strong&gt; sélectionnez les langues que vous voulez ajouter pour la partie client, pour ma part je choisirais &lt;strong&gt;&quot;French&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_11_38-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Site and Installation Settings :&lt;/strong&gt; remplissez le &lt;strong&gt;&quot;Site code:&quot;&lt;/strong&gt; avec un mot de 3 lettres, pour ma part je choisirais &lt;strong&gt;CORP&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Remplissez le &lt;strong&gt;&quot;Site name:&quot;&lt;/strong&gt; avec le nom de votre site.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans le champs &lt;strong&gt;&quot;Installation folder:&quot;&lt;/strong&gt; indiquer le chemin suivant : &lt;strong&gt;&quot;D:\Program Files\Microsoft Configuration Manager&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cochez la case &lt;strong&gt;&quot;Install the Configuration Manager console&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_13_59-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Primary Site Installation :&lt;/strong&gt; sélectionnez &lt;strong&gt;&quot;Install the primary site as a stand-aline site&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_14_30-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Yes&quot;&lt;/strong&gt; pour accepter.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_14_56-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Database Information :&lt;/strong&gt; entrez le nom de votre serveur SQL dans le champ &lt;strong&gt;&quot;SQL Server name (FQDN):&quot;&lt;/strong&gt; pour ma part &lt;strong&gt;corpwsql1.corp.priv&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Entrez le nom de votre future base de données dans le champ &lt;strong&gt;&quot;Database name:&quot;&lt;/strong&gt; pour ma part &lt;strong&gt;CM_COR&lt;/strong&gt;. Cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_16_06-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Database Information :&lt;/strong&gt; Cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_16_33-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;SMS Provider Setting :&lt;/strong&gt; dans le champ &lt;strong&gt;&quot;SMS Provider (FQDN):&quot;&lt;/strong&gt; vérifier qu'apparaît bien le nom complet de votre serveur SCCM : &lt;strong&gt;corpwscm1.corp.priv&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_16_56-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Client Computer Communication Settings :&lt;/strong&gt; cocher l'option &lt;strong&gt;&quot;Configure the communication method on each site system role&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_17_22-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Site System Roles :&lt;/strong&gt; cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_17_42-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Diagnostic and Usage Data :&lt;/strong&gt; cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_18_14-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Service Connection Point Setup :&lt;/strong&gt; cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_18_53-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Prerequisite Check :&lt;/strong&gt; l'assistant affiche trois warnings :
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;WSUS on site server :&lt;/strong&gt; il n'y a pas de serveur WSUS d'installer actuellement sur le site.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;SQL Server Native Client version :&lt;/strong&gt; la version actuellement dois être mise à jour.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;SQL Server process memory allocation :&lt;/strong&gt; la réserve minimum de mémoire sur le serveur SQL doit être au moins de 8 Go.&lt;/li&gt;
+&lt;/ul&gt;
+Ses différentes alertes ne sont pas bloquantes pour la suite de l'installation. Vous trouverez ici la page listant &lt;a href=&quot;https://docs.microsoft.com/fr-fr/configmgr/core/servers/deploy/install/list-of-prerequisite-checks&quot;&gt;les vérifications des prérequis pour Configuration Manager&lt;/a&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Begin Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-17_30_10-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Install :&lt;/strong&gt; cliquez sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-18_31_53-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;La console Configuration Manager est maintenant disponible.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-15-installer-SCCM-1902/2019-06-16-18_33_05-mRemoteNG---confCons.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Et voilà ! Votre infrastructure est maintenant prête pour que vous puissiez commencer à utiliser SCCM.&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="SCCM" /><category term="SCCM 1902" /><category term="Windows Server" /><category term="Windows Server 2016" /><category term="Windows" /><summary type="html">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.</summary></entry><entry><title type="html">Installer les prérequis pour System Center Configuration Manager 1902</title><link href="http://localhost:4000/sccm/installer-prerequis-SCCM-1902/" rel="alternate" type="text/html" title="Installer les prérequis pour System Center Configuration Manager 1902" /><published>2019-06-05T00:00:00+00:00</published><updated>2019-06-05T00:00:00+00:00</updated><id>http://localhost:4000/sccm/installer-prerequis-SCCM-1902</id><content type="html" xml:base="http://localhost:4000/sccm/installer-prerequis-SCCM-1902/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/logo-sccm-2016.png&quot; class=&quot;align-left&quot; /&gt;&lt;strong&gt;System Center Configuration Manager (SCCM)&lt;/strong&gt; est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.&lt;!--more--&gt; Il permet : la prise de main à distance, la gestion et déploiement des mises à jour et correctifs, l’automatisation de tâches, la télédistribution d’applications, l’inventaire matériel et logiciel, la gestion de la conformité, l’administration des politiques de sécurité, le déploiement de systèmes d’exploitation.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour ce tutoriel, j'utiliserais une machine virtuel avec &lt;strong&gt;Windows Server 2016 Standard&lt;/strong&gt; intégré dans le domaine &lt;strong&gt;corp.priv&lt;/strong&gt; créé précédemment avec la configuration suivante :&lt;/p&gt;
+
+&lt;h3&gt;Hardware&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;4 vCPU&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;4Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;C:\System 50Go, D:\Data 60Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Host-only&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Network&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Champs&lt;/th&gt;
+      &lt;th&gt;Valeurs&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;IP address :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.102&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Subnet :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;255.255.255.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Default gateway :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.254&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;DNS :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.100 (server Active Directory)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;Préparation du serveur&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, le programme se lance au démarrage.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;Local Server&quot;&lt;/strong&gt; remplissez les paramètres suivant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-22-23_20_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Computer name :&lt;/strong&gt; Donner un nom significatif à votre serveur, pour ma part, je prendrais pour exemple : &lt;strong&gt;CORPWSCM1&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Windows Firewall :&lt;/strong&gt; Désactiver le firewall de Windows.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Remote Desktop :&lt;/strong&gt; Activer le bureau à distance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ethernet0 :&lt;/strong&gt; Définissez une adresse IP fixe, je prendrais pour exemple : &lt;strong&gt;192.168.100.102&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;
+&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-22-23_25_21-1.png&quot; class=&quot;align-center&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;notice--warning&quot;&gt;Il est recommandé par Microsot d’effectuer toutes les mises à jour avant toutes installations de rôles.&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;avant-de-commencer&quot;&gt;Avant de commencer&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Avant de commencer à mettre en place les conditions préalables à la mise en place des SCCM, il est nécessaire d'avoir suivi les trois articles suivant :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/active%20directory/installer-active-directory/&quot;&gt;Installer un contrôleur de domaine Active Directory sur Windows Server 2016&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/dhcp/installer-dhcp-serveur/&quot;&gt;Installer un serveur DHCP sur Windows Server 2016&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/sql/installer-sql-server-2016/&quot;&gt;Installer Microsoft SQL Server 2016 sur Windows server 2016&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;préparation-de-lactive-directory&quot;&gt;Préparation de l’Active Directory&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Connectez-vous à votre serveur Active Directory pour effectuer les actions suivantes.&lt;/p&gt;
+
+&lt;h3 id=&quot;création-dun-compte-de-service&quot;&gt;Création d’un compte de service&lt;/h3&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Créer un compte dans l'Active Directory, pour ma part je l'appellerais &lt;strong&gt;&quot;Svc_SCCM_Adm&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_53_43-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;créer-le-conteneur-system-management&quot;&gt;Créer le conteneur System Management&lt;/h3&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt; en haut à droite, cliquez sur &lt;strong&gt;&quot;Tools&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;ADSI Edit&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_54_33-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;ADSI Edit&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Connect to...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_55_12-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Laissez les champs par défaut et cliquez sur &lt;strong&gt;&quot;OK&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_55_35-mRemoteNG - confCons.xml - CORPWADS1P.png.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Default naming context&quot;&lt;/strong&gt;, cliquez sur &lt;strong&gt;&quot;CN-System&quot;&lt;/strong&gt; et choisissez &lt;strong&gt;&quot;New&quot;&lt;/strong&gt;, &lt;strong&gt;&quot;Object...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_56_16-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans la liste &lt;strong&gt;&quot;Select a class:&quot;&lt;/strong&gt; sélectionner &lt;strong&gt;&quot;container&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_57_43-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans le champ &lt;strong&gt;&quot;Value:&quot;&lt;/strong&gt; écrivez &lt;strong&gt;&quot;System Management&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_58_18-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour terminer la création, cliquez sur &lt;strong&gt;&quot;Finish&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 17_58_42-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ajouter-des-droits-au-conteneur-system-management&quot;&gt;Ajouter des droits au conteneur System Management&lt;/h3&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt; en haut à droite, &lt;strong&gt;&quot;click&quot;&lt;/strong&gt; sur &lt;strong&gt;&quot;Tools&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;Active Directory Users and Computers&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_00_37-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;En haut à gauche, cliquez sur &lt;strong&gt;&quot;View&quot;&lt;/strong&gt; et activez l'option &lt;strong&gt;&quot;Advanced Features&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_00_59-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour ajouter une délégation, cliquez sur  &lt;strong&gt;&quot;System Management&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;Delegate Control...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_07_24-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'assistant s'ouvre, cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_07_39-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Add...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_07_55-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans la fenêtre, cliquez sur &lt;strong&gt;&quot;Object Types&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;Computers&quot;&lt;/strong&gt; pour pouvoir ajouter votre serveur SCCM.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_07_56-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ajoutez votre serveur SCCM, pour ma part &lt;strong&gt;CORPWSCM1&lt;/strong&gt; et ajoutez le compte &lt;strong&gt;Svc_SCCM_Adm&lt;/strong&gt; créé précédemment.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_08_37-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Sélectionnez &lt;strong&gt;&quot;Create a custom task to delegate&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_09_01-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Sélectionnez &lt;strong&gt;This folder, existing objects in this folder, and creation of new objects in this folder&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_09_21-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans la section &lt;strong&gt;&quot;Show these permissions:&quot;&lt;/strong&gt;, sélectionnez les options suivantes :
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;General&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;Property-specific&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;Creation/deletion of specific chold objects&quot;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Dans la section &lt;strong&gt;&quot;Permissions:&quot;&lt;/strong&gt; sélectionnez l'option &lt;strong&gt;&quot;Full Control&quot;&lt;/strong&gt;. Et cliquez sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;. 
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_09_49-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour finir l'assistant affiche le récapitulatif des actions. Cliquez sur &lt;strong&gt;&quot;Finish&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_10_11-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;modification-du-schéma-active-directory&quot;&gt;Modification du schéma Active Directory&lt;/h3&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Connectez-vous à votre serveur SCCM pour effectuer les actions suivantes.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Rendez-vous dans le dossier suivant &lt;strong&gt;&quot;Z:\SMSSETUP\BIN\X64\&quot;&lt;/strong&gt; sur votre CD d'installation SCCM, et exécutez &lt;strong&gt;&quot;extadsch.exe&quot;&lt;/strong&gt; avec l'option &lt;strong&gt;&quot;Run as administrator&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_13_27-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Lorsque l'opération est terminée, un fichier &lt;strong&gt;&quot;ExtADsch.log&quot;&lt;/strong&gt; est généré.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_14_08-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici le contenu du fichier journal. On peut voir que l'opération s'est correctement déroulée grâce à la ligne &lt;strong&gt;&quot;Successfully extend the Active Directory schema.&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_14_30-mRemoteNG - confCons.xml - CORPWADS1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;préparation-du-serveur-du-sccm&quot;&gt;Préparation du serveur du SCCM&lt;/h2&gt;
+
+&lt;h3 id=&quot;installation-des-rôles-et-des-fonctionnalités&quot;&gt;Installation des rôles et des fonctionnalités&lt;/h3&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour installer le &lt;strong&gt;Background Intelligent Transfer Service (BITS)&lt;/strong&gt; et &lt;strong&gt;Remote Differential Compression (RDC)&lt;/strong&gt; effectuer la commande suivante :&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;Install-WindowsFeature&lt;/span&gt; -Name BITS , RDC
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici le résultat :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_40_08-mRemoteNG - confCons.xml - CORPWSCM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour installer le &lt;strong&gt;.NET Framework 3.5&lt;/strong&gt; et &lt;strong&gt;.NET Framework 4.5&lt;/strong&gt; exécutez la commande suivante :&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;Install-WindowsFeature&lt;/span&gt; -Name NET-Framework-Features , NET-Framework-45-Features
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici le résultat :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_41_24-mRemoteNG - confCons.xml - CORPWSCM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour installer le &lt;strong&gt;IIS web server&lt;/strong&gt; avec les composants nécessaires, exécutez la commande suivante :&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;Install-WindowsFeature&lt;/span&gt; -Name Web-Server , Web-Common-Http , Web-Static-Content , Web-Http-Errors , Web-Security , Web-Windows-Auth , Web-App-Dev , Web-Asp-Net, Web-Asp-Net45, Web-Net-Ext, Web-Net-Ext45, Web-ISAPI-Ext, Web-Mgmt-Compat, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Wmi, Web-Scripting-Tools -IncludeManagementTools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici le résultat :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-02-28 18_42_10-mRemoteNG - confCons.xml - CORPWSCM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;installation-de-windows-adk-pour-windows-10&quot;&gt;Installation de Windows ADK pour Windows 10&lt;/h3&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans cette partie, nous verrons comment installer le &lt;strong&gt;Windows Assessment and Deployment Kit (Windows ADK)&lt;/strong&gt; pour Windows 10.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Téléchargez le Windows ADK for Windows 10 : &lt;a href=&quot;https://go.microsoft.com/fwlink/?linkid=2086042&quot;&gt;https://go.microsoft.com/fwlink/?linkid=2086042&lt;/a&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Exécutez &lt;strong&gt;&quot;adksetup.exe&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-22_58_57-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans le champs &lt;strong&gt;&quot;Install Path:&quot;&lt;/strong&gt; sélectionner le chemin suivant : &lt;strong&gt;&quot;D:\Program Files (x86)\Windows Kits\10\&quot;&lt;/strong&gt; et cliquez sur &lt;strong&gt;&quot;Next&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-22_59_38-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Choisissez si vous souhaitez envoyer des données anonymes à Microsoft ou non, et cliquez sur &lt;strong&gt;&quot;Next&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_00_12-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Accept&quot;&lt;/strong&gt; pour accepter la licence.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_00_42-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Sélectionnez ces fonctionnalités :
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;&quot;Deployment Tools&quot;&lt;/strong&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;&quot;User State Migration Tool (USMT)&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+Et cliquez sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.
+&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_02_16-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'installation progresse.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_03_27-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'installation est terminée, cliquez sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_03_55-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Téléchargez l'add-on Windows PE pour l'ADK : &lt;a href=&quot;https://go.microsoft.com/fwlink/?linkid=2087112&quot;&gt;https://go.microsoft.com/fwlink/?linkid=2087112&lt;/a&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Exécutez &lt;strong&gt;&quot;adkwinpesetup.exe&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_05_01-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Laissez le choix par défaut et cliquez sur &lt;strong&gt;&quot;Next&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_05_36-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Choisissez si vous souhaitez envoyer des données de façon anonymes à Microsoft ou non, et cliquez sur &lt;strong&gt;&quot;Next&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_05_54-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Acceptez la licence, et cliquez sur &lt;strong&gt;&quot;Accept&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_06_11-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Sélectionnez la fonctionnalité : &lt;strong&gt;&quot;Windows Preinstallation Environnment (Windows PE)&quot;&lt;/strong&gt;, et cliquez sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_06_28-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'installation progresse.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_20_03-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'installation est terminée, cliquez sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-14-23_32_46-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;configurer-microsoft-sql-server-2016&quot;&gt;Configurer Microsoft SQL Server 2016&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Connectez-vous à votre serveur SQL pour effectuer les actions suivantes.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Computer Management&quot;&lt;/strong&gt; puis &lt;strong&gt;&quot;System Tools&quot;&lt;/strong&gt;, &lt;strong&gt;&quot;Local Users and Groups&quot;&lt;/strong&gt;, et &lt;strong&gt;&quot;Groups&quot;&lt;/strong&gt;. Cliquez sur &lt;strong&gt;&quot;Administrators&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;Add to Group...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-16-17_25_04-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;Add...&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-16-17_25_39-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans la fenêtre, cliquez sur &lt;strong&gt;&quot;Object Types&quot;&lt;/strong&gt; et sélectionnez &lt;strong&gt;&quot;Computers&quot;&lt;/strong&gt; pour pouvoir ajouter votre serveur SCCM.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-16-17_26_05-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ajoutez votre serveur SCCM, pour ma part &lt;strong&gt;CORPWSCM1&lt;/strong&gt;. Et cliquez sur &lt;strong&gt;&quot;OK&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-16-17_26_48-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquez sur &lt;strong&gt;&quot;OK&quot;&lt;/strong&gt; pour terminer&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-05-installer-prerequis-SCCM-1902/2019-06-16-17_27_21-mRemoteNG---confCons.xml---LABNPWADM1P.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Et voilà ! Votre infrastructure est maintenant prête pour l'installation de SCCM.&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="SCCM" /><category term="SCCM 1902" /><category term="Windows Server" /><category term="Windows Server 2016" /><category term="Windows" /><summary type="html">System Center Configuration Manager (SCCM) est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique.</summary></entry><entry><title type="html">Créer une FakeCompany avec Powershell</title><link href="http://localhost:4000/powershell/creer-une-fakecompany/" rel="alternate" type="text/html" title="Créer une FakeCompany avec Powershell" /><published>2019-06-02T00:00:00+00:00</published><updated>2019-06-02T00:00:00+00:00</updated><id>http://localhost:4000/powershell/creer-une-fakecompany</id><content type="html" xml:base="http://localhost:4000/powershell/creer-une-fakecompany/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-02-creer-une-fakecompany/logo-fakecompany.png&quot; class=&quot;align-left&quot; /&gt;
+En fessant des tests dans mon lab, j'en ai eu marre de créer des utilisateurs User01 des groupes, etc... J'ai donc décidé de créer un script Powershell &lt;!--more--&gt;permettant de créer une structure semblable a celle d'une entreprise, me permetant de créer automatiquement les OU, utilisateurs, groupes, ordinateurs, a partir d'un fichier CSV.&lt;/p&gt;
+
+&lt;h2&gt;Schéma de la Company&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-06-02-creer-une-fakecompany/FakeCompany_Schema.jpg&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Fonctionnement&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Les données :&lt;/strong&gt; Les données sont stockées dans un fichier au format CSV appelé &lt;strong&gt;new_FakeCompany.csv&lt;/strong&gt;. Chaque champ est nommé de la manière suivante : field01,field02...&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;La fonction :&lt;/strong&gt; La fonction permettant de créer la structure se trouve dans le fichier &lt;strong&gt;FakeCompany.ps1&lt;/strong&gt;. Cette fonction est basée sur un switch qui s'appuie sur le premier champ du fichier CSV.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'field01'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'OU'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## Start create OU ##; Break }&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Groups'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## Start create Groups ##; Break }&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Users'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## Start create Users ##; Break }&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'Computers'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;## Start create Computers ##; Break }&lt;/span&gt;
+        Default &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The file format is invalid&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour appeler la fonction, il suffit de préciser avec l'argument &lt;strong&gt;-CSVFile&lt;/strong&gt; l'emplacement du fichier CSV.&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;PS &lt;/span&gt;C:\&amp;gt; FakeCompany -CSVFile C:\new_FakeCompany.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2&gt;FakeCompany&lt;/h2&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;Function &lt;/span&gt;FakeCompany
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;&amp;lt;#
+    .SYNOPSIS
+        This function allows you to create Active Directory OU, Groups, Users, Computers from CSV file.
+    .DESCRIPTION
+        This function allows you to create Active Directory OU, Groups, Users, Computers from CSV file.
+    .PARAMETER FilePath
+        Specify the path of a CSV file containing Active Directory OU, Groups, Users, Computers informations.
+    .EXAMPLE
+        PS C:\&amp;gt; FakeCompany -CSVFile C:\new_FakeCompany.csv
+    .NOTES
+        Valentin LEPINE
+        Email : vlepineadm@outlook.com
+        Twitter : @vlepineadm
+        Github : https://github.com/vlepineadm/FakeCompany
+    #&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CmdletBinding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()]&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;OutputType&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Object] &lt;span class=&quot;o&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;PARAM&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.String]&lt;span class=&quot;nv&quot;&gt;$CSVFile&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;## Global variables ##&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Global Groups variables #&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$GroupCategory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Security&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$GroupScope&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Global&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Global Users variables #&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$LocalDomain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;corp.priv&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$ExternalDomain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;corporate.com&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'P@ssW0rd!'&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;## Global Computers variables ##&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$Domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$LocalDomain&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$OperatingSystem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Windows 10 Enterprise&quot;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$OperatingSystemVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;10.0 (17763)&quot;&lt;/span&gt;
+
+
+        &lt;span class=&quot;c1&quot;&gt;## Function ##&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;Remove-StringLatinCharacters
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;PARAM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Text.Encoding]::ASCII.GetString&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;Text.Encoding]::GetEncoding&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Cyrillic&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.GetBytes&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;FormattingVar
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CmdletBinding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()]&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;OutputType&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.Object] &lt;span class=&quot;o&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;PARAM&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;System.string]&lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Remove-StringLatinCharacters &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;.replace&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;.ToLower&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; ,&lt;span class=&quot;nv&quot;&gt;$String&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+        &lt;span class=&quot;c1&quot;&gt;# Active Directory module import&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;Try&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            Import-Module ActiveDirectory
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;Catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;FileNotFoundException]
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;Write-Error&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The Active Directory module could not be loaded&quot;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Test-Path&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CSVFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; -eq &lt;span class=&quot;nv&quot;&gt;$True&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$Contents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Import-Csv&lt;/span&gt; -Path &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CSVFile&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Launching the FakeCompanyOU function&quot;&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Contents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'field01'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;## Start create OU ##&lt;/span&gt;
+                    &lt;span class=&quot;s1&quot;&gt;'OU'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;## Name ###&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## If the OU exist&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$ADOUExist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADOrganizationalUnit&lt;/span&gt; -Filter &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;Name -like &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; -SearchBase &lt;span class=&quot;s2&quot;&gt;&quot;DC=corp,DC=priv&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADOUExist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The OU &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; already exists&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;New-ADOrganizationalUnit&lt;/span&gt; -Name &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; -Path &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; -PassThru -ProtectedFromAccidentalDeletion &lt;span class=&quot;nv&quot;&gt;$false&lt;/span&gt;
+
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The OU &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; was created&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    ; &lt;span class=&quot;k&quot;&gt;Break&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;## End create OU ##&lt;/span&gt;
+
+                    &lt;span class=&quot;c1&quot;&gt;## Start create Groups ##&lt;/span&gt;
+                    &lt;span class=&quot;s1&quot;&gt;'Groups'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;## Name ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## DisplayName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## GRP_DPT_JUR&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## GRP_DPT_JUR&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## Département Juridique&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field04&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## OU=Groups,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## If the Group exist&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$ADGroupExist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADGroup&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADGroupExist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The group &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; already exists&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;New-ADGroup&lt;/span&gt; -Name &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -DisplayName &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Description &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Path &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field04&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -GroupCategory &lt;span class=&quot;nv&quot;&gt;$GroupCategory&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -GroupScope &lt;span class=&quot;nv&quot;&gt;$GroupScope&lt;/span&gt;
+
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The group &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; was created&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+                    ; &lt;span class=&quot;k&quot;&gt;Break&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;## End create Groups ##&lt;/span&gt;
+
+                    &lt;span class=&quot;c1&quot;&gt;## Start create Users ##&lt;/span&gt;
+                    &lt;span class=&quot;s1&quot;&gt;'Users'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;## GivenName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$GivenName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02.substring&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0,1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.toupper&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02.substring&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.tolower&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## Surname ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$SurName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03.ToUpper&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## SamAccountName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$GivenNameFormat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; FormattingVar &lt;span class=&quot;nv&quot;&gt;$GivenName&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$SurNameFormat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; FormattingVar &lt;span class=&quot;nv&quot;&gt;$SurName&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GivenNameFormat&lt;/span&gt;.ToLower&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$SurNameFormat&lt;/span&gt;.ToLower&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## Name ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SurName&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$GivenName&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot; (&quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot;)&quot;&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## Password ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ConvertTo-SecureString&lt;/span&gt; -AsPlainText &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; -force
+
+                        &lt;span class=&quot;c1&quot;&gt;## Email ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot;@&quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$ExternalDomain&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## UserPrincipalName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$UserPrincipalName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot;@&quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$LocalDomain&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## DisplayName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03+&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02
+
+                        &lt;span class=&quot;c1&quot;&gt;## Initials ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Initials&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03.substring&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0,1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.toupper&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02.substring&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0,1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.toupper&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## department group ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$DepartmentGroup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field16
+
+                        &lt;span class=&quot;c1&quot;&gt;## Business group ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$BusinessGroup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field17
+
+
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## DOE Jane&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GivenName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## Jane&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SurName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## DOE&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field04 &lt;span class=&quot;c1&quot;&gt;## OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## System.Security.SecureString&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Email&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## jane.doe@corporate.com&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## jane.doe&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$UserPrincipalName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## DOE Jane&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## DOE Jane&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field05 &lt;span class=&quot;c1&quot;&gt;## Corporate&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field06 &lt;span class=&quot;c1&quot;&gt;## Direction&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field07 &lt;span class=&quot;c1&quot;&gt;## Chief executive officer&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field08 &lt;span class=&quot;c1&quot;&gt;## 110&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field09 &lt;span class=&quot;c1&quot;&gt;## +33 1 60 84 00 26&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field10 &lt;span class=&quot;c1&quot;&gt;## 75008&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field11 &lt;span class=&quot;c1&quot;&gt;## Paris&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field12 &lt;span class=&quot;c1&quot;&gt;## 55 Rue du Faubourg Saint-Honoré&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field13 &lt;span class=&quot;c1&quot;&gt;## Corporate User&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field14 &lt;span class=&quot;c1&quot;&gt;## OU=Users,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field15 &lt;span class=&quot;c1&quot;&gt;## FR&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DepartmentGroup&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## GRP_DPT_DIR&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$BusinessGroup&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## GRP_MET_DIR&lt;/span&gt;
+
+
+                        &lt;span class=&quot;nv&quot;&gt;$ADUserExist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADUser&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADUserExist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The user &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; already exists&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;New-ADuser&lt;/span&gt; -Name &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -GivenName &lt;span class=&quot;nv&quot;&gt;$GivenName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Surname &lt;span class=&quot;nv&quot;&gt;$SurName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Path &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field04 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -AccountPassword &lt;span class=&quot;nv&quot;&gt;$Password&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -EmailAddress &lt;span class=&quot;nv&quot;&gt;$Email&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -SamAccountName &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -UserPrincipalName &lt;span class=&quot;nv&quot;&gt;$UserPrincipalName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -DisplayName &lt;span class=&quot;nv&quot;&gt;$DisplayName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Company &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field05 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Department &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field06 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Title &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field07 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Office &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field08 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -OfficePhone &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field09 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -PostalCode &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field10 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -City &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field11 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -StreetAddress &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field12 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Description &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field13 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Country &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field15 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Initials &lt;span class=&quot;nv&quot;&gt;$Initials&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Enabled &lt;span class=&quot;nv&quot;&gt;$true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -CannotChangePassword &lt;span class=&quot;nv&quot;&gt;$true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -PasswordNeverExpires &lt;span class=&quot;nv&quot;&gt;$true&lt;/span&gt;
+
+                            &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field14&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                                &lt;span class=&quot;nb&quot;&gt;Set-ADUser&lt;/span&gt; -Identity &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                                -Manager &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field14
+                            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+                            &lt;span class=&quot;c1&quot;&gt;## If the Departement Group exist&lt;/span&gt;
+                            &lt;span class=&quot;nv&quot;&gt;$ADGroupExistDep&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADGroup&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DepartmentGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADGroupExistDep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                                &lt;span class=&quot;nb&quot;&gt;Add-ADGroupMember&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DepartmentGroup&lt;/span&gt; -Members &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+                            &lt;span class=&quot;c1&quot;&gt;## If the Business Group exist&lt;/span&gt;
+                            &lt;span class=&quot;nv&quot;&gt;$ADGroupExistBus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADGroup&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$BusinessGroup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADGroupExistBus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                                &lt;span class=&quot;nb&quot;&gt;Add-ADGroupMember&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$BusinessGroup&lt;/span&gt; -Members &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;
+                            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The user &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; was created&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    ; &lt;span class=&quot;k&quot;&gt;Break&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;## End create Users ##&lt;/span&gt;
+
+                    &lt;span class=&quot;c1&quot;&gt;## Start create Computers ##&lt;/span&gt;
+                    &lt;span class=&quot;s1&quot;&gt;'Computers'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;## Name ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02
+
+                        &lt;span class=&quot;c1&quot;&gt;## SamAccountName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field02
+
+                        &lt;span class=&quot;c1&quot;&gt;## DNSHostName ##&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$DNSHostName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;+&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$Domain&lt;/span&gt;
+
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## WD01&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## WD01&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DNSHostName&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03 &lt;span class=&quot;c1&quot;&gt;## OU=Computers,OU=Paris,OU=Sites,OU=CORP,DC=corp,DC=priv&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OperatingSystem&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## Windows 10 Enterprise&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Verbose&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OperatingSystemVersion&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## 10.0 (17763)&lt;/span&gt;
+
+                        &lt;span class=&quot;c1&quot;&gt;## If the Computer exist&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$ADComputerExist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Get-ADComputer&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ADComputerExist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The Computer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; already exists&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;nb&quot;&gt;New-ADComputer&lt;/span&gt; -Name &lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -SamAccountName &lt;span class=&quot;nv&quot;&gt;$SamAccountName&lt;/span&gt;  &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -DNSHostName &lt;span class=&quot;nv&quot;&gt;$DNSHostName&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -Path &lt;span class=&quot;nv&quot;&gt;$Content&lt;/span&gt;.field03 &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -OperatingSystem &lt;span class=&quot;nv&quot;&gt;$OperatingSystem&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;`&lt;/span&gt;
+                            -OperatingSystemVersion &lt;span class=&quot;nv&quot;&gt;$OperatingSystemVersion&lt;/span&gt;
+
+                            &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The Computer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; was created&quot;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    ; &lt;span class=&quot;k&quot;&gt;Break&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;## End create Computers ##&lt;/span&gt;
+
+                    &lt;span class=&quot;c1&quot;&gt;# Start default switch #&lt;/span&gt;
+                    Default &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The file format is invalid&quot;&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# End default switch #&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# End of switch #&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# End of foreach #&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;Write-Error&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Could not find the file &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CSVFile&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## End to create Fake Company ##&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;GitHub :&lt;/strong&gt; &lt;a href=&quot;https://github.com/vlepineadm/FakeCompany&quot;&gt;Voici le lien du repo.&lt;/a&gt;&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="Windows" /><category term="Powershell" /><category term="Active Directory" /><summary type="html">En fessant des tests dans mon lab, j'en ai eu marre de créer des utilisateurs User01 des groupes, etc... J'ai donc décidé de créer un script Powershell</summary></entry><entry><title type="html">Installer Microsoft SQL Server 2016 sur Windows server 2016</title><link href="http://localhost:4000/sql/installer-sql-server-2016/" rel="alternate" type="text/html" title="Installer Microsoft SQL Server 2016 sur Windows server 2016" /><published>2019-03-26T00:00:00+00:00</published><updated>2019-03-26T00:00:00+00:00</updated><id>http://localhost:4000/sql/installer-sql-server-2016</id><content type="html" xml:base="http://localhost:4000/sql/installer-sql-server-2016/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/logo-sql-server-2016.png&quot; class=&quot;align-left&quot; /&gt;
+SQL server désigne un serveur de base de données. La définition du SQL server est étroitement liée à celle du langage &lt;strong&gt;SQL (Structured Query Language)&lt;/strong&gt;&lt;!--more--&gt;, un langage informatique permettant d'exploiter des bases de données.&lt;/p&gt;
+
+&lt;h2&gt;Les principes&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Concrètement, un SQL server est un outil qui possède toutes les caractéristiques pour pouvoir accompagner l'utilisateur dans la manipulation, le contrôle, le tri, la mise à jour, et bien d'autres actions encore, de bases de données grâce au langage SQL.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Le terme désigne également le nom donné au &lt;strong&gt;système de gestion de base de données (SGBD)&lt;/strong&gt; commercialisé par Microsoft, ou plus précisément le nom du moteur de bases de données de ce SGDB, SQL server offre de multiples fonctionnalités.&lt;/p&gt;
+
+&lt;h3&gt;Prérequis&lt;/h3&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici les prérequis minimum pour un serveur hébergent SQL Server 2016.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;1.4 GHz 64-bit&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;1024Mo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;40Go d’espace disque&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Une connexion réseau&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour ce tutoriel, j'utiliserais une machine virtuel avec &lt;strong&gt;Windows Server 2016 Standard&lt;/strong&gt; intégré dans le domaine &lt;strong&gt;corp.priv&lt;/strong&gt; créé précédemment avec la configuration suivante :&lt;/p&gt;
+
+&lt;h3&gt;Hardware&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;4 vCPU&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;4Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;C:\System 40Go, D:\Data 20Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Host-only&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Network&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Champs&lt;/th&gt;
+      &lt;th&gt;Valeurs&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;IP address :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.101&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Subnet :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;255.255.255.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Default gateway :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.254&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;DNS :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.100 (server Active Directory)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;Préparation du serveur&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, le programme se lance au démarrage.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;Local Server&quot;&lt;/strong&gt; remplissez les paramètres suivant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-17-19_30_50.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Computer name :&lt;/strong&gt; Donner un nom significatif à votre serveur, pour ma part, je prendrais pour exemple : &lt;strong&gt;CORPWSQL1&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Windows Firewall :&lt;/strong&gt; Désactiver le firewall de Windows.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Remote Desktop :&lt;/strong&gt; Activer le bureau à distance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ethernet0 :&lt;/strong&gt; Définissez une adresse IP fixe, je prendrais pour exemple : &lt;strong&gt;192.168.100.101&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;
+&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-17-19_32_02.png&quot; class=&quot;align-center&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;notice--warning&quot;&gt;Il est recommandé par Microsot d’effectuer toutes les mises à jour avant toutes installations de rôles.&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2&gt;Installation des prérequis&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Start Menu&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Windows PowerShell&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-21_03_11-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Exectuer la commande suivante pour installer le &lt;strong&gt;.NET Framework 3.5&lt;/strong&gt; et le &lt;strong&gt;.NET Framework 4.6&lt;/strong&gt; :&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;Install-WindowsFeature&lt;/span&gt; -Name NET-Framework-Features -Source Z:\sources\sxs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-21_05_11-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Afin de vérifier que les fonctionnalitées sont bien installées, executer la commande suivante :&lt;/p&gt;
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;Get-WindowsFeature&lt;/span&gt; -Name &lt;span class=&quot;s2&quot;&gt;&quot;NET-Framework-Core&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;NET-Framework-45-Features&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-21_07_11-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ensuite créer un groupe et un utilisateur pour administrer le serveur SQL :
+&lt;ul&gt;
+  &lt;li&gt;Groupe : &lt;strong&gt;GRP_SQL_Admins&lt;/strong&gt; : 
+    &lt;ul&gt;
+      &lt;li&gt;Groupe scope &lt;strong&gt;&quot;Domain local&quot;&lt;/strong&gt;&lt;/li&gt; 
+      &lt;li&gt;Group type &lt;strong&gt;&quot;Security&quot;&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Utilisateur : &lt;strong&gt;SVC_SQL_Adm&lt;/strong&gt; : 
+    &lt;ul&gt;
+      &lt;li&gt;Pour des raisons de sécuritées activer les options : &lt;strong&gt;&quot;User cannot change password&quot;&lt;/strong&gt;&lt;/li&gt; 
+      &lt;li&gt;Cocher aussi l'option : &lt;strong&gt;&quot;Password never expires&quot;&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_03_11-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Installation de SQL Server 2016&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez l'ISO de l'installation de SQL Server 2016 et cliquer sur &lt;strong&gt;&quot;setup&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_04_33-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans le menu de gauche cliquer sur &lt;strong&gt;&quot;Installation&quot;&lt;/strong&gt;. Dans le la fenetre de droite, cliquer sur &lt;strong&gt;&quot;New SQL Server stand-alone installation or add features to an existing installation&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_05_50-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Product Key :&lt;/strong&gt; Sélectionner &lt;strong&gt;&quot;Enter the product key:&quot;&lt;/strong&gt; et entrer votre &lt;strong&gt;Key&lt;/strong&gt;. &lt;br /&gt;Puis cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_06_19-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;License Terms :&lt;/strong&gt; Accepter le contrat de licence en cochant la case &lt;strong&gt;&quot;I accept the license terms.&quot;&lt;/strong&gt;. &lt;br /&gt;Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_06_33-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Global Rules :&lt;/strong&gt; L'assistant vérifie les pré-requis. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_06_54-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Microsoft Update :&lt;/strong&gt; Cocher la case &lt;strong&gt;&quot;Use Microsoft Update to check for updates (recommended)&quot;&lt;/strong&gt; pour vérifier les mises à jour du produit. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_07_44-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Product Updates :&lt;/strong&gt; L'assistant liste les mises à jour qui seront installés. &lt;br /&gt;Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_08_10-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Install Rules :&lt;/strong&gt; Si toutes l'installation des règles est complète, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_10_05-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Feature Selection : &lt;/strong&gt; Séléctionner les options suivantes :
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;Database Engine Services&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;Reporting Services - Native&quot;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+Puis, effectuer les actions suivantes :
+&lt;ul&gt;
+  &lt;li&gt;Dans le champs &lt;strong&gt;&quot;Instance root directory:&quot;&lt;/strong&gt; par : &lt;strong&gt;D:\Program Files\Microsoft SQL Server\&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Dans le champs &lt;strong&gt;&quot;Shared feature directory:&quot;&lt;/strong&gt; par : &lt;strong&gt;D:\Program Files\Microsoft SQL Server\&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Dans le champs &lt;strong&gt;&quot;Shared feature directory (x85):&quot;&lt;/strong&gt; par : &lt;strong&gt;D:\Program Files (x86)\Microsoft SQL Server\&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_12_04-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Instance Configuration :&lt;/strong&gt; Dans cette partie, vous pouvez éditer le nom de l'instance si vous le souhaitez. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_14_40-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Server Configuration :&lt;/strong&gt; Renseigner les champs suivants avec le compte &lt;strong&gt;SVC_SQL_Adm&lt;/strong&gt; créé précédemment :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;SQL Server Agent&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;SQL Server Database Engine&quot;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&quot;SQL Server Reporting Services&quot;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_18_40-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Database Engine Configuration :&lt;/strong&gt; Sélectionner l'option &lt;strong&gt;&quot;Windows authentification mode&quot;&lt;/strong&gt; et ajouter le groupe créé &lt;strong&gt;GRP_SQL_Admins&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_21_42-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Reporting Services Configuration :&lt;/strong&gt; Sélectionner &lt;strong&gt;&quot;Install and configure&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_22_06-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Feature Configuration Rules :&lt;/strong&gt; Une fois toutes les vérifications passées, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_22_26-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Ready to Install :&lt;/strong&gt; Un résumé des composant qui serons installés s'affiche, cliquer sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_22_42-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Installation Progress :&lt;/strong&gt; L'installation commence.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_36_12-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Complete :&lt;/strong&gt; L'installation est finie, l'assistant affiche les informations du setup. Cliquer sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_38_20-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Installation Microsoft SQL Server Management Studio&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Télécharger SSMS sur le site de Microsoft a l'adresse suivante : &lt;a href=&quot;https://go.microsoft.com/fwlink/?linkid=2088649&amp;amp;clcid=0x409&quot; alt=&quot;Lien SSMS&quot;&gt;download&lt;/a&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Exécuter le setup &lt;strong&gt;&quot;SSMS-Setup-ENU.exe&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_48_41-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_49_00-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;L'installation progresse.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_56_14-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Une fois l'installation terminée, cliquer sur &lt;strong&gt;&quot;Restart&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_57_42-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Connexion a Microsoft SQL Server 2016&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur l'icone &lt;strong&gt;&quot;Microsoft SQL Server Management Studio 17&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-22_59_41-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Managment Studio démarre.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-23_00_23-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Une fenêtre de connexion apparaît. Les informations de connexion étant pré remplis avec les informations du compte Windows connecté, il ne resta plus qu'a cliquer sur &lt;strong&gt;&quot;Connect&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-23_01_28-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;La connexion au serveur est maintenant OK. Dans la fenêtre &lt;strong&gt;&quot;Object Explorer&quot;&lt;/strong&gt; et &lt;strong&gt;&quot;Databases&quot;&lt;/strong&gt; vous pourrez voir les bases de données de votre serveur.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-23_03_33-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configurer SQL Server 2016 pour SCCM&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez une fenêtre &lt;strong&gt;&quot;Command Prompt&quot;&lt;/strong&gt; et placer vous sur le lecteur &lt;strong&gt;Z:\&lt;/strong&gt; de l'ISO SQL Server 2016.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Exécuter la commande suivante :&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Setup.exe /QUIET /ACTION&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;REBUILDDATABASE /SQLCOLLATION&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;SQL_Latin1_General_CP1_CI_AS /INSTANCENAME&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;MSSQLSERVER /SQLSYSADMINACCOUNTS&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;corp&lt;span class=&quot;se&quot;&gt;\S&lt;/span&gt;VC_SQL_Adm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-26-installer-SQL-server-2016/2019-02-26-23_03_33-2.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Et voilà ! À vous de profiter de votre serveur Microsoft SQL Server 2016.&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="Windows" /><category term="Windows Server" /><category term="Windows Server 2016" /><category term="SQL" /><category term="SQL Server" /><category term="SQL Server 2016" /><summary type="html">SQL server désigne un serveur de base de données. La définition du SQL server est étroitement liée à celle du langage SQL (Structured Query Language)</summary></entry><entry><title type="html">Installer un serveur DHCP sur Windows Server 2016</title><link href="http://localhost:4000/dhcp/installer-dhcp-serveur/" rel="alternate" type="text/html" title="Installer un serveur DHCP sur Windows Server 2016" /><published>2019-03-11T00:00:00+00:00</published><updated>2019-03-11T00:00:00+00:00</updated><id>http://localhost:4000/dhcp/installer-dhcp-serveur</id><content type="html" xml:base="http://localhost:4000/dhcp/installer-dhcp-serveur/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/logo-dhcp-server.png&quot; class=&quot;align-left&quot; /&gt;&lt;strong&gt;Dynamic Host Configuration Protocol (DHCP)&lt;/strong&gt; est un protocole réseau qui permet la configuration automatique des paramètres IP de clients&lt;!--more--&gt;, en leur distribuant automatiquement une &lt;strong&gt;IP address&lt;/strong&gt; et &lt;strong&gt;subnet mask&lt;/strong&gt;. Il peut également configurer la &lt;strong&gt;gateway&lt;/strong&gt;, les serveurs &lt;strong&gt;DNS&lt;/strong&gt; et des serveurs &lt;strong&gt;WINS&lt;/strong&gt;. Les messages DHCP sont transmis via le protocole &lt;strong&gt;UDP&lt;/strong&gt;, le client utilise le &lt;strong&gt;port 68&lt;/strong&gt; pour émettre et recevoir les messages. Le serveur lui utilise le &lt;strong&gt;port 67&lt;/strong&gt; pour envoyer et recevoir les messages.&lt;/p&gt;
+
+&lt;h2&gt;Le fonctionnement&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici un schéma qui explique les échanges entre un client et un serveur pour obtenir les paramètres IP :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/DHCP-requetes.jpg&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DHCP Discover :&lt;/strong&gt; le client envoi une trame permettant de trouver un serveur DHCP via un &lt;strong&gt;broadcast&lt;/strong&gt; à l'adresse MAC &lt;strong&gt;FF:FF:FF:FF:FF:FF&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DHCP Offer :&lt;/strong&gt; le serveur répond par une proposition d'une ou plusieurs &lt;strong&gt;IP address&lt;/strong&gt;, avec un &lt;strong&gt;subnet mask&lt;/strong&gt;. Disponible dans son &lt;strong&gt;pool&lt;/strong&gt; d'adresses disponible.&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DHCP Request :&lt;/strong&gt; le client retient une des offres du serveur, et renvoi une réponse au serveur pour stipuler son choix.&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DHCP Ack :&lt;/strong&gt; réponse du serveur qui accuse réception du choix de l'&lt;strong&gt;IP adress&lt;/strong&gt; du client. Cette trame contient également le &lt;strong&gt;subnet&lt;/strong&gt; et la durée du &lt;strong&gt;bail&lt;/strong&gt; alloué. Elle inclut aussi la &lt;strong&gt;gateway&lt;/strong&gt;, les serveurs &lt;strong&gt;DNS&lt;/strong&gt; et le serveur &lt;strong&gt;WINS&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Prérequis&lt;/h3&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Voici les prérequis minimum pour un serveur hébergent le rôle DHCP.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;1.4 GHz 64-bit&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;2048Mo (512Mo pour la version core)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;32Go d’espace disque&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Une connexion réseau&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour ce tutoriel, j'utiliserais la machine virtuel &lt;strong&gt;CORPWADS1&lt;/strong&gt; créée précédemment dans l'article &lt;a href=&quot;/active%20directory/installer-active-directory/&quot;&gt;Installer un contrôleur de domaine Active Directory sur Windows Server 2016&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Installation du rôle DHCP&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;Manage&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Add Roles and Features&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_10_33-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Defore You Begin :&lt;/strong&gt; la page vous affiche un petit rappel des pré-requis avant l'installation d'un rôle. Si vous voulez que cette page n'apparaisse plus, cocher la casse &lt;strong&gt;&quot;Skip this page by default&quot;&lt;/strong&gt; et cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_11_55-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select installation type :&lt;/strong&gt; Nous souhaitons installer le rôle sur le serveur en question, laisser le choix par défaut et cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_12_19-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select destination server :&lt;/strong&gt; Le choix par défaut sélectionne automatiquement notre serveur, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_12_35-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select server roles :&lt;/strong&gt; Select server roles : Dans la liste des rôles, sélectionner &lt;strong&gt;&quot;DHCP Server&quot;&lt;/strong&gt;. Une fenêtre apparaît listant toutes les fonctionnalités, cliquer sur &lt;strong&gt;&quot;Add Features&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_13-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select server roles :&lt;/strong&gt; Le rôle a bien été sélectionné, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_32-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select features :&lt;/strong&gt; Nous n'avons pas besoin de sélectionner de fonctionnalités supplémentaires, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_13_48-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DHCP Server :&lt;/strong&gt; Un rappel de la fonction du serveur DHCP. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_14_06-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Confirm installation selections :&lt;/strong&gt; L'assistant nous liste les rôles et fonnalitées qui seront installés, cliquer sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_14_23-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Installation progress :&lt;/strong&gt; L'installation est maintenant finie. Nous allons passer à la configuration, cliquer sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_15_33-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configuration post-déploiement&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, en haut a droite cliquer sur le petit drapeau. Cliquer sur &lt;strong&gt;&quot;Compete DHCP configuration&quot;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_15_53-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Description :&lt;/strong&gt; L'assistant nous décris la nature des opérations, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_17_53-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Authorization :&lt;/strong&gt; Ici, nous allons sélectionner l'utilisateur autorisé a gérer le rôle DHCP. Puis cliquer sur &lt;strong&gt;&quot;Commit&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_18_11-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Summary :&lt;/strong&gt; Pour finir le post-déploiement, assistant créé deux groupes dans &lt;strong&gt;&quot;l'Active Directory&quot;&lt;/strong&gt; :
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;DHCP Administrators :&lt;/strong&gt; Groupe donnant accès a la gestion du &lt;strong&gt;&quot;DHCP Service&quot;&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DHCP Users :&lt;/strong&gt; Groupe donnant accès en lecture seule access au &lt;strong&gt;&quot;DHCP service&quot;&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;  
+Cliquer sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_18_32-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configuration du serveur DHCP&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, en haut a droite cliquer sur &lt;strong&gt;&quot;Tools&quot;&lt;/strong&gt;. Dans la liste, cliquer sur &lt;strong&gt;&quot;DHCP&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_19_49-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;IPV4&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;New Scope...&quot;&lt;/strong&gt; pour ajouter une nouvelle étendue.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_21_20-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;New Scope Wizard :&lt;/strong&gt; Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_21_47-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Scope Name :&lt;/strong&gt; Renseigner le champ &lt;strong&gt;&quot;Name :&quot;&lt;/strong&gt; avec le nom de votre scope. Puis cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_22_24-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;IP Address Range :&lt;/strong&gt; Définisser la plage d'adresse que vous voulez affecter, ex: &lt;strong&gt;&quot;192.168.100.50&quot;&lt;/strong&gt; &lt;strong&gt;&quot;192.168.100.60&quot;&lt;/strong&gt;. Ensuite, choisissez un &lt;strong&gt;subnet&lt;/strong&gt;, ex : &lt;strong&gt;&quot;255.255.255.0&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_23_26-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Add Exclusions and Delay :&lt;/strong&gt; Dans cette partie, il est possible d'exclure de la plage d'adresse une ou plusieurs adresses. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_23_48-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Lease Duration :&lt;/strong&gt; Ici vous pouvez spécifier la durée du bail. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_24_09-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Configure DHCP Options :&lt;/strong&gt; Sélectionner l'option &lt;strong&gt;&quot;Yes, I want to configure these options now&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_24_26-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Router (Default Gateway) :&lt;/strong&gt; Renseigner le champs &lt;strong&gt;&quot;IP address&quot;&lt;/strong&gt; avec l'IP address de la gateway &lt;strong&gt;&quot;192.168.10.254&quot;&lt;/strong&gt;. Cliquer ensuite sur &lt;strong&gt;&quot;Add&quot;&lt;/strong&gt; et celui-ci s'ajoute à la liste en dessous. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_25_16-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Domain Name and DNS Servers :&lt;/strong&gt; Indiquer le nom du &lt;strong&gt;&quot;Parent domain :&quot;&lt;/strong&gt; ex : &lt;strong&gt;&quot;corp.priv&quot;&lt;/strong&gt;. Renseigner le champs &lt;strong&gt;&quot;IP address&quot;&lt;/strong&gt; avec l'IP address du serveur DNS &lt;strong&gt;&quot;192.168.10.1&quot;&lt;/strong&gt;. Cliquer ensuite sur &lt;strong&gt;&quot;Add&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_25_41-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;WINS Servers :&lt;/strong&gt; Renseigner le champs &lt;strong&gt;&quot;IP address&quot;&lt;/strong&gt; avec l'IP address de du serveur WINS &lt;strong&gt;&quot;192.168.10.254&quot;&lt;/strong&gt;. Cliquer ensuite sur &lt;strong&gt;&quot;Add&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_26_13-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Active Scope :&lt;/strong&gt; Sélectionner l'option &lt;strong&gt;&quot;Yes, Iwant to active this scope now&quot;&lt;/strong&gt;. &lt;br /&gt;Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_26_51-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Completing the New Scope Wizard :&lt;/strong&gt; Cliquer sur &lt;strong&gt;&quot;Finish&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_27_06-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Le scope apparaît bien dans la fenêtre.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-03-11-installer-dhcp-serveur/2019-02-26-17_27_51-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Et voilà ! Nous avons maintenant un serveur DHCP. Vous pouvez obtenir automatiquement une IP address sur votre réseau.&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="DHCP" /><category term="Windows" /><category term="Windows Server" /><category term="Windows Server 2016" /><summary type="html">Dynamic Host Configuration Protocol (DHCP) est un protocole réseau qui permet la configuration automatique des paramètres IP de clients</summary></entry><entry><title type="html">Installer un contrôleur de domaine Active Directory sur Windows Server 2016</title><link href="http://localhost:4000/active%20directory/installer-active-directory/" rel="alternate" type="text/html" title="Installer un contrôleur de domaine Active Directory sur Windows Server 2016" /><published>2019-02-22T00:00:00+00:00</published><updated>2019-02-22T00:00:00+00:00</updated><id>http://localhost:4000/active%20directory/installer-active-directory</id><content type="html" xml:base="http://localhost:4000/active%20directory/installer-active-directory/">&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/logo-active-directory.png&quot; class=&quot;align-left&quot; /&gt;&lt;strong&gt;Active Directory est l'annuaire LDAP pour le système Windows&lt;/strong&gt;, il contient des &lt;strong&gt;Objets&lt;/strong&gt; de types différents comme des user, computers, organization unit (OU), servers ou printers.&lt;!--more--&gt; Il permet de gérer les fonctions essentielles &lt;strong&gt;d'identification&lt;/strong&gt; et &lt;strong&gt;d'authentification&lt;/strong&gt;. Il permet également &lt;strong&gt;l'attribution&lt;/strong&gt; et &lt;strong&gt;l'application de stratégies&lt;/strong&gt;. L'Active Directory s'appuie sur le protocole &lt;strong&gt;DNS&lt;/strong&gt;, sans celui-ci l'AD ne peut pas fonctionner. Le rôle DNS sera installé durant en même temps.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Je vais commencer par les notions de bases d'un contrôleur de domaine. Notamment les composants qui le constituent et qui l'entourent, ainsi que les rôles &lt;strong&gt;FSMO&lt;/strong&gt; (&lt;i&gt;Flexible Single Master Operation&lt;/i&gt;) qui le composent.&lt;/p&gt;
+
+&lt;h3&gt;Les Composants&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Forests :&lt;/strong&gt; désigne la structure d'un ou plusieurs domaines.&lt;/li&gt;
+  &lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/AD-forests.png&quot; class=&quot;align-center&quot; /&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Domains :&lt;/strong&gt; domaine faisant partie d'une forêt, ex : paris.corp.priv, corp.priv.&lt;/li&gt;
+  &lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/AD-domains.png&quot; class=&quot;align-center&quot; /&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Sites :&lt;/strong&gt; permet de faire la distinction au niveau de la topologie du réseau, ex : Paris: 192.168.4.0, Londre: 192.168.5.0.&lt;/li&gt;
+  &lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/AD-sites.png&quot; class=&quot;align-center&quot; /&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Domain Controllers :&lt;/strong&gt; rôle du serveur qui traite les requêtes d'un domaine, il devra gérer : l'identification des objets, l’authentification, veiller à l’application des stratégies de groupe.&lt;/li&gt;
+  &lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/AD-domain-controllers.png&quot; class=&quot;align-center&quot; /&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Organizational Units :&lt;/strong&gt; conteneurs permettant de créer une hiérarchie.&lt;/li&gt;
+  &lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/AD-organizational-units.png&quot; class=&quot;align-center&quot; /&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Les Rôles FSMO&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Schema Master :&lt;/strong&gt; Il gère la modification du schéma et sur le serveur et sa réplication. &lt;strong&gt;Unique au sein d'une forêt.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Domain Naming Master :&lt;/strong&gt; Il gére la ajout et la suppression de nom de domaine dans une forêt. &lt;strong&gt;Unique au sein d'une forêt.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;PDC Emulator :&lt;/strong&gt; (&lt;i&gt;PDC Primary Domain Controller&lt;/i&gt;) remplis 5 fonctions. &lt;strong&gt;Unique au sein d'un domaine.&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li style=&quot;text-align: justify;&quot;&gt;Modification des stratégies de groupe du domaine.&lt;/li&gt;
+      &lt;li style=&quot;text-align: justify;&quot;&gt;Synchroniser les horloges (date &amp;amp; heure) sur les contrôleurs de domaine.&lt;/li&gt;
+      &lt;li style=&quot;text-align: justify;&quot;&gt;Gérer le verrouillage des comptes.&lt;/li&gt;
+      &lt;li style=&quot;text-align: justify;&quot;&gt;Gère le changement des mots de passe.&lt;/li&gt;
+      &lt;li style=&quot;text-align: justify;&quot;&gt;Assure la compatibilité avec les contrôleurs de domaine Windows NT.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;RID Master&lt;/strong&gt; (&lt;i&gt;Relative IDentifier&lt;/i&gt;) qui alloue un identificateur relatif à l’intérieur d’un domaine (pour un utilisateur, un groupe ou tout autre objet géré par Active Directory). Il gère aussi le déplacement d’un objet d’un domaine à un autre, à l’intérieur de la forêt. &lt;strong&gt;Unique au sein d'un domaine.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Infrastructure Master :&lt;/strong&gt; Maintients les références entre plusieurs objets, comme les SID (&lt;i&gt;Security Identifiers&lt;/i&gt;) et les GUID (&lt;i&gt;Globally Unique Identifier&lt;/i&gt;). &lt;strong&gt;Unique au sein d'un domaine.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Les prérequis&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Maintenant passons a la pratique ! Voici les préconisations de Microsoft pour la machine hébergeant un contrôleur de domaine.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Minimum: 1.4 GHz 64-bit&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;2Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;32Go d’espace disque&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Une connexion réseau&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Pour ce tutoriel, j'utiliserais une machine virtuel avec &lt;strong&gt;Windows Server 2016 Standard&lt;/strong&gt; avec la configuration suivante :&lt;/p&gt;
+
+&lt;h3&gt;Hardware&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hardware&lt;/th&gt;
+      &lt;th&gt;Spécification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;CPU :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;2 vCPU&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;RAM :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;4Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disque dur :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;C:\System 50Go&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Réseau :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Host-only&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Network&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Champs&lt;/th&gt;
+      &lt;th&gt;Valeurs&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;IP address :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Subnet :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;255.255.255.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Default gateway :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.254&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;DNS :&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;192.168.100.254&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;Préparation du serveur&lt;/h2&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, le programme se lance au démarrage.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Cliquer sur &lt;strong&gt;&quot;Local Server&quot;&lt;/strong&gt; remplissez les paramètres suivant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-22-23_20_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Computer name :&lt;/strong&gt; Donner un nom significatif à votre serveur, pour ma part, je prendrais pour exemple : &lt;strong&gt;CORPWADS1&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Windows Firewall :&lt;/strong&gt; Désactiver le firewall de Windows.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Remote Desktop :&lt;/strong&gt; Activer le bureau à distance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ethernet0 :&lt;/strong&gt; Définissez une adresse IP fixe, je prendrais pour exemple : &lt;strong&gt;192.168.100.100&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;
+&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-22-23_25_21-1.png&quot; class=&quot;align-center&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;notice--warning&quot;&gt;Il est recommandé par Microsot d’effectuer toutes les mises à jour avant toutes installations de rôles.&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2&gt;Installation d'Active Directory sur Windows Server 2016&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Maintenant il faut installer le rôle &lt;strong&gt;&quot;ADDS&quot;&lt;/strong&gt;. Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, puis cliquer sur &lt;strong&gt;&quot;Manage&quot;&lt;/strong&gt; puis &lt;strong&gt;&quot;Add Roles and Features&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-17_57_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Before ou begin :&lt;/strong&gt; La page vous affiche un petit rappel des pré-requis avant l'installation d'un rôle. Si vous voulez que cette page n'apparaisse plus, cocher la casse &lt;strong&gt;&quot;Skip this page by default&quot;&lt;/strong&gt; et cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-18_04_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select installation type :&lt;/strong&gt; Nous souhaitons installer le rôle sur le serveur en question, laisser le choix par défaut et cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-18_13_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select destination server :&lt;/strong&gt; Le choix par défaut sélectionne automatiquement notre serveur, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-18_17_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select server roles :&lt;/strong&gt; Dans la liste des rôles, sélectionner &lt;strong&gt;&quot;Active Directory Domain Services&quot;&lt;/strong&gt;. Une fenêtre apparaît listant toutes les fonctionnalités, cliquer sur &lt;strong&gt;&quot;Add Features&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-18_37_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select server roles :&lt;/strong&gt; Le rôle a bien été sélectionné, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-18_40_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Select features :&lt;/strong&gt; Nous n'avons pas besoin de sélectionner de fonctionnalités supplémentaires, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-20_52_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Active Directory Domain Services :&lt;/strong&gt; Dans cette partie il est possible de configurer la liaison avec Azure Active Directory, cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-20_54_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Confirm installation selections :&lt;/strong&gt; L'assistant nous liste les rôles et fonnalitées qui seront installés, cliquer sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-20_59_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Installation progress :&lt;/strong&gt; L'installation est maintenant finie. Nous allons passer à la configuration, cliquer sur &lt;strong&gt;&quot;Close&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_03_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Promulgation du contrôleur de domaine&lt;/h2&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ouvrez le &lt;strong&gt;&quot;Server Manager&quot;&lt;/strong&gt;, en haut a droite cliquer sur le petit drapeau. Cliquer sur &lt;strong&gt;&quot;Promote this server to a domain controller&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_07_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Deployment Configuration :&lt;/strong&gt; Etant donnée que nous n'avons pas de forêt, selectionner &lt;strong&gt;&quot;Add a new forest&quot;&lt;/strong&gt;.&lt;br /&gt;Ensuite l'étape la plus importante le nom de domaine, voici le &lt;a href=&quot;https://docs.microsoft.com/fr-fr/windows-server/identity/ad-ds/plan/assigning-domain-names&quot;&gt;lien&lt;/a&gt; vers le site de Microsoft contentant les règles d'affectation. En règle générale, le nom de domaine est le nom de l'entreprise suivie de .PRIV, pour cet exemple, j'utiliserais &lt;strong&gt;&quot;CORP.PRIV&quot;&lt;/strong&gt;. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_14_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Domain Controller Options :&lt;/strong&gt; Maintenant il faut régler le niveau fonctionnel de la forêt et du domaine. Pour ma part, je laisserais le niveau fonctionnel de la forêt et du domaine sur &lt;strong&gt;&quot;Windows Server 2016&quot;&lt;/strong&gt;, voici le &lt;a href=&quot;https://docs.microsoft.com/fr-fr/windows-server/identity/ad-ds/active-directory-functional-levels&quot;&gt;lien&lt;/a&gt; vers le site de Microsoft pour comprendre ce que cela implique.&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;Dans les champs &lt;strong&gt;&quot;Password:&quot;&lt;/strong&gt; et &lt;strong&gt;&quot;Cofirm password:&quot;&lt;/strong&gt; avec votre mot de passe, il est conseillé d'en renseigner un différent de celui utilisé pour le compte administrator. Garder le précieusement il vous servira lors de restauration de l'Active Directory.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_23_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;DNS Options :&lt;/strong&gt; L'assistant nous demande maintenant si nous voulons créer une délégation DNS, vue qu'aucune zone DNS n'existe pour le moment l'icône est grisé. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_29_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Additional Options :&lt;/strong&gt; Le nom &lt;strong&gt;NetBIOS&quot;&lt;/strong&gt; s'affiche, il correspond au nom de domaine sans l'extension. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_31_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Paths :&lt;/strong&gt; Laisser le dossier par défaut. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_41_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Review Options :&lt;/strong&gt;On nous affiche les récapitulatifs de notre configuration. Vous avez la possibilité de cliquer sur le bouton &lt;strong&gt;&quot;View script&quot;&lt;/strong&gt; pour exporter le script de configuration de l'Active Directory. Cliquer sur &lt;strong&gt;&quot;Next &amp;gt;&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_47_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;strong&gt;Prerequisites Check :&lt;/strong&gt; L'assistant d'installation a fini de vérifier les pré-requis. Deux erreurs apparaissent, voici a quoi elles correspondent :&lt;/p&gt;
+&lt;p style=&quot;text-align: justify;&quot;&gt;
+  &lt;blockquote style=&quot;text-align: justify;&quot;&gt;Contrôleurs de domaine qui exécutent Windows Server2008 ou version ultérieure possèdent un paramètre par défaut pour &quot;Autoriser algorithmes de chiffrement compatibles avec Windows NT 4&quot; qui empêche les algorithmes de chiffrement plus faibles lors de l’établissement de sessions sur canal sécurisé. Pour plus d’informations sur l’impact potentiel et une solution de contournement, voir l’article &lt;a href=&quot;https://support.microsoft.com/kb/942564&quot;&gt;942564&lt;/a&gt;.&lt;/blockquote&gt;
+&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;
+  &lt;blockquote style=&quot;text-align: justify;&quot;&gt;La délégation DNS ne peut pas être créée ou mis à jour. Pour plus d’informations, voir &lt;a href=&quot;https://docs.microsoft.com/fr-fr/windows-server/identity/ad-ds/deploy/ad-ds-installation-and-removal-wizard-page-descriptions#BKMK_DNSOptionsPage&quot;&gt;Options DNS&lt;/a&gt;.&lt;/blockquote&gt;
+&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Ses warnings ne gêne en rien l'installation. Cliquer sur &lt;strong&gt;&quot;Install&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_52_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Une fois l'installation finis, le serveur vas redémarrer automatiquement.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-21_54_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Une fois le redémarrage effectué, le domaine &lt;strong&gt;&quot;CORP&quot;&lt;/strong&gt; apparaît devant le login utilisateur &lt;strong&gt;&quot;Administrator&quot;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/Posts/2019-02-22-installer-active-directory/2019-02-23-22_03_21-1.png&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: justify;&quot;&gt;Et voilà ! Nous avons maintenant un domaine Active Directory. Vous pouvez ajouter de nouvelles machines à votre domaine.&lt;/p&gt;</content><author><name>Valentin LÉPINE</name></author><category term="Windows" /><category term="Windows Server" /><category term="Windows Server 2016" /><category term="Active Directory" /><category term="DNS" /><summary type="html">Active Directory est l'annuaire LDAP pour le système Windows, il contient des Objets de types différents comme des user, computers, organization unit (OU), servers ou printers.</summary></entry></feed>
