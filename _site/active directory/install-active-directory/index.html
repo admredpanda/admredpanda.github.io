@@ -1,0 +1,1065 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to install a domain controller Active Directory on Windows Server - LabVL</title>
+<meta name="description" content="Active Directory is the LDAP directory for the Windows system, it contains Objets of differents types like user, computers, organization unit (OU), servers or printers. It allows you manage the essential functions of identification and authentication. It also allows the attribution and application of strategies. Active Directory relies on the DNS protocol, without it the AD can not function. The DNS role will be installed at the same time.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="How to install a domain controller Active Directory on Windows Server">
+<meta property="og:url" content="http://localhost:4000/active%20directory/install-active-directory/">
+
+
+  <meta property="og:description" content="Active Directory is the LDAP directory for the Windows system, it contains Objets of differents types like user, computers, organization unit (OU), servers or printers. It allows you manage the essential functions of identification and authentication. It also allows the attribution and application of strategies. Active Directory relies on the DNS protocol, without it the AD can not function. The DNS role will be installed at the same time.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-02-22-install-active-directory/logo-ad-444x240.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="How to install a domain controller Active Directory on Windows Server">
+  <meta name="twitter:description" content="Active Directory is the LDAP directory for the Windows system, it contains Objets of differents types like user, computers, organization unit (OU), servers or printers. It allows you manage the essential functions of identification and authentication. It also allows the attribution and application of strategies. Active Directory relies on the DNS protocol, without it the AD can not function. The DNS role will be installed at the same time.">
+  <meta name="twitter:url" content="http://localhost:4000/active%20directory/install-active-directory/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-02-22-install-active-directory/logo-ad-444x240.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-02-22T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2020-12-07T00:00:00+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/active%20directory/install-active-directory/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<script type="text/javascript" async src="/assets/js/auto-heading-links.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/desktop-156x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems Engineer
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to install a domain controller Active Directory on Windows Server">
+    <meta itemprop="description" content="Active Directory is the LDAP directory for the Windows system, it contains Objets of differents types like user, computers, organization unit (OU), servers or printers. It allows you manage the essential functions of identification and authentication. It also allows the attribution and application of strategies. Active Directory relies on the DNS protocol, without it the AD can not function. The DNS role will be installed at the same time.">
+    <meta itemprop="datePublished" content="February 22, 2019">
+    <meta itemprop="dateModified" content="December 07, 2020">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">How to install a domain controller Active Directory on Windows Server
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 2019/02/22 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minute read
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p style="text-align: justify;"><img src="/assets/images/posts/2019-02-22-install-active-directory/logo-ad-222x150.png" class="align-left" /><strong>Active Directory is the LDAP directory for the Windows system</strong>, it contains <strong>Objets</strong> of differents types like user, computers, organization unit (OU), servers or printers. It allows you manage the essential functions of <strong>identification</strong> and <strong>authentication</strong>. It also allows the <strong>attribution</strong> and <strong>application of strategies</strong>. Active Directory relies on the <strong>DNS</strong> protocol, without it the AD can not function. The DNS role will be installed at the same time.</p>
+
+<p style="text-align: justify;">I will starting with the basic knowledge of domain controller. In particular, the components that make up and surround it, as well as the <strong>FSMO</strong> (<i>Flexible Single Master Operation</i>) that compose it.</p>
+
+<h3 id="components">Components</h3>
+<ul>
+  <li style="text-align: justify;"><strong>Forests :</strong> designates the structure of one or more domains.</li>
+  <img src="/assets/images/posts/2019-02-22-install-active-directory/AD-forests.png" class="align-center" />
+  <li style="text-align: justify;"><strong>Domains :</strong> a domain spanning part of a forest, ex : paris.corp.priv, corp.priv.</li>
+  <img src="/assets/images/posts/2019-02-22-install-active-directory/AD-domains.png" class="align-center" />
+  <li style="text-align: justify;"><strong>Sites :</strong> allows to distinguish at the level of the network topology, ex : Paris - 192.168.4.0, Londre - 192.168.5.0.</li>
+  <img src="/assets/images/posts/2019-02-22-install-active-directory/AD-sites.png" class="align-center" />
+  <li style="text-align: justify;"><strong>Domain Controllers :</strong> role of the server that processes the requests of a domain, it will have to manage : the identification of the objects, the authentication, to take care of the application of the group strategies.</li>
+  <img src="/assets/images/posts/2019-02-22-install-active-directory/AD-domain-controllers.png" class="align-center" />
+  <li style="text-align: justify;"><strong>Organizational Units :</strong> containers for creating a hierarchy.</li>
+  <img src="/assets/images/posts/2019-02-22-install-active-directory/AD-organizational-units.png" class="align-center" />
+</ul>
+
+<h3 id="fsmo-roles">FSMO Roles</h3>
+<ul>
+  <li style="text-align: justify;"><strong>Schema Master :</strong> it manages the modification of the schema and the server and its replication. <strong>Unique in a forest.</strong></li>
+  <li style="text-align: justify;"><strong>Domain Naming Master :</strong> it manages the addition and deletion of domain names in a forest. <strong>Unique in a forest.</strong></li>
+  <li style="text-align: justify;"><strong>PDC Emulator :</strong> (<i>PDC Primary Domain Controller</i>) completed 5 functions. <strong>Unique in a forest.</strong>
+    <ul>
+      <li style="text-align: justify;">Changing domain group policies.</li>
+      <li style="text-align: justify;">Synchronize clocks (date &amp; time) on domain controllers.</li>
+      <li style="text-align: justify;">Manage account lockout.</li>
+      <li style="text-align: justify;">Manages the change of passwords.</li>
+      <li style="text-align: justify;">Ensures compatibility with Windows NT domain controllers.</li>
+    </ul>
+  </li>
+  <li style="text-align: justify;"><strong>RID Master :</strong> (<i>Relative IDentifier</i>) that allocates a relative identifier inside a domain (for a user, group, or other Active Directory managed object). It also manages the movement of an object from one domain to another, inside the forest. <strong>Unique in a forest.</strong></li>
+  <li style="text-align: justify;"><strong>Infrastructure Master :</strong> maintains references between multiple objects, such as SID (<i>Security Identifiers</i>) and GUID (<i>Globally Unique Identifier</i>). <strong>Unique in a domain.</strong></li>
+</ul>
+
+<h2 id="pre-requisites">Pre-requisites</h2>
+<p style="text-align: justify;">Now let's go to practice! Here are the Microsoft recommendations for the machine hosting a domain controller.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardware</th>
+      <th>Specification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CPU :</strong></td>
+      <td>Minimum : 1.4 GHz 64-bit</td>
+    </tr>
+    <tr>
+      <td><strong>Memory :</strong></td>
+      <td>2Go</td>
+    </tr>
+    <tr>
+      <td><strong>Hard disk :</strong></td>
+      <td>32Go disk space</td>
+    </tr>
+    <tr>
+      <td><strong>Network :</strong></td>
+      <td>A network connection</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="text-align: justify;">For this tutorial, I would use a virtual machine with <strong>Windows Server 2016 Standard</strong> with the following configuration :</p>
+
+<h3 id="hardware">Hardware</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardware</th>
+      <th>Specification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CPU :</strong></td>
+      <td>2 vCPU</td>
+    </tr>
+    <tr>
+      <td><strong>RAM :</strong></td>
+      <td>4Go</td>
+    </tr>
+    <tr>
+      <td><strong>Disque dur :</strong></td>
+      <td>C:\System 50Go</td>
+    </tr>
+    <tr>
+      <td><strong>Réseau :</strong></td>
+      <td>Host-only</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="network">Network</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Champs</th>
+      <th>Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IP address :</strong></td>
+      <td>192.168.100.100</td>
+    </tr>
+    <tr>
+      <td><strong>Subnet :</strong></td>
+      <td>255.255.255.0</td>
+    </tr>
+    <tr>
+      <td><strong>Default gateway :</strong></td>
+      <td>192.168.100.254</td>
+    </tr>
+    <tr>
+      <td><strong>DNS :</strong></td>
+      <td>192.168.100.254</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="server-preparation">Server preparation</h2>
+<p style="text-align: justify;">Open the <strong>"Server Manager"</strong>, the program launches at startup.</p>
+<p style="text-align: justify;">Click on <strong>"Local Server"</strong> fill in the following settings.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-22-23_20_21-1.png" class="align-center" /></p>
+<ul>
+  <li><strong>Computer name :</strong> give a meaningful name to your server, for my part, I would take for example : <strong>CORPWADS1</strong>.</li>
+  <li><strong>Windows Firewall :</strong> disable Windows Firewall.</li>
+  <li><strong>Remote Desktop :</strong> enable remote desktop.</li>
+  <li><strong>Ethernet0 :</strong> set a fixed IP address, I would take for example : <strong>192.168.10.1</strong></li>
+</ul>
+<p style="text-align: justify;">
+<img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-22-23_25_21-1.png" class="align-center" />
+</p>
+<p><span class="notice--warning">It is recommended by Microsot to perform all updates before any roles are installed.</span></p>
+
+<h2 id="installing-active-directory-on-windows-server">Installing Active Directory on Windows Server</h2>
+
+<p style="text-align: justify;">Now you have to install the <strong>"ADDS"</strong>. Open the <strong>"Server Manager"</strong>, then click <strong>"Manage"</strong> and then <strong>"Add Roles and Features"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-17_57_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Before you begin :</strong> the page displays a small reminder of prerequisites before a role is installed. If you want this page to no longer appear, check the case <strong>"Skip this page by default"</strong> and click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-18_04_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select installation type :</strong> we want to install the role on the server in question, leave the default choice and click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-18_13_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select destination server :</strong> the default choice is automatically selects our server in the pool, click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-18_17_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> in the list of roles, select <strong>"Active Directory Domain Services"</strong>. A window appears listing all the features, click on <strong>"Add Features"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-18_37_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> the role has been selected, click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-18_40_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select features :</strong> we don't need to select additional features, click <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-20_52_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Active Directory Domain Services :</strong> in this part it is possible to configure the link with azure Active Directory, click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-20_54_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Confirm installation selections :</strong> the wizard lists the roles and features that will be installed, click on <strong>"Install"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-20_59_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Installation progress :</strong> the installation is now finished. We will move to the configuration, click on <strong>"Close"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_03_21-1.png" class="align-center" /></p>
+
+<h2 id="promote-domain-controller">Promote Domain Controller</h2>
+
+<p style="text-align: justify;">Open the <strong>"Server Manager"</strong>, at the top right click on the small flag. Click on <strong>"Promote this server to a domain controller"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_07_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Deployment Configuration :</strong> given that we do not have a forest, select <strong>"Add a new forest"</strong>.<br />Then the most important step to the domain name, here is the <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/assigning-domain-names
+$">link</a>  to the Microsoft site that content the assignment rules. Typically, the domain name is the name of the company followed by .PRIV, for this example, I would use <strong>"CORP.PRIV"</strong>. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_14_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Domain Controller Options :</strong> now we have to adjust the functional level of the forest and the domain. For my part, I would leave the functional level of the forest and domain on <strong>"Windows Server 2016"</strong>, here is the <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-functional-levels">link</a> to the Microsoft site to understand what this entails.</p>
+<p style="text-align: justify;">In the fields <strong>"Password:"</strong> and <strong>"Cofirm password:"</strong> with your password, it is advisable to fill in a different one from the one used for the administrator account. Keep it preciously it will serve you when restoring Active Directory.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_23_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>DNS Options :</strong> the wizard asks us now if we want to create a DNS delegation, view that no DNS zone exists at the moment the icon is dimmed. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_29_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Additional Options :</strong> the <strong>"NetBIOS"</strong> name appears, it matches the domain name without the extension. Click on  <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_31_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Paths :</strong> leave the default folder. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_41_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Review Options :</strong> we are shown the summary of our configuration. You can click on <strong>"View script"</strong> button to export the Active Directory configuration script. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_47_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Prerequisites Check :</strong> the installation wizard has finished checking the prerequisites. Two errors appear, here is what they correspond to :</p>
+<p style="text-align: justify;">
+  <blockquote style="text-align: justify;">Domain controllers that run Windows Server 2008 or later have a default setting for "Allow cryptography algorithms compatible with Windows NT 4" that prevents weaker cryptography algorithms when establishing secure channel sessions. For more information about the potential impact and a workaround, see KB article <a href="https://support.microsoft.com/en-us/help/942564/the-net-logon-service-on-windows-server-2008-and-newer-domain-controll">942564</a>.</blockquote>
+</p>
+
+<p style="text-align: justify;">
+  <blockquote style="text-align: justify;">DNS delegation could not be created or updated. For more information, see <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/ad-ds-simplified-administration#BKMK_ADDSInstallPrerequisiteTests">DNS Options</a>.</blockquote>
+</p>
+
+<p style="text-align: justify;">Its warnings do not interfere with the installation. Click on <strong>"Install"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_52_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Once the installation is finished, the server will restart automatically.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-21_54_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Once the restart has been completed, the domain <strong>"CORP"</strong> appears in front of the user login <strong>"Administrator"</strong>.</p>
+<p><img src="/assets/images/posts/2019-02-22-install-active-directory/2019-02-23-22_03_21-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">There you go ! We now have an Active Directory domain. You can add new machines and users to your domain.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory-domain-services" class="page__taxonomy-item" rel="tag">Active Directory Domain Services</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ad-ds" class="page__taxonomy-item" rel="tag">AD DS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ad" class="page__taxonomy-item" rel="tag">AD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#authentication" class="page__taxonomy-item" rel="tag">Authentication</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dc" class="page__taxonomy-item" rel="tag">DC</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dns" class="page__taxonomy-item" rel="tag">DNS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain-controller" class="page__taxonomy-item" rel="tag">Domain Controller</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain-name-system" class="page__taxonomy-item" rel="tag">Domain Name System</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain-naming-master" class="page__taxonomy-item" rel="tag">Domain Naming Master</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain" class="page__taxonomy-item" rel="tag">Domain</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#flexible-single-master-operation" class="page__taxonomy-item" rel="tag">Flexible Single Master Operation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#forest" class="page__taxonomy-item" rel="tag">Forest</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#fsmo" class="page__taxonomy-item" rel="tag">FSMO</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gc" class="page__taxonomy-item" rel="tag">GC</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#global-catalog" class="page__taxonomy-item" rel="tag">Global Catalog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#group" class="page__taxonomy-item" rel="tag">Group</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#identification" class="page__taxonomy-item" rel="tag">Identification</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#infrastructure-master" class="page__taxonomy-item" rel="tag">Infrastructure Master</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ldap" class="page__taxonomy-item" rel="tag">LDAP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lightweight-directory-access-protocol" class="page__taxonomy-item" rel="tag">Lightweight Directory Access Protocol</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft" class="page__taxonomy-item" rel="tag">Microsoft</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#netbios" class="page__taxonomy-item" rel="tag">NetBIOS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#organizational-unit" class="page__taxonomy-item" rel="tag">Organizational Unit</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ou" class="page__taxonomy-item" rel="tag">OU</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#pdc-emulator" class="page__taxonomy-item" rel="tag">PDC Emulator</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rid-master" class="page__taxonomy-item" rel="tag">RID Master</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#schema-master" class="page__taxonomy-item" rel="tag">Schema Master</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#security" class="page__taxonomy-item" rel="tag">Security</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#server" class="page__taxonomy-item" rel="tag">Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sites" class="page__taxonomy-item" rel="tag">Sites</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sysvol" class="page__taxonomy-item" rel="tag">SYSVOL</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#user" class="page__taxonomy-item" rel="tag">User</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-server" class="page__taxonomy-item" rel="tag">Windows Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-12-07">2020/12/07</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=How+to+install+a+domain+controller+Active+Directory+on+Windows+Server%20http%3A%2F%2Flocalhost%3A4000%2Factive%2520directory%2Finstall-active-directory%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Factive%2520directory%2Finstall-active-directory%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Factive%2520directory%2Finstall-active-directory%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Factive%2520directory%2Finstall-active-directory%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.reddit.com/submit?url=http%3A%2F%2Flocalhost%3A4000%2Factive%2520directory%2Finstall-active-directory%2F&title=How to install a domain controller Active Directory on Windows Server" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="/dhcp/install-dhcp-server/" class="pagination--pager" title="How to install a DHCP server on Windows Server
+">Next</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section id="utterances-comments"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/azure/azure-sync-ad-with-azure-ad/" rel="permalink">How to synchronize Active Directory with Azure Active Directory
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/16 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  26 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the foll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-how-to-configure-HTTPS-communication/" rel="permalink">How to to configure HTTPS communication mode in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/05 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  20 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In SCCM natively, communications between clients and servers, and between servers is not secure. System Center Configuration Manager allows to rely on a Publ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-26-install-configure-certificate-authorities/logo-ad-cs-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/active%20directory/install-configure-certificate-authorities/" rel="permalink">How to install and configure certificate authorities on Windows Server
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/26 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+The Active Directory Certificate Service (AD CS) provides functionality for managing a Public Key Infrastructure (PKI) that manages identities and other sec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-configure-boundary-groups/" rel="permalink">How to configure Boundary Groups in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/24 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Boundary groups allow the logical organization of network locations. This allows clients to be directed to the nearest available SCCM server on the network. ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Valentin LÉPINE. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'vlepineadm/vlepineadm.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+  </body>
+</html>

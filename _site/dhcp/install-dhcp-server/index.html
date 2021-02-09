@@ -1,0 +1,973 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to install a DHCP server on Windows Server - LabVL</title>
+<meta name="description" content="Dynamic Host Configuration Protocol (DHCP)  is a network protocol that enables automatic configuration of client IP settings by automatically distributing an IP address and subnet mask. It can also configure the gateway, DNS servers and WINS servers. DHCP messages are transmitted through the UDP protocol, the client uses port 68 to emit and receive messages. The server uses port 67 to send and receive messages.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="How to install a DHCP server on Windows Server">
+<meta property="og:url" content="http://localhost:4000/dhcp/install-dhcp-server/">
+
+
+  <meta property="og:description" content="Dynamic Host Configuration Protocol (DHCP)  is a network protocol that enables automatic configuration of client IP settings by automatically distributing an IP address and subnet mask. It can also configure the gateway, DNS servers and WINS servers. DHCP messages are transmitted through the UDP protocol, the client uses port 68 to emit and receive messages. The server uses port 67 to send and receive messages.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-03-11-install-dhcp-server/logo-dhcp-444x240.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="How to install a DHCP server on Windows Server">
+  <meta name="twitter:description" content="Dynamic Host Configuration Protocol (DHCP)  is a network protocol that enables automatic configuration of client IP settings by automatically distributing an IP address and subnet mask. It can also configure the gateway, DNS servers and WINS servers. DHCP messages are transmitted through the UDP protocol, the client uses port 68 to emit and receive messages. The server uses port 67 to send and receive messages.">
+  <meta name="twitter:url" content="http://localhost:4000/dhcp/install-dhcp-server/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-03-11-install-dhcp-server/logo-dhcp-444x240.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-03-11T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2020-12-07T00:00:00+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/dhcp/install-dhcp-server/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<script type="text/javascript" async src="/assets/js/auto-heading-links.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/desktop-156x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems Engineer
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to install a DHCP server on Windows Server">
+    <meta itemprop="description" content="Dynamic Host Configuration Protocol (DHCP)  is a network protocol that enables automatic configuration of client IP settings by automatically distributing an IP address and subnet mask. It can also configure the gateway, DNS servers and WINS servers. DHCP messages are transmitted through the UDP protocol, the client uses port 68 to emit and receive messages. The server uses port 67 to send and receive messages.">
+    <meta itemprop="datePublished" content="March 11, 2019">
+    <meta itemprop="dateModified" content="December 07, 2020">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">How to install a DHCP server on Windows Server
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 2019/03/11 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p style="text-align: justify;"><img src="/assets/images/posts/2019-03-11-install-dhcp-server/logo-dhcp-222x150.png" class="align-left" /><strong>Dynamic Host Configuration Protocol (DHCP)</strong>  is a network protocol that enables automatic configuration of client IP settings by automatically distributing an <strong>IP address</strong> and <strong>subnet mask</strong>. It can also configure the <strong>gateway</strong>, <strong>DNS</strong> servers and <strong>WINS</strong> servers. DHCP messages are transmitted through the <strong>UDP</strong> protocol, the client uses <strong>port 68</strong> to emit and receive messages. The server uses <strong>port 67</strong> to send and receive messages.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p style="text-align: justify;">Here is a diagram that explains the interaction between a client and a server to get the IP parameters :</p>
+
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/DHCP-requetes.jpg" class="align-center" /></p>
+
+<ul>
+  <li style="text-align: justify;"><strong>DHCP Discover :</strong> the client sends a frame to find a DHCP server through a <strong>broadcast</strong> at the MAC address <strong>FF:FF:FF:FF:FF:FF</strong>.</li>
+  <li style="text-align: justify;"><strong>DHCP Offer :</strong> the server responds with a proposal of one or more <strong>IP address</strong>, with a <strong>subnet mask</strong>. Available in its available address <strong>pool</strong>.</li>
+  <li style="text-align: justify;"><strong>DHCP Request :</strong> the client retains one of the server offers, and returns a response to the server to stipulate its choice.</li>
+  <li style="text-align: justify;"><strong>DHCP Ack :</strong> response from the server that acknowledges receiving the choice of the client's <strong>IP adress</strong>. This frame also contains the <strong>subnet</strong> and the duration of the <strong>allocated lease</strong>. It also includes the <strong>gateway</strong>, <strong>DNS</strong> servers and <strong>WINS</strong> servers.</li>
+</ul>
+
+<h3 id="pre-requisites">Pre-requisites</h3>
+<p style="text-align: justify;">Here are the minimum prerequisites for a server that host the DHCP role.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardware</th>
+      <th>Specification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CPU :</strong></td>
+      <td>1.4 GHz 64-bit</td>
+    </tr>
+    <tr>
+      <td><strong>Memory :</strong></td>
+      <td>2048Mo (512Mo for the core version)</td>
+    </tr>
+    <tr>
+      <td><strong>Hard disk :</strong></td>
+      <td>32Go disk space</td>
+    </tr>
+    <tr>
+      <td><strong>Network :</strong></td>
+      <td>A network connection</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="installation-of-the-dhcp-role">Installation of the DHCP role</h2>
+
+<p style="text-align: justify;">Opent the <strong>"Server Manager"</strong>.</p>
+<p style="text-align: justify;">Click on <strong>"Manage"</strong>, and click on <strong>"Add Roles and Features"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_10_33-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Defore You Begin :</strong> the page displays a small reminder of the pre-requisites before installing a role. If you don't want this page to appear anymore, check the case <strong>"Skip this page by default"</strong> and click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_11_55-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select installation type :</strong> we want to install the role on the server in question, leave the default choice and click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_12_19-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select destination server :</strong> the default choice automatically selects our server and click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_12_35-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> in the list of roles, select <strong>"DHCP Server"</strong>. A window appears listing all the features, click on <strong>"Add Features"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_13_13-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select server roles :</strong> the role has been selected, click on <strong>"Next &gt;"</strong></p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_13_32-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Select features :</strong> we do not need to select any additional features, just click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_13_48-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>DHCP Server :</strong> a reminder of the function of the DHCP server. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_14_06-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Confirm installation selections :</strong> the wizard lists the roles and features that will be installed, click on <strong>"Install"</strong></p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_14_23-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Installation progress :</strong> the installation is now complete. We are going to go to the configuration, click on <strong>"Close"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_15_33-1.png" class="align-center" /></p>
+
+<h2 id="post-deployment-configuration">Post-deployment configuration</h2>
+
+<p style="text-align: justify;">Open the <strong>"Server Manager"</strong>, at the top right click on the small flag. Click on <strong>"Compete DHCP configuration"</strong>.</p>
+
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_15_53-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Description :</strong> the wizard describes the nature of the operations, click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_17_53-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Authorization :</strong> here we will select the user authorized to manage the DHCP role. <br />Click on <strong>"Commit"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_18_11-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Summary :</strong> to finish the post-deployment, wizard creates two groups in <strong>"l'Active Directory"</strong> :
+<ul>
+  <li><strong>DHCP Administrators :</strong> group giving access to the management of the <strong>"DHCP Service"</strong>.</li>
+  <li><strong>DHCP Users :</strong> group giving read-only access to the <strong>"DHCP service"</strong>.</li>
+</ul>  
+Click on <strong>"Close"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_18_32-1.png" class="align-center" /></p>
+
+<h2 id="dhcp-server-configuration">DHCP server configuration</h2>
+
+<p style="text-align: justify;">Open the <strong>"Server Manager"</strong>, at the top right click on <strong>"Tools"</strong>. In the list, click on <strong>"DHCP"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_19_49-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">Click on <strong>"IPV4"</strong>. Click on <strong>"New Scope..."</strong> to add a new scope.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_21_20-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>New Scope Wizard :</strong> click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_21_47-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Scope Name :</strong> fill in the <strong>"Name :"</strong> field with the name of your scope. Then click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_22_24-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>IP Address Range :</strong> define the address range you want to assign, ex: <strong>"192.168.10.50"</strong> <strong>"192.168.10.60"</strong>. Then choose a subnet, ex: <strong>subnet</strong>, ex : <strong>"255.255.255.0"</strong>. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_23_26-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Add Exclusions and Delay :</strong> in this part it is possible to exclude one or more addresses from the address range. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_23_48-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Lease Duration :</strong> here you can specify the duration of the lease. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_24_09-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Configure DHCP Options :</strong> select the option <strong>"Yes, I want to configure these options now"</strong>. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_24_26-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Router (Default Gateway) :</strong> fill in the <strong>"IP address"</strong> field with the IP address of the gateway <strong>"192.168.10.254"</strong>. Then click on <strong>"Add"</strong> and it will be added to the list below. <br />Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_25_16-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Domain Name and DNS Servers :</strong> indicate the name of the <strong>"Parent domain :"</strong> ex : <strong>"corp.priv"</strong>. Fill in the <strong>"IP address"</strong> field with the IP address of the DNS server <strong>"192.168.10.1"</strong>. Then click on <strong>"Add"</strong>. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_25_41-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>WINS Servers :</strong> fill in the <strong>"IP address"</strong> field with the IP address of the WINS server <strong>"192.168.10.254"</strong>. Then click on <strong>"Add"</strong>. Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_26_13-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Active Scope :</strong> select the option <strong>"Yes, Iwant to active this scope now"</strong>. <br />Click on <strong>"Next &gt;"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_26_51-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;"><strong>Completing the New Scope Wizard :</strong> click on <strong>"Finish"</strong>.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_27_06-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">The scope appears well in the window.</p>
+<p><img src="/assets/images/posts/2019-03-11-install-dhcp-server/2019-02-26-17_27_51-1.png" class="align-center" /></p>
+
+<p style="text-align: justify;">There you go ! We now have a DHCP server. You can automatically get an IP address on your network.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ack" class="page__taxonomy-item" rel="tag">Ack</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#address-pool" class="page__taxonomy-item" rel="tag">Address Pool</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#address" class="page__taxonomy-item" rel="tag">Address</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#default-gateway" class="page__taxonomy-item" rel="tag">Default Gateway</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dhcp-server" class="page__taxonomy-item" rel="tag">DHCP Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dhcp" class="page__taxonomy-item" rel="tag">DHCP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#discover" class="page__taxonomy-item" rel="tag">Discover</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dns" class="page__taxonomy-item" rel="tag">DNS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain-name-system" class="page__taxonomy-item" rel="tag">Domain Name System</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dynamic-host-configuration-protocol" class="page__taxonomy-item" rel="tag">Dynamic Host Configuration Protocol</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gateway" class="page__taxonomy-item" rel="tag">Gateway</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#internet-protocol" class="page__taxonomy-item" rel="tag">Internet Protocol</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ip-address" class="page__taxonomy-item" rel="tag">IP address</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ip" class="page__taxonomy-item" rel="tag">IP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ipv4" class="page__taxonomy-item" rel="tag">IPv4</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mask" class="page__taxonomy-item" rel="tag">Mask</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft" class="page__taxonomy-item" rel="tag">Microsoft</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#offer" class="page__taxonomy-item" rel="tag">Offer</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#request" class="page__taxonomy-item" rel="tag">Request</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#reservations" class="page__taxonomy-item" rel="tag">Reservations</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#router" class="page__taxonomy-item" rel="tag">Router</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#scope" class="page__taxonomy-item" rel="tag">Scope</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#server" class="page__taxonomy-item" rel="tag">Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#subnet-mask" class="page__taxonomy-item" rel="tag">Subnet mask</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#subnet" class="page__taxonomy-item" rel="tag">Subnet</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-internet-naming-service" class="page__taxonomy-item" rel="tag">Windows Internet Naming Service</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-server" class="page__taxonomy-item" rel="tag">Windows Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#wins-server" class="page__taxonomy-item" rel="tag">WINS Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#wins" class="page__taxonomy-item" rel="tag">WINS</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#dhcp" class="page__taxonomy-item" rel="tag">DHCP</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-12-07">2020/12/07</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=How+to+install+a+DHCP+server+on+Windows+Server%20http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstall-dhcp-server%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstall-dhcp-server%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstall-dhcp-server%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstall-dhcp-server%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.reddit.com/submit?url=http%3A%2F%2Flocalhost%3A4000%2Fdhcp%2Finstall-dhcp-server%2F&title=How to install a DHCP server on Windows Server" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/active%20directory/install-active-directory/" class="pagination--pager" title="How to install a domain controller Active Directory on Windows Server
+">Previous</a>
+    
+    
+      <a href="/sql/install-sql-server-2016/" class="pagination--pager" title="How to install Microsoft SQL Server 2016
+">Next</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section id="utterances-comments"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/azure/azure-sync-ad-with-azure-ad/" rel="permalink">How to synchronize Active Directory with Azure Active Directory
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/16 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  26 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the foll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-how-to-configure-HTTPS-communication/" rel="permalink">How to to configure HTTPS communication mode in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/05 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  20 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In SCCM natively, communications between clients and servers, and between servers is not secure. System Center Configuration Manager allows to rely on a Publ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-26-install-configure-certificate-authorities/logo-ad-cs-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/active%20directory/install-configure-certificate-authorities/" rel="permalink">How to install and configure certificate authorities on Windows Server
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/26 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+The Active Directory Certificate Service (AD CS) provides functionality for managing a Public Key Infrastructure (PKI) that manages identities and other sec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-configure-boundary-groups/" rel="permalink">How to configure Boundary Groups in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/24 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Boundary groups allow the logical organization of network locations. This allows clients to be directed to the nearest available SCCM server on the network. ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Valentin LÉPINE. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'vlepineadm/vlepineadm.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+  </body>
+</html>

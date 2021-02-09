@@ -1,0 +1,1273 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Create a application with Powershell in System Center Configuration Manager - LabVL</title>
+<meta name="description" content="When integrating applications into System Center Configuration Manager, it can be complicated to create uniformly applications that all have different parameters and specificities.The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the PSAppDeployToolkit utility, which allows to standardize packages.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="Create a application with Powershell in System Center Configuration Manager">
+<meta property="og:url" content="http://localhost:4000/powershell/powershell-create-sccm-application/">
+
+
+  <meta property="og:description" content="When integrating applications into System Center Configuration Manager, it can be complicated to create uniformly applications that all have different parameters and specificities.The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the PSAppDeployToolkit utility, which allows to standardize packages.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-444x240.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="Create a application with Powershell in System Center Configuration Manager">
+  <meta name="twitter:description" content="When integrating applications into System Center Configuration Manager, it can be complicated to create uniformly applications that all have different parameters and specificities.The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the PSAppDeployToolkit utility, which allows to standardize packages.">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/powershell-create-sccm-application/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-444x240.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-11-08T00:00:00+01:00">
+
+
+
+  <meta property="article:modified_time" content="2020-12-07T00:00:00+01:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/powershell-create-sccm-application/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<script type="text/javascript" async src="/assets/js/auto-heading-links.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/desktop-156x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems Engineer
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Create a application with Powershell in System Center Configuration Manager">
+    <meta itemprop="description" content="When integrating applications into System Center Configuration Manager, it can be complicated to create uniformly applications that all have different parameters and specificities.The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the PSAppDeployToolkit utility, which allows to standardize packages.">
+    <meta itemprop="datePublished" content="November 08, 2020">
+    <meta itemprop="dateModified" content="December 07, 2020">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Create a application with Powershell in System Center Configuration Manager
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 2020/11/08 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  17 minute read
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p style="text-align: justify;"><img src="/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-222x150.png" class="align-left" />When integrating applications into <strong>System Center Configuration Manager</strong>, it can be complicated to create uniformly applications that all have different parameters and specificities.
+The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the <a href="https://psappdeploytoolkit.com/">PSAppDeployToolkit</a> utility, which allows to standardize packages.</p>
+
+<h2 id="working">Working</h2>
+<p>La configuration des différents paramètres de l’application est contenu dans le fichier XML</p>
+<p style="text-align: justify;"><strong>The configuration :</strong> the configuration of the various parameters of the application is contained in the XML file called <strong>ApplicationConf.xml</strong>.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+<span class="nt">&lt;AppDetails&gt;</span>
+    <span class="nt">&lt;Name&gt;</span>Accounting Application<span class="nt">&lt;/Name&gt;</span>
+    <span class="nt">&lt;Version&gt;</span>1.0<span class="nt">&lt;/Version&gt;</span>
+    <span class="nt">&lt;Comment&gt;</span>Application for accounting<span class="nt">&lt;/Comment&gt;</span>
+    <span class="nt">&lt;LocalizedName&gt;</span>Application<span class="nt">&lt;/LocalizedName&gt;</span>
+    <span class="nt">&lt;Publisher&gt;</span>Corporate<span class="nt">&lt;/Publisher&gt;</span>
+    <span class="nt">&lt;IconLocationFile&gt;</span>\\corpwscm1\SCCM_CORP\Applications\Application-v1.0\AppDeployToolkit\AppIcon.png<span class="nt">&lt;/IconLocationFile&gt;</span>
+    <span class="nt">&lt;ContentLocation&gt;</span>\\corpwscm1\SCCM_CORP\Applications\Application-v1.0<span class="nt">&lt;/ContentLocation&gt;</span>
+    <span class="nt">&lt;InstallCommand&gt;</span>Deploy-Application.exe -DeploymentType "Install" -DeployMode "Silent"<span class="nt">&lt;/InstallCommand&gt;</span>
+    <span class="nt">&lt;UninstallCommand&gt;</span>Deploy-Application.exe -DeploymentType "Uninstall" -DeployMode "Silent"<span class="nt">&lt;/UninstallCommand&gt;</span>
+    <span class="nt">&lt;InstallationBehaviorType&gt;</span>InstallForSystem<span class="nt">&lt;/InstallationBehaviorType&gt;</span>
+    <span class="nt">&lt;DetectScript&gt;</span>if (Test-Path `"HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MyProdct`"){ if ((Get-ItemProperty -Path `"HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MyProduct`" -Name `"DisplayVersion`").DisplayVersion -eq `"$Version`") { Write-Host `"Installed`" } } exit 0<span class="nt">&lt;/DetectScript&gt;</span>
+    <span class="nt">&lt;Folder&gt;</span>New-App<span class="nt">&lt;/Folder&gt;</span>
+    <span class="nt">&lt;InstallationProgramVisibility&gt;</span>Hidden<span class="nt">&lt;/InstallationProgramVisibility&gt;</span>
+    <span class="nt">&lt;LogonRequirementType&gt;</span>WhetherOrNotUserLoggedOn<span class="nt">&lt;/LogonRequirementType&gt;</span>
+    <span class="nt">&lt;DistributionPriority&gt;</span>High<span class="nt">&lt;/DistributionPriority&gt;</span>
+    <span class="nt">&lt;DistributionPointName&gt;</span>CORPWSCM1.CORP.PRIV<span class="nt">&lt;/DistributionPointName&gt;</span>
+<span class="nt">&lt;/AppDetails&gt;</span>
+</code></pre></div></div>
+
+<p style="text-align: justify;"><strong>The function :</strong> The <strong>Add-Application</strong> function in the file <strong>Add-Application.ps1</strong> allows the creation of the following elements :</p>
+<ul>
+    <li>Creation of the application</li>
+    <li>Modification of the application</li>
+    <li>Creating the deployment type</li>
+    <li>Distribution of the application on the distribution point</li>
+    <li>Move the application to a specific folder</li>
+    <li>Creating an Active Directory group</li>
+    <li>Creating a user collection targeted to the Active Directory group</li>
+    <li>Move the user collection to a specific folder</li>
+    <li>Creating an application deployment on the user collection</li>
+    <li>Creating a peripheral collection</li>
+    <li>Move the peripheral collection to a specific folder</li>
+    <li>Creating an application deployment on the peripheral collection</li>
+</ul>
+
+<p style="text-align: justify;">To call the function, just specify with the argument <strong>-XMLFile</strong> the location of the XML file.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Add-Application</span><span class="w"> </span><span class="nt">-XMLFile</span><span class="w"> </span><span class="s2">"C:\ApplicationConf.xml"</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="add-application-function">Add-Application function</h2>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">Function</span><span class="w"> </span><span class="nf">Add-Application</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="cm">&lt;#
+</span><span class="cs">.SYNOPSIS</span><span class="cm">
+    The Add-Application function allows the creation of an application in SCCM and the associated structure from an XML file.
+
+</span><span class="cs">.DESCRIPTION</span><span class="cm">
+    The Add-Application function allows the creation of the following elements :
+    - Creation of the application
+    - Modification of the application
+    - Creating the deployment type
+    - Distribution of the application on the distribution point
+    - Move the application to a specific folder
+    - Creating an Active Directory group
+    - Creating a user collection targeted to the Active Directory group
+    - Move the user collection to a specific folder
+    - Creating an application deployment on the user collection
+    - Creating a peripheral collection
+    - Move the peripheral collection to a specific folder
+    - Creating an application deployment on the peripheral collection
+
+</span><span class="cs">.PARAMETER</span><span class="cm"> XMLfile
+    Mandatory parameter. This is the path of the XML file with the application settings.
+
+</span><span class="cs">.EXAMPLE</span><span class="cm">
+    PS C:\&gt; Add-Application -XMLFile "C:\ApplicationConf.xml"
+
+</span><span class="cs">.NOTES</span><span class="cm">
+    Author  : Valentin LÉPINE
+    Email   : vlepineadm@outlook.com
+    Date    : 08/11/2020
+    Twitter : @vlepineadm
+    Github  : https://github.com/vlepineadm/Add-Application
+    Website : https://blog.labvl.net/
+    Version : 1.0
+
+    Microsoft Documentation :
+    - https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMApplication
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Set-CMApplication
+    - https://docs.microsoft.com/en-us/powershell/module/configurationmanager/add-cmscriptdeploymenttype
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Start-CMContentDistribution
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMApplication
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Move-CMObject
+    - https://docs.microsoft.com/en-us/powershell/module/addsadministration/Get-ADGroup
+    - https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-adgroup
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMUserCollection
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMUserCollection
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Add-CMUserCollectionQueryMembershipRule
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMApplicationDeployment
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMApplicationDeployment
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMDeviceCollection
+    - https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMDeviceCollection
+#&gt;</span><span class="w">
+
+    </span><span class="p">[</span><span class="kt">CmdletBinding</span><span class="p">()]</span><span class="w">
+    </span><span class="p">[</span><span class="kt">OutputType</span><span class="p">(</span><span class="w"> </span><span class="p">[</span><span class="no">System.</span><span class="kt">Object</span><span class="p">]</span><span class="w"> </span><span class="p">)]</span><span class="w">
+    </span><span class="kr">PARAM</span><span class="w">
+    </span><span class="p">(</span><span class="w">
+        </span><span class="p">[</span><span class="kt">Parameter</span><span class="p">(</span><span class="kt">Mandatory</span><span class="o">=</span><span class="nv">$True</span><span class="p">)][</span><span class="no">System.</span><span class="kt">String</span><span class="p">]</span><span class="nv">$XMLfile</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+
+    </span><span class="c"># -------------------------------------- #</span><span class="w">
+    </span><span class="c"># --- Definition of global variables --- #</span><span class="w">
+    </span><span class="c"># -------------------------------------- #</span><span class="w">
+
+    </span><span class="c"># SCCM Variables #</span><span class="w">
+    </span><span class="nv">$ExeLocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-Location</span><span class="w">
+    </span><span class="nv">$SiteServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CORPWSCM1"</span><span class="w"> 
+    </span><span class="nv">$SiteCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"COR"</span><span class="w">
+    </span><span class="nv">$SiteDrive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SiteCode</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">":"</span><span class="w">
+
+    </span><span class="c"># Domain variables #</span><span class="w">
+    </span><span class="nv">$DomainName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CORP"</span><span class="w">
+
+    </span><span class="c"># Application variables #</span><span class="w">
+    </span><span class="nv">$DefaultLanguageId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1033"</span><span class="w"> </span><span class="c"># en-US</span><span class="w">
+    </span><span class="nv">$SuffixAppName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"APP-"</span><span class="w">
+    </span><span class="nv">$SuffixAppDeployType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"APP-DT-"</span><span class="w">
+
+    </span><span class="c"># Group variables #</span><span class="w">
+    </span><span class="nv">$SuffixAppGrp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"GRP_SCCM_APP_"</span><span class="w">
+    </span><span class="nv">$PathAppGrp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"OU=SCCM,OU=Groups,DC=corp,DC=priv"</span><span class="w">
+
+    </span><span class="c"># User collection variables #</span><span class="w">
+    </span><span class="nv">$SuffixColUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"COL-USR-APP-"</span><span class="w">
+    </span><span class="nv">$FolderColUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="c"># "\PROD-Application"</span><span class="w">
+
+    </span><span class="c"># Device collection variables #</span><span class="w">
+    </span><span class="nv">$SuffixColDevice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"COL-DEV-APP-"</span><span class="w">
+    </span><span class="nv">$FolderColDevice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="c"># "\PRO-Application"</span><span class="w">
+
+
+    </span><span class="c"># ------------------------- #</span><span class="w">
+    </span><span class="c"># --- Import of modules --- #</span><span class="w">
+    </span><span class="c"># ------------------------- #</span><span class="w">
+
+    </span><span class="c"># Import of the SCCM module #</span><span class="w">
+    </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Import of the SCCM module."</span><span class="w">
+        </span><span class="nf">Import-Module</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">SMS_ADMIN_UI_PATH</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s2">"\bin\i386"</span><span class="p">,</span><span class="s2">"\bin\configurationmanager.psd1"</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Module import error : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+    </span><span class="c"># Import of the Active Directory module #</span><span class="w">
+    </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Import of the Active Directory module."</span><span class="w">
+        </span><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">ActiveDirectory</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Module import error : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+
+    </span><span class="c"># Move to the SCCM site #</span><span class="w">
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">((</span><span class="nf">Get-PSDrive</span><span class="w"> </span><span class="nv">$SiteCode</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">SilentlyContinue</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">New-PSDrive</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$SiteCode</span><span class="w"> </span><span class="nt">-PSProvider</span><span class="w"> </span><span class="s2">"AdminUI.PS.Provider\CMSite"</span><span class="w"> </span><span class="nt">-Root</span><span class="w"> </span><span class="nv">$SiteServer</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nf">Set-Location</span><span class="w"> </span><span class="nv">$SiteDrive</span><span class="w">
+
+
+    </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-content</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$XMLfile</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Retrieving the file : </span><span class="nv">$XMLfile</span><span class="s2">."</span><span class="w">
+
+        </span><span class="c"># Import of the XML file into the $ App variable #</span><span class="w">
+        </span><span class="nv">$App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Select-Xml</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$XMLfile</span><span class="w"> </span><span class="nt">-XPath</span><span class="w"> </span><span class="s2">"/AppDetails"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">Node</span><span class="w">
+
+        </span><span class="c"># ------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Processing of variables --- #</span><span class="w">
+        </span><span class="c"># ------------------------------- #</span><span class="w">
+
+        </span><span class="c"># Application variables #</span><span class="w">
+        </span><span class="nv">$SCCMAppName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SuffixAppName</span><span class="o">+</span><span class="err">$</span><span class="p">(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="o">+</span><span class="s2">"-v"</span><span class="o">+</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Version</span><span class="w">
+        </span><span class="nv">$SCCMAppDeployType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SuffixAppDeployType</span><span class="o">+</span><span class="err">$</span><span class="p">(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="o">+</span><span class="s2">"-v"</span><span class="o">+</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Version</span><span class="w">
+        </span><span class="nv">$FolderApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\"</span><span class="o">+</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Folder</span><span class="w">
+
+        </span><span class="c"># Group variables #</span><span class="w">
+        </span><span class="nv">$AppDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$App</span><span class="o">.</span><span class="nf">Name</span><span class="w">
+        </span><span class="nv">$AppName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">)</span><span class="w">
+        </span><span class="nv">$GrpName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$SuffixAppGrp</span><span class="o">+</span><span class="nv">$AppName</span><span class="w">
+        </span><span class="nv">$GrpDisName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$GrpName</span><span class="w">
+        </span><span class="nv">$GrpDes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SCCM group for the application </span><span class="nv">$AppDesc</span><span class="s2">."</span><span class="w">
+
+        </span><span class="c"># Collection variables #</span><span class="w">
+        </span><span class="nv">$ColUserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SuffixColUser</span><span class="s2">"</span><span class="o">+</span><span class="s2">"</span><span class="nv">$AppName</span><span class="s2">"</span><span class="w"> </span><span class="c"># Collection name user</span><span class="w">
+        </span><span class="nv">$ColUserComment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"User collection for the application </span><span class="nv">$AppDesc</span><span class="s2"> linked to the group </span><span class="nv">$GrpName</span><span class="s2">."</span><span class="w"> </span><span class="c"># User collection comment</span><span class="w">
+        </span><span class="nv">$ColDeviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SuffixColDevice</span><span class="s2">"</span><span class="o">+</span><span class="s2">"</span><span class="nv">$AppName</span><span class="s2">"</span><span class="w"> </span><span class="c"># Device collection name</span><span class="w">
+        </span><span class="nv">$ColDeviceComment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Device collection for the application </span><span class="nv">$AppDesc</span><span class="s2">."</span><span class="w"> </span><span class="c"># Device collection comment</span><span class="w">
+
+
+        </span><span class="c"># ----------------------------------------------------------- #</span><span class="w">
+        </span><span class="c"># --------------- Creation of the application --------------- #</span><span class="w">
+        </span><span class="c"># ----------------------------------------------------------- #</span><span class="w">
+
+        </span><span class="c"># Checking the presence of the application #</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nf">Get-CMApplication</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$SCCMAppName</span><span class="p">))</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="c"># Creation of the application #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creation of the application </span><span class="nv">$SCCMAppName</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">New-CMApplication</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-Publisher</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Publisher</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-SoftwareVersion</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Version</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-AutoInstall</span><span class="w"> </span><span class="nv">$True</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DefaultLanguageId</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$DefaultLanguageId</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-LocalizedName</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">Name</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-IconLocationFile</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">IconLocationFile</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-IsFeatured</span><span class="w"> </span><span class="bp">$false</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error creating the application : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+
+            </span><span class="c"># Modification of the application #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Modification of the application </span><span class="nv">$SCCMAppName</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">Set-CMApplication</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DistributionPriority</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">DistributionPriority</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Application modification error : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">  
+
+            </span><span class="c"># Creating the deployment type #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creating the deployment type </span><span class="nv">$SCCMAppDeployType</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">Add-CMScriptDeploymentType</span><span class="w"> </span><span class="nt">-ApplicationName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DeploymentTypeName</span><span class="w"> </span><span class="nv">$SCCMAppDeployType</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ContentLocation</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">ContentLocation</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-InstallCommand</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">InstallCommand</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-UninstallCommand</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">UninstallCommand</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-InstallationBehaviorType</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">InstallationBehaviorType</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ScriptLanguage</span><span class="w"> </span><span class="nx">PowerShell</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ScriptText</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">DetectScript</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-InstallationProgramVisibility</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">InstallationProgramVisibility</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-LogonRequirementType</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">LogonRequirementType</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-SlowNetworkDeploymentMode</span><span class="w"> </span><span class="nx">Download</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                 </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Application deployment type error : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">  
+
+            </span><span class="c"># Distribution of the application on the DP #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Distribution of the application on the DP."</span><span class="w">
+                </span><span class="nf">Start-CMContentDistribution</span><span class="w"> </span><span class="nt">-ApplicationName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DistributionPointName</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$App</span><span class="o">.</span><span class="nf">DistributionPointName</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Application distribution error : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">  
+
+            </span><span class="c"># Moving the application #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Moving the application </span><span class="nv">$SCCMAppName</span><span class="s2">."</span><span class="w">
+                </span><span class="nv">$AppObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-CMApplication</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w">
+                </span><span class="nf">Move-CMObject</span><span class="w"> </span><span class="nt">-InputObject</span><span class="w"> </span><span class="nv">$AppObj</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-FolderPath</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$SiteCode</span><span class="o">+</span><span class="s1">':\Application'</span><span class="o">+</span><span class="nv">$FolderApp</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nf">Stop</span><span class="w"> 
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error moving application : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"The </span><span class="nv">$SCCMAppName</span><span class="s2"> application already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+
+        </span><span class="c"># ------------------------------------------------------------------ #</span><span class="w">
+        </span><span class="c"># --------------- Creation of the group &amp; collections -------------- #</span><span class="w">
+        </span><span class="c"># ------------------------------------------------------------------ #</span><span class="w">
+
+        </span><span class="c"># -------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Creation of the AD group --- #</span><span class="w">
+        </span><span class="c"># -------------------------------- #</span><span class="w">
+
+        </span><span class="c"># If the group exists #</span><span class="w">
+        </span><span class="nv">$ADGroupExist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="nf">Get-ADGroup</span><span class="w"> </span><span class="nv">$GrpName</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="bp">$null</span><span class="p">})</span><span class="w">
+        </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$ADGroupExist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Group creation </span><span class="nv">$GrpName</span><span class="s2">."</span><span class="w">
+            </span><span class="nf">New-ADGroup</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$GrpName</span><span class="w"> </span><span class="se">`
+</span><span class="w">                </span><span class="nt">-DisplayName</span><span class="w"> </span><span class="nv">$GrpDisName</span><span class="w"> </span><span class="se">`
+</span><span class="w">                </span><span class="nt">-Description</span><span class="w"> </span><span class="nv">$GrpDes</span><span class="w"> </span><span class="se">`
+</span><span class="w">                </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$PathAppGrp</span><span class="w"> </span><span class="se">`
+</span><span class="w">                </span><span class="nt">-GroupCategory</span><span class="w"> </span><span class="nx">Security</span><span class="w"> </span><span class="se">`
+</span><span class="w">                </span><span class="nt">-GroupScope</span><span class="w"> </span><span class="nx">DomainLocal</span><span class="w">             
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">   
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"The </span><span class="nv">$GrpName</span><span class="s2"> already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+
+        </span><span class="c"># --------------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Creation of the user collection --- #</span><span class="w">
+        </span><span class="c"># --------------------------------------- #</span><span class="w">
+ 
+        </span><span class="nv">$ColUserExist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="nf">Get-CMUserCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColUserName</span><span class="s2">"</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="bp">$null</span><span class="p">})</span><span class="w">
+        </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$ColUserExist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="c"># Creation of the user Collection #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creation of the collection </span><span class="nv">$ColUserName</span><span class="s2">."</span><span class="w">
+                </span><span class="nv">$ColTab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="nx">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ColUserName</span><span class="err">;</span><span class="w"> </span><span class="nx">Query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"select SMS_R_USER.ResourceID,SMS_R_USER.ResourceType,SMS_R_USER.Name,SMS_R_USER.UniqueUserName,SMS_R_USER.WindowsNTDomain from SMS_R_User where SMS_R_User.UserGroupName = '</span><span class="nv">$DomainName</span><span class="s2">\\</span><span class="nv">$GrpName</span><span class="s2">'"</span><span class="p">}</span><span class="w">
+                </span><span class="nf">New-CMUserCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$ColUserName</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-LimitingCollectionName</span><span class="w"> </span><span class="s2">"All Users and User Groups"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-Comment</span><span class="w"> </span><span class="nv">$ColUserComment</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-RefreshType</span><span class="w"> </span><span class="nx">Continuous</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+                </span><span class="nx">Add-CMUserCollectionQueryMembershipRule</span><span class="w"> </span><span class="nt">-CollectionName</span><span class="w"> </span><span class="nv">$ColTab</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-QueryExpression</span><span class="w"> </span><span class="nv">$ColTab</span><span class="o">.</span><span class="nf">Query</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-RuleName</span><span class="w"> </span><span class="nv">$ColTab</span><span class="o">.</span><span class="nf">Name</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error creating collection : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+
+            </span><span class="c"># Move the user collection #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Moving the collection </span><span class="nv">$ColUserName</span><span class="s2">."</span><span class="w">
+                </span><span class="nv">$ColObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-CMUserCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$ColUserName</span><span class="w">
+                </span><span class="nf">Move-CMObject</span><span class="w"> </span><span class="nt">-InputObject</span><span class="w"> </span><span class="nv">$ColObj</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-FolderPath</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$SiteCode</span><span class="o">+</span><span class="s1">':\UserCollection'</span><span class="o">+</span><span class="nv">$FolderColUser</span><span class="p">)</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error moving collection : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">   
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"The </span><span class="nv">$ColUserName</span><span class="s2"> collection already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">            
+
+
+        </span><span class="c"># --------------------------------------------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Creation of the application deployment on the user collection --- #</span><span class="w">
+        </span><span class="c"># --------------------------------------------------------------------- #</span><span class="w">
+
+        </span><span class="nv">$ColUserDeploymentExist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="nf">Get-CMApplicationDeployment</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="nt">-CollectionName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColUserName</span><span class="s2">"</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="bp">$null</span><span class="p">})</span><span class="w">
+        </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$ColUserDeploymentExist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="c"># Creation of the user deployment #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creation of the user deployment of the  </span><span class="nv">$SCCMAppName</span><span class="s2"> application on the collection </span><span class="nv">$ColUserName</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">New-CMApplicationDeployment</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-CollectionName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColUserName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DeployAction</span><span class="w"> </span><span class="nx">Install</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DeployPurpose</span><span class="w"> </span><span class="nx">Available</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-UserNotification</span><span class="w"> </span><span class="nx">DisplaySoftwareCenterOnly</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error creating deployment : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">  
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">   
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Deployment of application </span><span class="nv">$SCCMAppName</span><span class="s2"> on collection </span><span class="nv">$ColUserName</span><span class="s2"> already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+
+        </span><span class="c"># ----------------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Creation of the device collection --- #</span><span class="w">
+        </span><span class="c"># ----------------------------------------- #</span><span class="w">
+
+        </span><span class="nv">$ColDeviceExist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="nf">Get-CMDeviceCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColDeviceName</span><span class="s2">"</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="bp">$null</span><span class="p">})</span><span class="w">
+        </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$ColDeviceExist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">     
+            </span><span class="c"># Creation of the device collection #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creation of the collection </span><span class="nv">$ColDeviceName</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">New-CMDeviceCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$ColDeviceName</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-LimitingCollectionName</span><span class="w"> </span><span class="s2">"All Systems"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-Comment</span><span class="w"> </span><span class="nv">$ColDeviceComment</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-RefreshType</span><span class="w"> </span><span class="nx">Continuous</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error creating collection : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+
+            </span><span class="c"># Move device collection #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Move device collection </span><span class="nv">$ColDeviceName</span><span class="s2">."</span><span class="w">
+                </span><span class="nv">$ColObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-CMDeviceCollection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$ColDeviceName</span><span class="w">
+                </span><span class="nf">Move-CMObject</span><span class="w"> </span><span class="nt">-InputObject</span><span class="w"> </span><span class="nv">$ColObj</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-FolderPath</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$SiteCode</span><span class="o">+</span><span class="s1">':\DeviceCollection'</span><span class="o">+</span><span class="nv">$FolderColDevice</span><span class="p">)</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error moving collection : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">   
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"The </span><span class="nv">$ColDeviceName</span><span class="s2"> collection already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+        </span><span class="c"># -------------------------------------------------------------------- #</span><span class="w">
+        </span><span class="c"># --- Creating the application deployment on the device collection --- #</span><span class="w">
+        </span><span class="c"># -------------------------------------------------------------------- #</span><span class="w">
+
+        </span><span class="nv">$ColDeviceDeploymentExist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="nf">Get-CMApplicationDeployment</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="nt">-CollectionName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColDeviceName</span><span class="s2">"</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="bp">$null</span><span class="p">})</span><span class="w">
+        </span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$ColDeviceDeploymentExist</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="c"># Creating the device deployment #</span><span class="w">
+            </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w"> </span><span class="s2">"Creation of the computer deployment of the </span><span class="nv">$SCCMAppName</span><span class="s2"> application on the collection </span><span class="nv">$ColDeviceName</span><span class="s2">."</span><span class="w">
+                </span><span class="nf">New-CMApplicationDeployment</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCCMAppName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-CollectionName</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ColDeviceName</span><span class="s2">"</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DeployAction</span><span class="w"> </span><span class="nx">Install</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-DeployPurpose</span><span class="w"> </span><span class="nx">Required</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-UserNotification</span><span class="w"> </span><span class="nx">DisplaySoftwareCenterOnly</span><span class="w"> </span><span class="se">`
+</span><span class="w">                    </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-Null</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Error creating deployment : </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">exception</span><span class="o">.</span><span class="nf">message</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">   
+            </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"Deployment of application </span><span class="nv">$SCCMAppName</span><span class="s2"> on collection </span><span class="nv">$ColDeviceName</span><span class="s2"> already exists."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+
+    </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nf">Write-Host</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w"> </span><span class="s2">"The </span><span class="nv">$XMLfile</span><span class="s2"> file could not be found."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+    </span><span class="c"># Replacement in the original directory #</span><span class="w">
+    </span><span class="nf">Set-Location</span><span class="w"> </span><span class="nv">$ExeLocation</span><span class="w">
+
+</span><span class="p">}</span><span class="w"> </span><span class="c">## End of the Add-Application function ##</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="download">Download</h2>
+<p style="text-align: justify;">The code is available on <a href="https://github.com/vlepineadm/Add-Application">Github</a> repository.</p>
+
+<h2 id="ressources">Ressources</h2>
+
+<ul>
+    <li><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN">Langauage ID</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMApplication">New-CMApplication</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Set-CMApplication">Set-CMApplication</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/configurationmanager/add-cmscriptdeploymenttype">Add-CMScriptDeploymentType</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Start-CMContentDistribution">Start-CMContentDistribution</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMApplication">Get-CMApplication</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Move-CMObject">Move-CMObject</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/Get-ADGroup">Get-ADGroup</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/addsadministration/new-adgroup">New-ADGroup</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMUserCollection">Get-CMUserCollection</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMUserCollection">New-CMUserCollection</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Add-CMUserCollectionQueryMembershipRule">Add-CMUserCollectionQueryMembershipRule</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMApplicationDeployment">Get-CMApplicationDeployment</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMApplicationDeployment">New-CMApplicationDeployment</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/Get-CMDeviceCollection">Get-CMDeviceCollection</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/powershell/module/ConfigurationManager/New-CMDeviceCollection">New-CMDeviceCollection</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ad" class="page__taxonomy-item" rel="tag">AD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#application" class="page__taxonomy-item" rel="tag">Application</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#collection" class="page__taxonomy-item" rel="tag">Collection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#configuration-manager" class="page__taxonomy-item" rel="tag">Configuration Manager</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#deployment-type" class="page__taxonomy-item" rel="tag">Deployment Type</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#device-collection" class="page__taxonomy-item" rel="tag">Device Collection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#device" class="page__taxonomy-item" rel="tag">Device</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#distribution-point" class="page__taxonomy-item" rel="tag">Distribution Point</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dp" class="page__taxonomy-item" rel="tag">DP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#extensible-markup-language" class="page__taxonomy-item" rel="tag">Extensible Markup Language</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#function" class="page__taxonomy-item" rel="tag">Function</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#github" class="page__taxonomy-item" rel="tag">Github</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#group" class="page__taxonomy-item" rel="tag">Group</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft" class="page__taxonomy-item" rel="tag">Microsoft</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#module" class="page__taxonomy-item" rel="tag">Module</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#package" class="page__taxonomy-item" rel="tag">Package</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ps" class="page__taxonomy-item" rel="tag">PS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#psappdeploytoolkit" class="page__taxonomy-item" rel="tag">PSAppDeployToolkit</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#repo" class="page__taxonomy-item" rel="tag">Repo</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#repository" class="page__taxonomy-item" rel="tag">Repository</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sccm" class="page__taxonomy-item" rel="tag">SCCM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#system-center-configuration-manager" class="page__taxonomy-item" rel="tag">System Center Configuration Manager</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#system-center" class="page__taxonomy-item" rel="tag">System Center</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#user-collection" class="page__taxonomy-item" rel="tag">User Collection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#user" class="page__taxonomy-item" rel="tag">User</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#xml" class="page__taxonomy-item" rel="tag">XML</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-12-07">2020/12/07</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=Create+a+application+with+Powershell+in+System+Center+Configuration+Manager%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fpowershell-create-sccm-application%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fpowershell-create-sccm-application%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fpowershell-create-sccm-application%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fpowershell-create-sccm-application%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.reddit.com/submit?url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2Fpowershell-create-sccm-application%2F&title=Create a application with Powershell in System Center Configuration Manager" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sccm/sccm-install/" class="pagination--pager" title="How to install System Center Configuration Manager
+">Previous</a>
+    
+    
+      <a href="/sccm/sccm-configure-discovery-methods/" class="pagination--pager" title="How to configure Discovery Methods in System Center Configuration Manager
+">Next</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section id="utterances-comments"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/azure/azure-sync-ad-with-azure-ad/" rel="permalink">How to synchronize Active Directory with Azure Active Directory
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/16 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  26 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the foll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-how-to-configure-HTTPS-communication/" rel="permalink">How to to configure HTTPS communication mode in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/05 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  20 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In SCCM natively, communications between clients and servers, and between servers is not secure. System Center Configuration Manager allows to rely on a Publ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-26-install-configure-certificate-authorities/logo-ad-cs-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/active%20directory/install-configure-certificate-authorities/" rel="permalink">How to install and configure certificate authorities on Windows Server
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/26 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+The Active Directory Certificate Service (AD CS) provides functionality for managing a Public Key Infrastructure (PKI) that manages identities and other sec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-configure-boundary-groups/" rel="permalink">How to configure Boundary Groups in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/24 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Boundary groups allow the logical organization of network locations. This allows clients to be directed to the nearest available SCCM server on the network. ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Valentin LÉPINE. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'vlepineadm/vlepineadm.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1341 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to synchronize Active Directory with Azure Active Directory - LabVL</title>
+<meta name="description" content="Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the following resources such as Microsoft 365, Azure portal, SaaS applications. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up conditional access and multi-factor authentication (MFA).">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="LabVL">
+<meta property="og:title" content="How to synchronize Active Directory with Azure Active Directory">
+<meta property="og:url" content="http://localhost:4000/azure/azure-sync-ad-with-azure-ad/">
+
+
+  <meta property="og:description" content="Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the following resources such as Microsoft 365, Azure portal, SaaS applications. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up conditional access and multi-factor authentication (MFA).">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png">
+
+
+
+  <meta name="twitter:site" content="@vlepineadm">
+  <meta name="twitter:title" content="How to synchronize Active Directory with Azure Active Directory">
+  <meta name="twitter:description" content="Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the following resources such as Microsoft 365, Azure portal, SaaS applications. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up conditional access and multi-factor authentication (MFA).">
+  <meta name="twitter:url" content="http://localhost:4000/azure/azure-sync-ad-with-azure-ad/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png">
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-12-16T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/azure/azure-sync-ad-with-azure-ad/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Valentin LÉPINE",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="_4O7qUqetSaAwmcrDHCq0bUVwvrCywC6PfNeUOY_7o8" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="LabVL Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+<link rel="mask-icon" href="/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/assets/images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<script type="text/javascript" async src="/assets/js/auto-heading-links.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/desktop-156x88.png" alt=""></a>
+        
+        <a class="site-title" href="/">LabVL</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Valentin LÉPINE" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Valentin LÉPINE</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Systems Engineer
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Paris, France</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to synchronize Active Directory with Azure Active Directory">
+    <meta itemprop="description" content="Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the following resources such as Microsoft 365, Azure portal, SaaS applications. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up conditional access and multi-factor authentication (MFA).">
+    <meta itemprop="datePublished" content="December 16, 2020">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">How to synchronize Active Directory with Azure Active Directory
+</h1>
+          
+            <p class="page__meta">
+              <!--- Include Published date-->
+                <i class="far fa-calendar-alt" aria-hidden="true"></i> 2020/12/16 |
+              <!--- Include Read time-->
+              <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minute read
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-align-left"></i> Table of Content</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#1-concept">1 Concept</a>
+    <ul>
+      <li><a href="#11-azure-active-directory">1.1 Azure Active Directory</a>
+        <ul>
+          <li><a href="#111-authentication-protocols">1.1.1 Authentication protocols</a></li>
+          <li><a href="#112-azure-active-directory-multi-factor-authentication">1.1.2 Azure Active Directory Multi-Factor Authentication</a></li>
+          <li><a href="#113-licences">1.1.3 Licences</a></li>
+        </ul>
+      </li>
+      <li><a href="#12-difference-between-active-directory-and-azure-active-directory">1.2 Difference between Active Directory and Azure Active Directory</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-how-hybrid-identity-works">2 How Hybrid Identity works</a>
+    <ul>
+      <li><a href="#21-hybrid-identity-diagram">2.1 Hybrid Identity Diagram</a></li>
+      <li><a href="#22-required-ports-and-protocols">2.2 Required Ports and Protocols</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-preparation">3 Preparation</a>
+    <ul>
+      <li><a href="#31-how-to-add-custom-domain-name-to-azure-active-directory">3.1 How to add custom domain name to Azure Active Directory</a></li>
+      <li><a href="#32-add-upn-in-active-directory">3.2 Add UPN in Active Directory</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-install-and-configuration-dazure-active-directory-connect">4 Install and configuration d’Azure Active Directory Connect</a>
+    <ul>
+      <li><a href="#41-create-service-account-in-active-directory-for-synchronisation">4.1 Create service account in Active Directory for synchronisation</a></li>
+      <li><a href="#42-install-azure-active-directory-connect">4.2 Install Azure Active Directory Connect</a></li>
+      <li><a href="#43-check-install-and-synchronisation">4.3 Check install and synchronisation</a>
+        <ul>
+          <li><a href="#431-check-install">4.3.1 Check install</a></li>
+          <li><a href="#432-check-synchronisation">4.3.2 Check synchronisation</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <p class="text-justify"><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-222x150.png" alt="image-left" class="align-left" />
+<strong>Azure Active Directory</strong> (Azure AD) is Microsoft’s cloud-based identity and access management service. It allows your employees to connect and access the following resources such as <strong>Microsoft 365</strong>, <strong>Azure portal</strong>, <strong>SaaS applications</strong>. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up <strong>conditional access</strong> and <strong>multi-factor authentication (MFA)</strong>.</p>
+
+<h2 id="1-concept">1 Concept</h2>
+
+<h3 id="11-azure-active-directory">1.1 Azure Active Directory</h3>
+<p class="text-justify">Azure Active Directory is Microsoft’s enterprise cloud-based <strong>identity and access management (IAM)</strong> solution. <strong>Azure AD Domain Services</strong> is a <strong>PaaS</strong> Offering provided by Microsoft Azure. It provides seamless access, easy collaboration and improved security and compliance.<br />
+Azure Active Directory was originally designed as an add-on service to <strong>Active Directory</strong> on-premise. Its functionality has been gradually expanded to include services that support <strong>LDAP</strong> and <strong>LDAPS</strong>, <strong>Multi-Factor Authentication (MFA)</strong>, and many others. <br />
+Today companies use it to access Cloud technologies such as <strong>Teams</strong>, <strong>Microsoft 365</strong>, <strong>OneDrive</strong>. It complements an on-premise <strong>Active Directory</strong> and enables the extension of services through the Cloud.<br />
+Here are the two portals providing access to the Azure AD service :</p>
+
+<ul>
+  <li><a href="https://portal.azure.com/">https://portal.azure.com/</a></li>
+  <li><a href="https://aad.portal.azure.com/">https://aad.portal.azure.com/</a></li>
+</ul>
+
+<h4 id="111-authentication-protocols">1.1.1 Authentication protocols</h4>
+
+<p class="text-justify">Azure Active Directory supports several of the most widely used authentication protocols. Here is an exhaustive list of the main ones :</p>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language">SAML (Security Assertion Markup Language)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/OpenID">OpenID</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/WS-Federation">WS-Federation</a></li>
+</ul>
+
+<h4 id="112-azure-active-directory-multi-factor-authentication">1.1.2 Azure Active Directory Multi-Factor Authentication</h4>
+
+<p><strong>Multi-Factor authentication (MFA)</strong> is a process in which a user is prompted during a login event to use additional forms of identification. When you require a second form of authentication, security is increased because this additional factor is not something that is easily obtained or duplicated by an attacker. Multi-factor authentication is based on two or three of the three authentication factors :</p>
+<ul>
+  <li><strong>Something you know :</strong> a password.</li>
+  <li><strong>Something you have :</strong> a phone number.</li>
+  <li><strong>Something you are :</strong> biometry.</li>
+</ul>
+
+<p class="notice--success text-justify"><i class="fas fa-lightbulb"></i> <strong>Advice</strong> <br />
+Microsoft recommends the activation of Multi-factor Authentication with a minimum of 2 factors for users, including high-privilege accounts or user with positions of responsibility, such as administrators, managers and chief executive officer.</p>
+
+<h4 id="113-licences">1.1.3 Licences</h4>
+
+<ul class="text-justify">
+  <li><strong>Azure Active Directory Free</strong> : provides user and group management, local directory synchronization, basic reporting, self-service password changes for cloud users, and single sign-on on Azure, Microsoft 365 and many popular SaaS applications.</li>
+</ul>
+<ul class="text-justify">
+  <li><strong>Azure Active Directory Premium P1</strong> : in addition to Free features, the P1 license gives your hybrid users access to local and cloud resources. It also supports advanced administrative features, including dynamic groups, self-service group management, Microsoft Identity Manager (a local identity and access management suite) and cloud write-back (to give your local users the benefit of self-service password resets).</li>
+</ul>
+<ul class="text-justify">
+  <li><strong>Azure Active Directory Premium P2</strong> : in addition to the Free and P1 features, the P2 license offers Azure Active Directory Identity Protection to provide risk-based conditional access to your critical business applications and data. It also offers Privileged Identity Management to make it easy for administrators to discover, restrict, monitor and access resources and, if necessary, provide just-in-time access.</li>
+</ul>
+
+<p><em>Source : <a href="https://azure.microsoft.com/en-us/pricing/details/active-directory/">https://azure.microsoft.com/en-us/pricing/details/active-directory/</a></em></p>
+
+<h3 id="12-difference-between-active-directory-and-azure-active-directory">1.2 Difference between Active Directory and Azure Active Directory</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Azure Active Directory</th>
+      <th style="text-align: left">Active Directory Domain Services</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">User and computer registration</td>
+      <td style="text-align: left">User and computer registration</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Does not provide group policies</td>
+      <td style="text-align: left">Provides group policies</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">No trust relationships</td>
+      <td style="text-align: left">Can create trusts</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Application management</td>
+      <td style="text-align: left">Application and device management and deployment</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Single sign on</td>
+      <td style="text-align: left">Kerberos and NTLM support</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Schema management</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Hierrarchical directory service</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="2-how-hybrid-identity-works">2 How Hybrid Identity works</h2>
+
+<h3 id="21-hybrid-identity-diagram">2.1 Hybrid Identity Diagram</h3>
+
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/diagram-ad-azure-ad-sync.jpg" alt="image-center" /></p>
+
+<ol>
+  <li>Every two minutes, the password hash synchronization agent on the AD Connect server requests stored password hashes with the <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/6e803168-f140-4d23-b2d3-c3a8ab5917d2">unicodePwd</a> attribute to the domain controller. This request uses the <a href="https://docs.microsoft.com/en-us/compliance/regulatory/gdpr-manage-gdpr-data-subject-requests-with-the-dsr-case-tool">MS-DRSR</a> replication protocol.</li>
+  <li>Before sending, the domain controller encrypts the <a href="https://en.wikipedia.org/wiki/MD4">MD4</a> password hash using a key that is an <a href="https://en.wikipedia.org/wiki/MD5">MD5</a> hash of the RPC session key and a salt. It then sends the result to the password hash synchronization agent via RPC. The Domain Controller also passes the salt to the synchronization agent using the Domain Controller replication protocol, so that the agent can decrypt the envelope.
+3 . Once the Password Hash Synchronization Agent has the encrypted envelope, it uses <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5cryptoserviceprovider?view=net-5.0">MD5CryptoServiceProvider</a> and the salt to generate a key to decrypt the received data in its original <a href="https://en.wikipedia.org/wiki/MD4">MD4</a> format. The password hash synchronization agent never has access to the plain text password.</li>
+  <li>The password hash synchronization agent extends the binary password hash from 16 bytes to 64 bytes by first converting the hash to a 32-byte hexadecimal string and then reconverting this string to binary format with <a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a> encoding.</li>
+  <li>The password hash synchronization agent adds for each user a 10-byte long salt to the 64-byte binary file to enhance the protection of the original hash.</li>
+  <li>The password hash synchronization agent then combines the <a href="https://en.wikipedia.org/wiki/MD4">MD4</a> hash and the user salt and places it all into the <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a> function. 1,000 iterations of the <a href="https://en.wikipedia.org/wiki/HMAC">HMAC-SHA256</a> key hash algorithm are used.</li>
+  <li>The password hash synchronization agent takes the resulting 32-byte hash, concatenates the salt per user and the number of iterations <a href="https://en.wikipedia.org/wiki/SHA-2">SHA256</a> (for use by Azure AD), and then transmits the string from Azure AD Connect to Azure AD via <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>.</li>
+  <li>When a user attempts to log in to Azure AD and enters their password, the password is processed by the same MD4+salt+PBKDF2+HMAC-SHA256 process. If the resulting hash matches the hash stored in Azure AD, the user has entered the correct password and is authenticated.</li>
+</ol>
+
+<p><em>Source : <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization">https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization</a></em></p>
+
+<h3 id="22-required-ports-and-protocols">2.2 Required Ports and Protocols</h3>
+
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/diagram-ad-azure-ad-sync-required-ports-protocols.jpg" alt="image-center" /></p>
+
+<p><strong>Table 1</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Protocol</th>
+      <th style="text-align: left">Ports</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">DNS</td>
+      <td style="text-align: left">53 (TCP/UDP)</td>
+      <td style="text-align: left">DNS lookups on the destination forest.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Kerberos</td>
+      <td style="text-align: left">88 (TCP/UDP)</td>
+      <td style="text-align: left">Kerberos authentication to the AD forest.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MS-RPC</td>
+      <td style="text-align: left">135 (TCP)</td>
+      <td style="text-align: left">Used during the initial configuration of the Azure AD Connect wizard when it binds to the AD forest, and also during Password synchronization.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">LDAP</td>
+      <td style="text-align: left">389 (TCP/UDP)</td>
+      <td style="text-align: left">Used for data import from AD. Data is encrypted with Kerberos Sign &amp; Seal.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SMB</td>
+      <td style="text-align: left">445 (TCP)</td>
+      <td style="text-align: left">Used by Seamless SSO to create a computer account in the AD forest.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">LDAP/SSL</td>
+      <td style="text-align: left">636 (TCP/UDP)</td>
+      <td style="text-align: left">Used for data import from AD. The data transfer is signed and encrypted. Only used if you are using TLS.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">RPC</td>
+      <td style="text-align: left">49152- 65535 (Random high RPC Port)(TCP)</td>
+      <td style="text-align: left">Used during the initial configuration of Azure AD Connect when it binds to the AD forests, and during Password synchronization.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">WinRM</td>
+      <td style="text-align: left">5985 (TCP)</td>
+      <td style="text-align: left">Only used if you are installing AD FS with gMSA by Azure AD Connect Wizard.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">AD DS Web Services</td>
+      <td style="text-align: left">9389 (TCP)</td>
+      <td style="text-align: left">Only used if you are installing AD FS with gMSA by Azure AD Connect Wizard.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Table 2</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Protocol</th>
+      <th style="text-align: left">Ports</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">HTTP</td>
+      <td style="text-align: left">80 (TCP)</td>
+      <td style="text-align: left">Used to download CRLs (Certificate Revocation Lists) to verify TLS/SSL certificates.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HTTPS</td>
+      <td style="text-align: left">443 (TCP)</td>
+      <td style="text-align: left">Used to synchronize with Azure AD.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Source : <a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-ports">https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-ports</a></em></p>
+
+<h2 id="3-preparation">3 Preparation</h2>
+
+<h3 id="31-how-to-add-custom-domain-name-to-azure-active-directory">3.1 How to add custom domain name to Azure Active Directory</h3>
+
+<p class="text-justify">Open a <strong>Browser</strong>, go to <strong><a href="https://portal.azure.com/">https://portal.azure.com/</a></strong> and logon with your <strong>“Global Administrator Account”</strong>.<br />
+In left, on the <strong>“Portal Menu”</strong> click on <strong>“Azure Active Directory”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-01.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In the second bar click on <strong>“Custom domain names”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-02.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Click on <strong>”+ Add custom domain”</strong>, fill in the field <strong>“Custom domain name *“</strong> your public domain, for me <strong>“corporate.ovh”</strong> and click on <strong>“Add domain”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-03.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">You will see a notification we say said <strong>“Domain name added”</strong>, after copy the content of fields <strong>“Alias or hoste name”</strong>, <strong>“Destionation or point to address”</strong> and <strong>“TTL”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-04.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Go to your provider who register your domain name, for me it’s <a href="https://www.ovh.com/manager">OVH</a>.<br />
+Select your domain, for me <strong>“corporate.ovh”</strong>, select <strong>“DNS zone”</strong> and <strong>“Add an entry”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-05.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Select <strong>“TXT”</strong> records type.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-06.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In the field <strong>“Sub-domaine”</strong> leave a blank. In the field <strong>“TTL”</strong> copy your value <strong>“3600”</strong>, in the field <strong>“Value *“</strong> copy your value <strong>“MS=ms54677804”</strong>. Click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-07.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Click on <strong>“Confirm”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-08.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">You will see the record has been added <strong>“The entry has been added to the DNS zone.”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-09.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Go back to <strong>Azure Portal</strong> and click on <strong>“Verify”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-10.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">You will see a notification we say said <strong>“Verifiy domain name”</strong> successfully, click on <strong>“Make primary”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-11.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Click on <strong>“Yes”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-12.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">You will see a notification we say said <strong>“Domain name made primary”</strong>, click on tenant, for me <strong>“Contoso”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-13.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">You will see your domain <strong>corporate.ovh</strong> is <strong>Verified</strong> and the <strong>Primary</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-14.png" alt="image-center" class="align-center" /></p>
+
+<h3 id="32-add-upn-in-active-directory">3.2 Add UPN in Active Directory</h3>
+
+<p class="text-justify">In your Active Directory domain controller, for me <strong>“CORPWADS1”</strong>.<br />
+Open <strong>“Start Menu”</strong>, expand <strong>“Windows Administrative Tools”</strong> folder, open <strong>“Active Directory Domains and Trusts”</strong> console.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-15.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">On the left bar, click right on <strong>Active Directory Domains and Trusts</strong>, and select <strong>“Properties”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-16.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">On the field <strong>“Alternative UPN suffices:”</strong> fill in your domain name <strong>“corporate.ovh”</strong>, click on <strong>“Add”</strong> and click on <strong>“OK”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-17.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Open <strong>“Active Directory Users and Computers”</strong> console.<br /> 
+Go to your users OU, for me <strong>“corp.priv/CORP/Sites/Paris/Users”</strong>, select all users, click right and select <strong>“Properties”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-18.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Select <strong>“Account”</strong> tab. Check <strong>“UPN suffix:”</strong> box, select your UPN <strong>“@corporate.ovh”</strong>.<br /> 
+Click on <strong>“OK”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-19.png" alt="image-center" class="align-center" /></p>
+
+<h2 id="4-install-and-configuration-dazure-active-directory-connect">4 Install and configuration d’Azure Active Directory Connect</h2>
+
+<h3 id="41-create-service-account-in-active-directory-for-synchronisation">4.1 Create service account in Active Directory for synchronisation</h3>
+
+<p class="text-justify">In your Active Directory domain controller, for me <strong>“CORPWADS1”</strong>.<br />
+Open <strong>“Start Menu”</strong>, expand <strong>“Windows Administrative Tools”</strong> folder, open <strong>“Active Directory Users and Computers”</strong> console.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-24.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">On the top bar, click on <strong>“Action”</strong>, select <strong>“New &gt;”</strong> and click on <strong>“User”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-25.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In field <strong>“First name:”</strong> fill in <strong>“svc_az_sync_aad”</strong>, in field <strong>“User logon name:”</strong> fill in <strong>“svc_az_sync_aad”</strong>. Click on <strong>“Next &gt;”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-26.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In field <strong>“Password:”</strong> fill in with a strong password and repeat it in <strong>“Cofirm password:”</strong>. Check <strong>“User cannot change password”</strong> box and check <strong>“Password never expires”</strong>.<br /> Click on <strong>“Next &gt;”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-27.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Click on <strong>“Finish”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-28.png" alt="image-center" class="align-center" /></p>
+
+<h3 id="42-install-azure-active-directory-connect">4.2 Install Azure Active Directory Connect</h3>
+
+<p class="text-justify">In your <strong>Active Directory domain controller</strong>, download <strong><a href="https://aka.gd/2FqW1up">Microsoft Azure Active Direcotry Connect</a></strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-20.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Run <strong>“AzureADConnect.msi”</strong> and install it. After launch <strong>“Azure AD Connect”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-21.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Welcome :</strong> check <strong>“I agree to the licence terms and privacy notice.”</strong> and click on <strong>“Continue”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-22.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Required Components :</strong> check the box <strong>“Use an existing service Account”</strong>, in <strong>“SERVICE ACCOUNT NAME”</strong> fill in prevously account <strong>“corp\svc_az_sync_aad”</strong>, in <strong>“SERVICE ACCOUNT PASSWORD”</strong> fill in the password account. Click on <strong>“Install”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-29.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>User Sign-In :</strong> select <strong>“Password Hash Synchronization”</strong> option and click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-30.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Connect to Azure AD :</strong> in <strong>“USERNAME”</strong> fill in a <strong>Azure AD global administrator account</strong>, in <strong>“PASSWORD”</strong> fill in the password account. Click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-31.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Connect Directories :</strong> in <strong>“FOREST”</strong> select your Active Directory Forest that you want to synchronize, for me <strong>“corp.priv”</strong>, and click on <strong>“Add Directory”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-32.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>AD Forest account :</strong> in <strong>“ENTREPRISE ADMIN USERNAME”</strong> fill in a Entreprise administrator account for me <strong>“CORP\Administrator”</strong>, in <strong>“PASSWORD”</strong> fill in the password account. <br /> Click on <strong>“OK”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-33.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Connect Directories :</strong> click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-34.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Azure AD sign-in configuration :</strong> you can see, your public domain <strong>corporate.ovh</strong> is <strong>Verified</strong>. Because my domain Active Directory <strong>corp.priv</strong> is not a public domain and cannot be added on Azure AD, I am forced to check the box <strong>“Continue without matching all UPN suffixes to verified domains”</strong>. Click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-35.png" alt="image-center" class="align-center" /></p>
+
+<p><strong>Domain/OU Filtering :</strong> select <strong>“Sync selected domains and OUs”</strong>, select OUs that contain users, groups or computers that you want to synchronize. For me this one :</p>
+<ul>
+  <li><strong>corp.priv/CORP/Administrators</strong></li>
+  <li><strong>corp.priv/CORP/Groups</strong></li>
+  <li><strong>corp.priv/CORP/Sites/Paris/Computers</strong></li>
+  <li><strong>corp.priv/CORP/Sites/Paris/Groups</strong></li>
+  <li><strong>corp.priv/CORP/Sites/Paris/Users</strong></li>
+</ul>
+
+<p class="text-justify">Click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-36.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Identifying users :</strong> click on <strong>“Next”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-37.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Filtering :</strong> click on <strong>“Next”</strong>.</p>
+
+<p class="notice--warning text-justify"><i class="fas fa-exclamation-triangle"></i> <strong>Warning</strong> <br />
+<em><strong>“Synchronize selected :”</strong> this feature is intended to support only a pilot deployment. Don’t use it in a full production deployment.”</em></p>
+
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-38.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Optional features :</strong> click on <strong>“Next”</strong>.</p>
+
+<p class="notice--info text-justify"><i class="fas fa-info-circle"></i> <strong>Information</strong> <br />
+<em><strong>Password writeback :</strong> “Use this option to ensure that password changes that originate in Azure AD are written back to your on-premises directory. For more information, <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr">see Getting started with password management</a>.”</em></p>
+
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-39.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Configure</strong> : click on <strong>“Install”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-40.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify"><strong>Configure :</strong> click on <strong>“Exit”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-41.png" alt="image-center" class="align-center" /></p>
+
+<h3 id="43-check-install-and-synchronisation">4.3 Check install and synchronisation</h3>
+
+<h4 id="431-check-install">4.3.1 Check install</h4>
+
+<p>The following services as been created :</p>
+<ul class="text-justify">
+  <li><strong>Microsoft Azure AD Connect Agent Updater :</strong> Microsoft Azure AD Connect Agent Update Service.</li>
+  <li><strong>Microsoft Azure AD Sync :</strong> executing with <strong>corp\svc_az_sync_aad</strong>, enables integration and management of identity information across multiple directories, systems and platforms. If this service is stopped or disabled, no synchronization or password management for objects in connected data sources will be performed.</li>
+</ul>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-42.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">The following account <strong>MSOL_067d2d0e6b9e</strong> as been created for configured to synchronize to the tenant. This account must have directory replication permissions in the local Active Directory and write permission on certain attributes to enable Hybrid Deployment.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-43.png" alt="image-center" class="align-center" /></p>
+
+<p>The following services as been created :</p>
+<ul class="text-justify">
+  <li><strong>ADSyncAdmins</strong></li>
+  <li><strong>ADSyncBrowse</strong></li>
+  <li><strong>ADSyncOperators</strong></li>
+  <li><strong>ADSyncPasswordSet</strong></li>
+</ul>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-44.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">The following account <strong>Sync_CORPWADS1_067d2d0e6b9e@M365B856048.onmicrosoft.com</strong> as been created. The account is created with a long and complex password that does not expire. It is given the role of Directory Synchronization Account.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-45.png" alt="image-center" class="align-center" /></p>
+
+<h4 id="432-check-synchronisation">4.3.2 Check synchronisation</h4>
+
+<p class="text-justify">On the server on which <strong>Azure AD Connect is installed</strong> is installed, for me <strong>“CORPWADS1”</strong>.
+Open <strong>“Start Menu”</strong>, on the right open <strong>“Windows Powershell”</strong> console.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-46.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In <strong>“Windows Powershell Console”</strong> type the following command.</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\Users\Administrator</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Get-ADSyncScheduler</span><span class="w">
+</span></code></pre></div></div>
+<p>After running the code above, the result would show you the following:</p>
+<ul class="text-justify">
+  <li><strong>AllowedSyncCycleInterval :</strong> the scheduled sync cycle interval.</li>
+  <li><strong>SyncCycleEnabled :</strong> whether the sync cycle schedule is enabled.</li>
+  <li><strong>NextSyncCycleStartTimeInUTC :</strong> when the next sync is scheduled.</li>
+  <li><strong>NextSyncCyclePolicyType :</strong> the type of sync that is scheduled to run next.</li>
+</ul>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-47.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In <strong>“Windows Powershell Console”</strong> type the following command.</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\Users\Administrator</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Start-ADSyncSyncCycle</span><span class="w"> </span><span class="nt">-PolicyType</span><span class="w"> </span><span class="nx">Delta</span><span class="w">
+</span></code></pre></div></div>
+<p class="text-justify">After running the above command, wait for it to return the result, as shown in the image below.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-48.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Open <strong>“Start Menu”</strong>, on the right open <strong>“Synchronization Service”</strong> console.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-49.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In <strong>“Synchronization Service Manager”</strong>, you can see the last operation and its associated status.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-50.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">Open a <strong>Browser</strong>, go to <strong><a href="https://aad.portal.azure.com/">https://aad.portal.azure.com/</a></strong> and logon.<br />
+In left, click on <strong>“Users”</strong>. On the <strong>Users | All Users</strong>, you can see your users synchronized with the status <strong>“Yes”</strong> in the column <strong>“Directory synced”</strong>.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-51.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In left, click on <strong>“Sign-ins”</strong>, you can see your last synchronization.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-52.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">In left, click on <strong>Azure Active Directory”</strong>, click on <strong>“Azure AD Connect”</strong>, in right you can see your synchronization status.</p>
+<p><img src="/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-53.png" alt="image-center" class="align-center" /></p>
+
+<p class="text-justify">There you go ! You now have synchronization between <strong>Active Directory</strong> and <strong>Azure Active Directory</strong>.</p>
+
+<p class="text-justify"><strong>Sources :</strong></p>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-create-instance">Tutorial: Create and configure an Azure Active Directory Domain Services managed domain</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/cloud-provisioning/tutorial-single-forest">Tutorial: Integrate a single forest with a single Azure AD tenant</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-install-custom">Custom installation of Azure Active Directory Connect</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-accounts-permissions#adsync-service-account">Azure AD Connect: Accounts and permissions</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization">Implement password hash synchronization with Azure AD Connect sync</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-ports">Hybrid Identity Required Ports and Protocols</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sync-feature-scheduler">Azure AD Connect sync: Scheduler</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ad" class="page__taxonomy-item" rel="tag">AD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-active-directory-domain-services" class="page__taxonomy-item" rel="tag">Azure Active Directory Domain Services</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-active-directory" class="page__taxonomy-item" rel="tag">Azure Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-ad-connect" class="page__taxonomy-item" rel="tag">Azure AD Connect</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-ad-domain-services" class="page__taxonomy-item" rel="tag">Azure AD Domain Services</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-ad-ds" class="page__taxonomy-item" rel="tag">Azure AD DS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure-ad" class="page__taxonomy-item" rel="tag">Azure AD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#dns" class="page__taxonomy-item" rel="tag">DNS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain-controller" class="page__taxonomy-item" rel="tag">Domain Controller</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#domain" class="page__taxonomy-item" rel="tag">Domain</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#iam" class="page__taxonomy-item" rel="tag">IAM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#identity-and-access-management" class="page__taxonomy-item" rel="tag">Identity and Access Management</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#identity" class="page__taxonomy-item" rel="tag">Identity</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ldap" class="page__taxonomy-item" rel="tag">LDAP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lightweight-directory-access-protocol" class="page__taxonomy-item" rel="tag">Lightweight Directory Access Protocol</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#md4" class="page__taxonomy-item" rel="tag">MD4</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#md5" class="page__taxonomy-item" rel="tag">MD5</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#md5cryptoserviceprovider" class="page__taxonomy-item" rel="tag">MD5CryptoServiceProvider</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mfa" class="page__taxonomy-item" rel="tag">MFA</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft" class="page__taxonomy-item" rel="tag">Microsoft</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ms-drsr" class="page__taxonomy-item" rel="tag">MS-DRSR</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#multi-factor-authentication" class="page__taxonomy-item" rel="tag">Multi-Factor Authentication</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#oauth" class="page__taxonomy-item" rel="tag">OAuth</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#openid" class="page__taxonomy-item" rel="tag">OpenID</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#saml" class="page__taxonomy-item" rel="tag">SAML</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#security" class="page__taxonomy-item" rel="tag">Security</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#server" class="page__taxonomy-item" rel="tag">Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#services" class="page__taxonomy-item" rel="tag">Services</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sha256" class="page__taxonomy-item" rel="tag">SHA256</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#tls" class="page__taxonomy-item" rel="tag">TLS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#unicodepwd" class="page__taxonomy-item" rel="tag">unicodePwd</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#upn" class="page__taxonomy-item" rel="tag">UPN</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#user-principal-name" class="page__taxonomy-item" rel="tag">User Principal Name</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-server" class="page__taxonomy-item" rel="tag">Windows Server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows" class="page__taxonomy-item" rel="tag">Windows</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ws-federation" class="page__taxonomy-item" rel="tag">WS-Federation</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-12-16T00:00:00+01:00">2020/12/16</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=vlepineadm&text=How+to+synchronize+Active+Directory+with+Azure+Active+Directory%20http%3A%2F%2Flocalhost%3A4000%2Fazure%2Fazure-sync-ad-with-azure-ad%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fazure%2Fazure-sync-ad-with-azure-ad%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fazure%2Fazure-sync-ad-with-azure-ad%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fazure%2Fazure-sync-ad-with-azure-ad%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.reddit.com/submit?url=http%3A%2F%2Flocalhost%3A4000%2Fazure%2Fazure-sync-ad-with-azure-ad%2F&title=How to synchronize Active Directory with Azure Active Directory" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/sccm/sccm-how-to-configure-HTTPS-communication/" class="pagination--pager" title="How to to configure HTTPS communication mode in System Center Configuration Manager
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Leave a comment</h4>
+      <section id="utterances-comments"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-how-to-configure-HTTPS-communication/" rel="permalink">How to to configure HTTPS communication mode in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/12/05 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  20 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In SCCM natively, communications between clients and servers, and between servers is not secure. System Center Configuration Manager allows to rely on a Publ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-26-install-configure-certificate-authorities/logo-ad-cs-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/active%20directory/install-configure-certificate-authorities/" rel="permalink">How to install and configure certificate authorities on Windows Server
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/26 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+The Active Directory Certificate Service (AD CS) provides functionality for managing a Public Key Infrastructure (PKI) that manages identities and other sec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-configure-boundary-groups/" rel="permalink">How to configure Boundary Groups in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/24 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  5 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Boundary groups allow the logical organization of network locations. This allows clients to be directed to the nearest available SCCM server on the network. ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/logo-sccm-444x240.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/sccm/sccm-configure-discovery-methods/" rel="permalink">How to configure Discovery Methods in System Center Configuration Manager
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i> 2020/11/22 |
+
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+
+
+
+
+  4 minute read
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Configuration manager's discovery methods allow several Active Directory objects or network resources to be imported into SCCM automatically. In the followin...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:vlepineadm@outlook.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/valentin-lepine-78800/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+        
+          <li><a href="https://github.com/vlepineadm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Valentin LÉPINE. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-135500277-2']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'vlepineadm/vlepineadm.github.io');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+  </body>
+</html>
