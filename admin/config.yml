@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: vlepineadm/vlepineadm.github.io
   branch: master # Branch to update (master by default)
 
 media_folder: "img/uploads" # Folder where user uploaded files should go
