@@ -4,7 +4,7 @@ backend:
   branch: master # Branch to update (master by default)
   site_domain: blog.labvl.net
 
-media_folder: "images/uploads"
+media_folder: "assets/images"
 collections:
   - name: "post" # Used in routes, e.g. /admin/collections/blog
     label: "Post" # Used in the UI
