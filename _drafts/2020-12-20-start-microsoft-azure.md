@@ -41,13 +41,6 @@ toc_icon: "align-left"
 
 ## 4 Resource Groups
 
-  
-
-
-
-
-
-
 
 Azure Active Directory is Microsoft's enterprise cloud-based **identity and access management (IAM)** solution. **Azure AD Domain Services** is a **PaaS** Offering provided by Microsoft Azure. It provides seamless access, easy collaboration and improved security and compliance.<br>
 Azure Active Directory was originally designed as an add-on service to **Active Directory** on-premise. Its functionality has been gradually expanded to include services that support 
