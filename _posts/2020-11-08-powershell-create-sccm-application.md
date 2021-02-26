@@ -47,7 +47,7 @@ tags:
 The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the <a href="https://psappdeploytoolkit.com/">PSAppDeployToolkit</a> utility, which allows to standardize packages.</p>
 
 ## Working
-La configuration des différents paramètres de l'application est contenu dans le fichier XML
+
 <p style="text-align: justify;"><strong>The configuration :</strong> the configuration of the various parameters of the application is contained in the XML file called <strong>ApplicationConf.xml</strong>.</p>
 
 ```xml
