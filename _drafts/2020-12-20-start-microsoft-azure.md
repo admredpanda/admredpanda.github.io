@@ -41,7 +41,7 @@ toc_icon: "align-left"
 
 ## 4 Resource Groups
 
-
+  
 
 
 
