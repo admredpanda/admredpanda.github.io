@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: vlepineadm/vlepineadm.github.io
-  branch: master # Branch to update (master by default)
+  branch: main # Branch to update (master by default)
   site_domain: blog.labvl.net
 
 media_folder: "assets/images"
