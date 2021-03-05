@@ -1,6 +1,6 @@
 # LABVL Blog : blog.labvl.net
 
-- Web Hosting : [![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-3D76C2.svg)](https://github.com/vlepineadm/blog.labvl.net.git)
+- Web Hosting : [GitHub](https://pages.github.com/)
 - Theme: [Minimal Mistakes 4.22.0](https://github.com/mmistakes/minimal-mistakes)
 - Jekyll : [4.2.0](https://github.com/jekyll/jekyll)
 
