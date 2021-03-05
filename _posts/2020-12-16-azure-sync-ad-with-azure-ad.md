@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to synchronize Active Directory with Azure Active Directory"
+title:  "Comment synchroniser Active Directory avec Azure Active Directory"
 #last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-444x240.png"
@@ -51,22 +51,24 @@ tags:
   - DNS
   - Domain
   - Powershell
-toc: true
-toc_label: "Table of Content"
-toc_icon: "align-left"
 ---
 
 ![image-left](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/logo-azure-ad-222x150.png){: .align-left}
-**Azure Active Directory** (Azure AD) is Microsoft's cloud-based identity and access management service. It allows your employees to connect and access the following resources such as **Microsoft 365**, **Azure portal**, **SaaS applications**. In particular, it makes it possible to set up a single and simplified authentication for access to company resources, to set up **conditional access** and **multi-factor authentication (MFA)**.
+**Azure Active Directory** (Azure AD) est le service de gestion des identités et des accès de Microsoft basé sur le cloud. Il permet à vos employés de se connecter et d'accéder aux ressources suivantes telles que **Microsoft 365**, **Azure portal**, **SaaS applications**. Il permet notamment de mettre en place une authentification unique et simplifiée pour l'accès aux ressources de l'entreprise, de mettre en place un **conditional access** et le **multi-factor authentication (MFA)**.
 {: .text-justify}
+
+{% include toc icon="align-left" title="Table of Content" %}
 
 ## 1 Concept
 
 ### 1.1 Azure Active Directory
-Azure Active Directory is Microsoft's enterprise cloud-based **identity and access management (IAM)** solution. **Azure AD Domain Services** is a **PaaS** Offering provided by Microsoft Azure. It provides seamless access, easy collaboration and improved security and compliance.<br>
-Azure Active Directory was originally designed as an add-on service to **Active Directory** on-premise. Its functionality has been gradually expanded to include services that support **LDAP** and **LDAPS**, **Multi-Factor Authentication (MFA)**, and many others. <br>
-Today companies use it to access Cloud technologies such as **Teams**, **Microsoft 365**, **OneDrive**. It complements an on-premise **Active Directory** and enables the extension of services through the Cloud.<br>
-Here are the two portals providing access to the Azure AD service :
+Azure Active Directory est la solution de **identity and access management (IAM)** de Microsoft basée sur le cloud. **Azure AD Domain Services** est une offre **PaaS** fournie par Microsoft Azure. Elle offre un accès transparent, une collaboration aisée et une sécurité et une conformité améliorées.
+{: .text-justify}
+Azure Active Directory a été conçu à l'origine comme un service complémentaire à **Active Directory** sur site. Sa fonctionnalité a été progressivement étendue pour inclure des services qui prennent en charge **LDAP** et **LDAPS**, **Multi-Factor Authentication (MFA)**, et bien d'autres.
+{: .text-justify}
+Aujourd'hui, les entreprises l'utilisent pour accéder aux technologies du Cloud telles que **Teams**, **Microsoft 365**, **OneDrive**. Il complète un **Active Directory** sur site et permet l'extension des services par le biais du Cloud.
+{: .text-justify}
+Voici les deux portails donnant accès au service Azure AD :
 {: .text-justify}
 
 - [https://portal.azure.com/](https://portal.azure.com/)
@@ -75,7 +77,7 @@ Here are the two portals providing access to the Azure AD service :
 
 #### 1.1.1 Authentication protocols
 
-Azure Active Directory supports several of the most widely used authentication protocols. Here is an exhaustive list of the main ones :
+Azure Active Directory prend en charge plusieurs des protocoles d'authentification les plus répandus. Voici une liste exhaustive des principaux d'entre eux :
 {: .text-justify}
 - [SAML (Security Assertion Markup Language)](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language)
 - [OAuth](https://en.wikipedia.org/wiki/OAuth)
@@ -84,299 +86,305 @@ Azure Active Directory supports several of the most widely used authentication p
 
 #### 1.1.2 Azure Active Directory Multi-Factor Authentication
 
-**Multi-Factor authentication (MFA)** is a process in which a user is prompted during a login event to use additional forms of identification. When you require a second form of authentication, security is increased because this additional factor is not something that is easily obtained or duplicated by an attacker. Multi-factor authentication is based on two or three of the three authentication factors :
-- **Something you know :** a password.
-- **Something you have :** a phone number.
-- **Something you are :** biometry.
+**Multi-Factor authentication (MFA)** est un processus dans lequel un utilisateur est invité, lors d'un événement de connexion, à utiliser des formes d'identification supplémentaires. Lorsque vous avez besoin d'une deuxième forme d'authentification, la sécurité est renforcée car ce facteur supplémentaire n'est pas quelque chose qui est facilement obtenu ou dupliqué par un attaquant. L'authentification à facteurs multiples est basée sur deux ou trois des trois facteurs d'authentification :
+- **Quelque chose que vous savez :** un mot de passe.
+- **Quelque chose que vous avez :** un numéro de téléphone.
+- **Quelque chose que vous êtes :** biométrie.
 
-<i class="fas fa-lightbulb"></i> **Advice** <br>
-Microsoft recommends the activation of Multi-factor Authentication with a minimum of 2 factors for users, including high-privilege accounts or user with positions of responsibility, such as administrators, managers and chief executive officer.
+<i class="fas fa-lightbulb"></i> **Conseil** <br>
+Microsoft recommande l'activation de l'authentification multifactorielle avec un minimum de 2 facteurs pour les utilisateurs, y compris les comptes à haut privilège ou les utilisateurs ayant des postes à responsabilité, tels que les administrateurs, les gestionnaires et le directeur général.
 {: .notice--success .text-justify}
 
 #### 1.1.3 Licences
 
-- **Azure Active Directory Free** : provides user and group management, local directory synchronization, basic reporting, self-service password changes for cloud users, and single sign-on on Azure, Microsoft 365 and many popular SaaS applications.
+- **Azure Active Directory Free** : ce qui vous fournit la gestion des utilisateurs et des groupes, la synchronisation des annuaires locaux, des rapports de base, des changements de mot de passe en libre-service pour les utilisateurs du cloud, et une connexion unique sur Azure, Microsoft 365 et de nombreuses applications SaaS populaires.
 {: .text-justify}
-- **Azure Active Directory Premium P1** : in addition to Free features, the P1 license gives your hybrid users access to local and cloud resources. It also supports advanced administrative features, including dynamic groups, self-service group management, Microsoft Identity Manager (a local identity and access management suite) and cloud write-back (to give your local users the benefit of self-service password resets).
+- **Azure Active Directory Premium P1** : en plus des fonctionnalités gratuites, la licence P1 donne à vos utilisateurs hybrides un accès aux ressources locales et cloud. Elle prend également en charge des fonctions administratives avancées, notamment les groupes dynamiques, la gestion de groupes en libre-service, Microsoft Identity Manager (une suite de gestion des identités et des accès locaux) et la reprise de données dans le nuage (pour permettre à vos utilisateurs locaux de bénéficier de la réinitialisation des mots de passe en libre-service).
 {: .text-justify}
-- **Azure Active Directory Premium P2** : in addition to the Free and P1 features, the P2 license offers Azure Active Directory Identity Protection to provide risk-based conditional access to your critical business applications and data. It also offers Privileged Identity Management to make it easy for administrators to discover, restrict, monitor and access resources and, if necessary, provide just-in-time access.
+- **Azure Active Directory Premium P2** : en plus des fonctionnalités gratuites et P1, la licence P2 offre la protection d'identité Azure Active Directory pour fournir un accès conditionnel basé sur le risque à vos applications et données professionnelles critiques. Elle offre également une gestion privilégiée des identités pour permettre aux administrateurs de découvrir, de restreindre, de surveiller et d'accéder facilement aux ressources et, si nécessaire, de fournir un accès juste à temps.
 {: .text-justify}
 
 *Source : [https://azure.microsoft.com/en-us/pricing/details/active-directory/](https://azure.microsoft.com/en-us/pricing/details/active-directory/)*
 
 
-### 1.2 Difference between Active Directory and Azure Active Directory
+### 1.2 Différence entre Active Directory et Azure Active Directory
 
-| Azure Active Directory            | Active Directory Domain Services                  |
-|:----------------------------------|:--------------------------------------------------|
-| User and computer registration    | User and computer registration                    |
-| Does not provide group policies   | Provides group policies                           |
-| No trust relationships            | Can create trusts                                 |
-| Application management            | Application and device management and deployment  |
-| Single sign on                    | Kerberos and NTLM support                         |
-|                                   | Schema management                                 |
-|                                   | Hierrarchical directory service                   |
+| Azure Active Directory                                | Active Directory Domain Services                           |
+|:------------------------------------------------------|:-----------------------------------------------------------|
+| Enregistrement de l'utilisateur et de l'ordinateur    | Enregistrement de l'utilisateur et de l'ordinateur         |
+| Ne fournit pas de group policies                      | Fournit des group policies                                 |
+| Aucune relation de confiance                          | Peut créer des relation de confiance                       |
+| Gestion des applications                              | Gestion et déploiement des applications et des appareils   |
+| Single sign on                                        | Kerberos et support NTLM                                   |
+|                                                       | Gestion des schémas                                        |
+|                                                       | Service d'annuaire hiérarchique                            |
 
 
-## 2 How Hybrid Identity works
+## 2 Comment fonctionne l'identité hybride
 
-### 2.1 Hybrid Identity Diagram
+### 2.1 Diagramme d'identité hybride
 
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/diagram-ad-azure-ad-sync.jpg)
 
-1. Every two minutes, the password hash synchronization agent on the AD Connect server requests stored password hashes with the [unicodePwd](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/6e803168-f140-4d23-b2d3-c3a8ab5917d2) attribute to the domain controller. This request uses the [MS-DRSR](https://docs.microsoft.com/en-us/compliance/regulatory/gdpr-manage-gdpr-data-subject-requests-with-the-dsr-case-tool) replication protocol.
-2. Before sending, the domain controller encrypts the [MD4](https://en.wikipedia.org/wiki/MD4) password hash using a key that is an [MD5](https://en.wikipedia.org/wiki/MD5) hash of the RPC session key and a salt. It then sends the result to the password hash synchronization agent via RPC. The Domain Controller also passes the salt to the synchronization agent using the Domain Controller replication protocol, so that the agent can decrypt the envelope.
-3 . Once the Password Hash Synchronization Agent has the encrypted envelope, it uses [MD5CryptoServiceProvider](https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5cryptoserviceprovider?view=net-5.0) and the salt to generate a key to decrypt the received data in its original [MD4](https://en.wikipedia.org/wiki/MD4) format. The password hash synchronization agent never has access to the plain text password.  
-4. The password hash synchronization agent extends the binary password hash from 16 bytes to 64 bytes by first converting the hash to a 32-byte hexadecimal string and then reconverting this string to binary format with [UTF-16](https://en.wikipedia.org/wiki/UTF-16) encoding.
-5. The password hash synchronization agent adds for each user a 10-byte long salt to the 64-byte binary file to enhance the protection of the original hash.
-6. The password hash synchronization agent then combines the [MD4](https://en.wikipedia.org/wiki/MD4) hash and the user salt and places it all into the [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2) function. 1,000 iterations of the [HMAC-SHA256](https://en.wikipedia.org/wiki/HMAC) key hash algorithm are used.
-7. The password hash synchronization agent takes the resulting 32-byte hash, concatenates the salt per user and the number of iterations [SHA256](https://en.wikipedia.org/wiki/SHA-2) (for use by Azure AD), and then transmits the string from Azure AD Connect to Azure AD via [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
-8. When a user attempts to log in to Azure AD and enters their password, the password is processed by the same MD4+salt+PBKDF2+HMAC-SHA256 process. If the resulting hash matches the hash stored in Azure AD, the user has entered the correct password and is authenticated.
+1. Toutes les deux minutes, l'agent de synchronisation des hachages de mots de passe sur le serveur AD Connect demande les hachages de mots de passe stockés avec l'attribut [unicodePwd](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/6e803168-f140-4d23-b2d3-c3a8ab5917d2) au contrôleur de domaine. Cette requête utilise le protocole de réplication [MS-DRSR](https://docs.microsoft.com/en-us/compliance/regulatory/gdpr-manage-gdpr-data-subject-requests-with-the-dsr-case-tool).
+
+2. Avant l'envoi, le contrôleur de domaine crypte le hachage du mot de passe [MD4](https://en.wikipedia.org/wiki/MD4) en utilisant une clé qui est un hachage [MD5](https://en.wikipedia.org/wiki/MD5) de la clé de session RPC et un sel. Il envoie ensuite le résultat à l'agent de synchronisation du hachage du mot de passe via RPC. Le contrôleur de domaine transmet également le sel à l'agent de synchronisation en utilisant le protocole de réplication du contrôleur de domaine, afin que l'agent puisse décrypter l'enveloppe. 3 . Une fois que l'agent de synchronisation du hachage de mot de passe a l'enveloppe cryptée, il utilise [MD5CryptoServiceProvider](https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5cryptoserviceprovider?view=net-5.0) et le sel pour générer une clé permettant de décrypter les données reçues dans leur format [MD4](https://en.wikipedia.org/wiki/MD4) d'origine. L'agent de synchronisation du hachage du mot de passe n'a jamais accès au mot de passe en texte clair.
+
+3. L'agent de synchronisation du hachage du mot de passe étend le hachage binaire du mot de passe de 16 à 64 octets en convertissant d'abord le hachage en une chaîne hexadécimale de 32 octets, puis en reconvertissant cette chaîne au format binaire avec un codage [UTF-16](https://en.wikipedia.org/wiki/UTF-16).
+
+4. L'agent de synchronisation du hachage du mot de passe ajoute pour chaque utilisateur un sel de 10 octets de long au fichier binaire de 64 octets pour renforcer la protection du hachage original.
+
+5. L'agent de synchronisation du hachage du mot de passe combine ensuite le hachage [MD4](https://en.wikipedia.org/wiki/MD4) et le sel utilisateur et place le tout dans la fonction [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2). 1 000 itérations de l'algorithme de hachage de clés [HMAC-SHA256](https://en.wikipedia.org/wiki/HMAC) sont utilisées.
+
+6. L'agent de synchronisation du hachage du mot de passe prend le hachage de 32 octets qui en résulte, concatène le sel par utilisateur et le nombre d'itérations [SHA256](https://en.wikipedia.org/wiki/SHA-2) (à utiliser par Azure AD), puis transmet la chaîne de Azure AD Connect à Azure AD via [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security).
+
+7. Lorsqu'un utilisateur tente de se connecter à Azure AD et saisit son mot de passe, celui-ci est traité par le même processus MD4+sel+PBKDF2+HMAC-SHA256. Si le hachage obtenu correspond au hachage stocké dans Azure AD, l'utilisateur a saisi le mot de passe correct et est authentifié.
+{: .text-justify}
 
 *Source : [https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization)*
 
 
-### 2.2 Required Ports and Protocols
+### 2.2 Ports et protocoles requis
 
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/diagram-ad-azure-ad-sync-required-ports-protocols.jpg)
 
-**Table 1**
+**Tableau 1**
 
-| Protocol             | Ports                  | Description |
-|:---------------------|:-----------------------|:-----------------------|
-| DNS | 53 (TCP/UDP) | DNS lookups on the destination forest. |
-| Kerberos | 88 (TCP/UDP) | Kerberos authentication to the AD forest. |
-| MS-RPC | 135 (TCP) | Used during the initial configuration of the Azure AD Connect wizard when it binds to the AD forest, and also during Password synchronization. |
-| LDAP |389 (TCP/UDP) | Used for data import from AD. Data is encrypted with Kerberos Sign & Seal. |
-| SMB | 445 (TCP) | Used by Seamless SSO to create a computer account in the AD forest. |
-| LDAP/SSL | 636 (TCP/UDP) | Used for data import from AD. The data transfer is signed and encrypted. Only used if you are using TLS. |
-| RPC | 49152- 65535 (Random high RPC Port)(TCP) | Used during the initial configuration of Azure AD Connect when it binds to the AD forests, and during Password synchronization. |
-| WinRM | 5985 (TCP) | Only used if you are installing AD FS with gMSA by Azure AD Connect Wizard. | 
-| AD DS Web Services | 9389 (TCP) | Only used if you are installing AD FS with gMSA by Azure AD Connect Wizard. |
+| Protocole             | Ports                  | Description |
+|:---------------------|:------------------------|:-----------------------|
+| DNS | 53 (TCP/UDP)                             | Recherches DNS dans la forêt de destination. |
+| Kerberos | 88 (TCP/UDP)                        | Authentification Kerberos auprès de la forêt AD. |
+| MS-RPC | 135 (TCP)                             | Utilisé pendant la configuration initiale de l’Assistant Azure AD au moment d’établir une liaison avec la forêt AD, ainsi que pendant la synchronisation du mot de passe. |
+| LDAP |389 (TCP/UDP)                            | Utilisé pour l’importation de données à partir d’AD. Les données sont chiffrées à l’aide de Kerberos Sign & Seal. |
+| SMB | 445 (TCP)                                | Utilisé par l’authentification unique transparente pour créer un compte d’ordinateur dans la forêt AD. |
+| LDAP/SSL | 636 (TCP/UDP)                       | Utilisé pour l’importation de données à partir d’AD. Le transfert de données est signé et chiffré. Utilisé uniquement si vous utilisez TLS. |
+| RPC | 49152- 65535 (port RPC aléatoire élevé)(TCP) | Utilisé pendant la configuration initiale d’Azure AD Connect au moment d’établir une liaison avec les forêts AD, ainsi que pendant la synchronisation du mot de passe.  |
+| WinRM | 5985 (TCP)                             | Utilisé uniquement si vous installez AD FS avec l’assistant de connexion gMSA par Azure AD Connect | 
+| AD DS Web Services | 9389 (TCP)                | Utilisé uniquement si vous installez AD FS avec l’assistant de connexion gMSA par Azure AD Connect |
 
-**Table 2**
+**Tableau 2**
 
-| Protocol | Ports     | Description                                                                          |
-|:---------|:----------|:-------------------------------------------------------------------------------------|
-| HTTP     | 80 (TCP)  | Used to download CRLs (Certificate Revocation Lists) to verify TLS/SSL certificates. |
-| HTTPS    | 443 (TCP) | Used to synchronize with Azure AD.                                                   |
+| Protocol | Ports     | Description                                                                                                  |
+|:---------|:----------|:-------------------------------------------------------------------------------------------------------------|
+| HTTP     | 80 (TCP)  | Utilisé pour télécharger des listes de révocation de certificats en vue de vérifier les certificats TLS/SSL. |
+| HTTPS    | 443 (TCP) | Utilisé pour établir une synchronisation avec Azure AD.                                                      |
 
 *Source : [https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-ports](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/reference-connect-ports)*
 
 
-## 3 Preparation
+## 3 Préparation
 
-### 3.1 How to add custom domain name to Azure Active Directory
+### 3.1 Comment ajouter un nom de domaine personnalisé à Azure Active Directory
 
-Open a **Browser**, go to **[https://portal.azure.com/](https://portal.azure.com/)** and logon with your **"Global Administrator Account"**.<br>
-In left, on the **"Portal Menu"** click on **"Azure Active Directory"**.
+Ouvrez un **navigateur**, allez sur **[https://portal.azure.com/](https://portal.azure.com/)** et connectez-vous avec votre **"Global Administrator Account"**.<br>
+A gauche, dans le **"Portal Menu"** cliquez sur **"Azure Active Directory"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-01.png){: .align-center}
 
-In the second bar click on **"Custom domain names"**.
+Dans la deuxième barre, cliquez sur **"Custom domain names"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-02.png){: .align-center}
 
-Click on **"+ Add custom domain"**, fill in the field **"Custom domain name *"** your public domain, for me **"corporate.ovh"** and click on **"Add domain"**.
+Cliquez sur **"+ Add custom domain"**, remplissez le champ **"Custom domain name *"** de votre domaine public, pour moi **"corporate.ovh"** et cliquez sur **"Add domain"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-03.png){: .align-center}
 
-You will see a notification we say said **"Domain name added"**, after copy the content of fields **"Alias or hoste name"**, **"Destionation or point to address"** and **"TTL"**.
+Vous verrez une notification disant que **"Domain name added"**, après avoir copié le contenu des champs **"Alias or hoste name"**, **"Destionation or point to address"** et **"TTL"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-04.png){: .align-center}
 
-Go to your provider who register your domain name, for me it's [OVH](https://www.ovh.com/manager).<br>
+Rendez-vous sur le site de votre registra qui enregistre votre nom de domaine, pour moi [OVH](https://www.ovh.com/manager).<br>
 Select your domain, for me **"corporate.ovh"**, select **"DNS zone"** and **"Add an entry"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-05.png){: .align-center}
 
-Select **"TXT"** records type.
+Sélectionnez le type d'enregistrement **"TXT"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-06.png){: .align-center}
 
-In the field **"Sub-domaine"** leave a blank. In the field **"TTL"** copy your value **"3600"**, in the field **"Value *"** copy your value **"MS=ms54677804"**. Click on **"Next"**.
+Dans le champ **"Sub-domaine"** laissez un blanc. Dans le champ **"TTL"** copiez la valeur **"3600"**, dans le champ **"Value *"** copiez la valeur **"MS=ms54677804"**. Cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-07.png){: .align-center}
 
-Click on **"Confirm"**.
+Cliquez sur **"Confirm"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-08.png){: .align-center}
 
-You will see the record has been added **"The entry has been added to the DNS zone."**.
+Vous verrez que l'enregistrement a été ajouté **"The entry has been added to the DNS zone."**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-09.png){: .align-center}
 
-Go back to **Azure Portal** and click on **"Verify"**.
+Retournez au **Azure Portal** et cliquez sur **"Verify"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-10.png){: .align-center}
 
-You will see a notification we say said **"Verifiy domain name"** successfully, click on **"Make primary"**.
+Vous verrez une notification disant que **"Verifiy domain name"** avec succès, cliquez sur **"Make primary"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-11.png){: .align-center}
 
-Click on **"Yes"**.
+Cliquez sur **"Yes"**.
 {: .text-justify}
-![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-12.png){: .align-center}
+![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-12.png)
 
-You will see a notification we say said **"Domain name made primary"**, click on tenant, for me **"Contoso"**.
+Vous verrez une notification disant que **"Domain name made primary"**, cliquez sur locataire, pour moi **"Contoso"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-13.png){: .align-center}
 
-You will see your domain **corporate.ovh** is **Verified** and the **Primary**.
+Vous verrez que votre domaine **corporate.ovh** est **Verified** et le **Primary**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-14.png){: .align-center}
 
-### 3.2 Add UPN in Active Directory
 
-In your Active Directory domain controller, for me **"CORPWADS1"**.<br>
-Open **"Start Menu"**, expand **"Windows Administrative Tools"** folder, open **"Active Directory Domains and Trusts"** console.
+### 3.2 Ajouter un UPN dans Active Directory
+
+Dans votre contrôleur de domaine Active Directory, pour moi **"CORPWADS1"**.<br>
+Ouvrez le **"Start Menu"**, développez le dossier **"Windows Administrative Tools"**, ouvrez la console **"Active Directory Domains and Trusts"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-15.png){: .align-center}
 
-On the left bar, click right on **Active Directory Domains and Trusts**, and select **"Properties"**.
+Dans la barre de gauche, cliquez à droite sur **Active Directory Domains and Trusts**, et sélectionnez **"Properties"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-16.png){: .align-center}
 
-On the field **"Alternative UPN suffices:"** fill in your domain name **"corporate.ovh"**, click on **"Add"** and click on **"OK"**.
+Dans le champ **"Alternative UPN suffices:"** remplissez votre nom de domaine **"corporate.ovh"**, cliquez sur **"Add"** et cliquez sur **"OK"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-17.png){: .align-center}
 
-Open **"Active Directory Users and Computers"** console.<br> 
-Go to your users OU, for me **"corp.priv/CORP/Sites/Paris/Users"**, select all users, click right and select **"Properties"**.
+Ouvrez la console **"Active Directory Users and Computers"**.<br> 
+Rendez-vous dans votre OU utilisateurs, pour moi **"corp.priv/CORP/Sites/Paris/Users"**, sélectionnez tous les utilisateurs, cliquez sur le bouton droit et sélectionnez **"Properties"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-18.png){: .align-center}
 
-Select **"Account"** tab. Check **"UPN suffix:"** box, select your UPN **"@corporate.ovh"**.<br> 
-Click on **"OK"**.
+Sélectionnez l'onglet **"Account"**. Cochez la case **"UPN suffix:"**, sélectionnez votre UPN **"@corporate.ovh"**. Cliquez sur **"OK"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-19.png){: .align-center}
 
 
-## 4 Install and configuration d’Azure Active Directory Connect
+## 4 Installation et configuration d’Azure Active Directory Connect
 
-### 4.1 Create service account in Active Directory for synchronisation
+### 4.1 Créer un compte de service dans Active Directory pour la synchronisation
 
-In your Active Directory domain controller, for me **"CORPWADS1"**.<br>
-Open **"Start Menu"**, expand **"Windows Administrative Tools"** folder, open **"Active Directory Users and Computers"** console.
+Dans votre contrôleur de domaine Active Directory, pour moi **"CORPWADS1"**.<br>
+Ouvrez le **"Start Menu"**, développez le dossier **"Windows Administrative Tools"**, ouvrez la console **"Active Directory Users and Computers"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-24.png){: .align-center}
 
-On the top bar, click on **"Action"**, select **"New >"** and click on **"User"**.
+Dans la barre supérieure, cliquez sur **"Action"**, sélectionnez **"New >"** et cliquez sur **"User"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-25.png){: .align-center}
 
-In field **"First name:"** fill in **"svc_az_sync_aad"**, in field **"User logon name:"** fill in **"svc_az_sync_aad"**. Click on **"Next >"**.
+Dans le champ **"First name:"** remplissez **"svc_az_sync_aad"**, dans le champ **"User logon name:"** remplissez **"svc_az_sync_aad"**. Cliquez sur **"Next >"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-26.png){: .align-center}
 
-In field **"Password:"** fill in with a strong password and repeat it in **"Cofirm password:"**. Check **"User cannot change password"** box and check **"Password never expires"**.<br> Click on **"Next >"**.
+Dans le champ **"Password:"** emplissez avec un mot de passe fort et répétez le dans **"Cofirm password:"**. Cochez la case **"User cannot change password"** et cochez la case **"Password never expires"**. Cliquez sur **"Next >"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-27.png){: .align-center}
 
-Click on **"Finish"**.
+Cliquez sur **"Finish"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-28.png){: .align-center}
 
 
-### 4.2 Install Azure Active Directory Connect
+### 4.2 Installer Azure Active Directory Connect
 
-In your **Active Directory domain controller**, download **[Microsoft Azure Active Direcotry Connect](https://aka.gd/2FqW1up)**.
+Sur un serveur dédié **Azure Active Directory Connect**, télécharger **[Microsoft Azure Active Direcotry Connect](https://aka.gd/2FqW1up)**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-20.png){: .align-center}
 
-Run **"AzureADConnect.msi"** and install it. After launch **"Azure AD Connect"**.
+Lancez **"AzureADConnect.msi"** et installez-le. Après avoir lancé **"Azure AD Connect"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-21.png){: .align-center}
 
-**Welcome :** check **"I agree to the licence terms and privacy notice."** and click on **"Continue"**.
+**Welcome :** cochez la case **"I agree to the licence terms and privacy notice."** et cliquez sur **"Continue"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-22.png){: .align-center}
 
-**Required Components :** check the box **"Use an existing service Account"**, in **"SERVICE ACCOUNT NAME"** fill in prevously account **"corp\svc_az_sync_aad"**, in **"SERVICE ACCOUNT PASSWORD"** fill in the password account. Click on **"Install"**.
+**Required Components :** cocher la case **"Use an existing service Account"**, dans **"SERVICE ACCOUNT NAME"** remplir le compte précédent créé **"corp\svc_az_sync_aad"**, dans **"SERVICE ACCOUNT PASSWORD"** remplir le compte du mot de passe. Cliquez sur **"Install"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-29.png){: .align-center}
 
-**User Sign-In :** select **"Password Hash Synchronization"** option and click on **"Next"**.
+**User Sign-In :** sélectionnez l'option **"Password Hash Synchronization"** et cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-30.png){: .align-center}
 
-**Connect to Azure AD :** in **"USERNAME"** fill in a **Azure AD global administrator account**, in **"PASSWORD"** fill in the password account. Click on **"Next"**.
+**Connect to Azure AD :** dans **"USERNAME"** renseignez un compte administrateur global Azure AD, dans **Azure AD global administrator account**, dans **"PASSWORD"** renseignez le  mot de passe. Cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-31.png){: .align-center}
 
-**Connect Directories :** in **"FOREST"** select your Active Directory Forest that you want to synchronize, for me **"corp.priv"**, and click on **"Add Directory"**.
+**Connect Directories :** dans **"FOREST"** sélectionnez votre Active Directory Forest que vous voulez synchroniser, pour moi **"corp.priv"**, et cliquez sur **"Add Directory"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-32.png){: .align-center}
 
-**AD Forest account :** in **"ENTREPRISE ADMIN USERNAME"** fill in a Entreprise administrator account for me **"CORP\Administrator"**, in **"PASSWORD"** fill in the password account. <br> Click on **"OK"**.
+**AD Forest account :** dans **"ENTREPRISE ADMIN USERNAME"** remplir un compte d'administrateur d'entreprise pour moi **"CORP\Administrator"**, dans **"PASSWORD"** remplir le mot de passe du compte. Cliquez sur **"OK"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-33.png){: .align-center}
 
-**Connect Directories :** click on **"Next"**.
+**Connect Directories :** Cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-34.png){: .align-center}
 
-**Azure AD sign-in configuration :** you can see, your public domain **corporate.ovh** is **Verified**. Because my domain Active Directory **corp.priv** is not a public domain and cannot be added on Azure AD, I am forced to check the box **"Continue without matching all UPN suffixes to verified domains"**. Click on **"Next"**.
+**Azure AD sign-in configuration :** vous pouvez voir, votre domaine public **corporate.ovh** est **Verified**. Comme mon domaine Active Directory **corp.priv** n'est pas un domaine public et ne peut pas être ajouté sur Azure AD, je suis obligé de cocher la case **"Continue without matching all UPN suffixes to verified domains"**. Cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-35.png){: .align-center}
 
-**Domain/OU Filtering :** select **"Sync selected domains and OUs"**, select OUs that contain users, groups or computers that you want to synchronize. For me this one :
+**Domain/OU Filtering :** sélectionnez **"Sync selected domains and OUs"**, sélectionnez les OU qui contiennent les utilisateurs, groupes ou ordinateurs que vous souhaitez synchroniser. Pour moi, celui-ci :
 - **corp.priv/CORP/Administrators**
 - **corp.priv/CORP/Groups**
 - **corp.priv/CORP/Sites/Paris/Computers**
 - **corp.priv/CORP/Sites/Paris/Groups**
 - **corp.priv/CORP/Sites/Paris/Users**
-
-Click on **"Next"**.
+{: .text-justify}
+Cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-36.png){: .align-center}
 
-**Identifying users :** click on **"Next"**.
+**Identifying users :** cliquez sur **"Next"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-37.png){: .align-center}
 
-**Filtering :** click on **"Next"**.
+**Filtering :** cliquez sur **"Next"**.
 {: .text-justify}
 
-<i class="fas fa-exclamation-triangle"></i> **Warning** <br>
-***"Synchronize selected :"** this feature is intended to support only a pilot deployment. Don't use it in a full production deployment."*
+<i class="fas fa-exclamation-triangle"></i> **Avertissement** <br>
+***Synchronize selected :** "cette fonction est destinée à ne prendre en charge qu'un déploiement pilote. Ne l'utilisez pas dans un déploiement de production complet."*
 {: .notice--warning .text-justify}
 
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-38.png){: .align-center}
 
-**Optional features :** click on **"Next"**.
+**Optional features :** cliquez sur **"Next"**.
 {: .text-justify}
 
 <i class="fas fa-info-circle"></i> **Information** <br>
-***Password writeback :** "Use this option to ensure that password changes that originate in Azure AD are written back to your on-premises directory. For more information, [see Getting started with password management](https://docs.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr)."*
+***Password writeback :** "utilisez cette option pour vous assurer que les changements de mot de passe qui proviennent d'Azure AD sont inscrits dans votre répertoire sur place. Pour plus d'informations, [see Getting started with password management](https://docs.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr)."*
 {: .notice--info .text-justify}
 
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-39.png){: .align-center}
 
-**Configure** : click on **"Install"**.
+**Configure** : cliquez sur **"Install"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-40.png){: .align-center}
 
-**Configure :** click on **"Exit"**.
+**Configure :** cliquez sur **"Exit"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-41.png){: .align-center}
 
 
-### 4.3 Check install and synchronisation
+### 4.3 Vérifier l'installation et la synchronisation
 
-#### 4.3.1 Check install
+#### 4.3.1 Vérifier l'installation
 
-The following services as been created :
-- **Microsoft Azure AD Connect Agent Updater :** Microsoft Azure AD Connect Agent Update Service.
-- **Microsoft Azure AD Sync :** executing with **corp\svc_az_sync_aad**, enables integration and management of identity information across multiple directories, systems and platforms. If this service is stopped or disabled, no synchronization or password management for objects in connected data sources will be performed.
+Les services suivants ont été créés :
+- **Microsoft Azure AD Connect Agent Updater :** service de mise à jour de Microsoft Azure AD Connect Agent.
+- **Microsoft Azure AD Sync :** exécuté avec **corp\svc_az_sync_aad**, permet l'intégration et la gestion des informations d'identité à travers plusieurs répertoires, systèmes et plates-formes. Si ce service est arrêté ou désactivé, aucune synchronisation ou gestion de mot de passe pour les objets dans les sources de données connectées ne sera effectuée.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-42.png){: .align-center}
 
-The following account **MSOL_067d2d0e6b9e** as been created for configured to synchronize to the tenant. This account must have directory replication permissions in the local Active Directory and write permission on certain attributes to enable Hybrid Deployment.
+Le compte suivant **MSOL_067d2d0e6b9e** a été créé pour être configuré pour la synchronisation avec le locataire. Ce compte doit avoir des autorisations de réplication d'annuaire dans l'Active Directory local et des autorisations d'écriture sur certains attributs pour permettre le déploiement hybride
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-43.png){: .align-center}
 
-The following services as been created :
+Les groupes suivants ont été créés :
 - **ADSyncAdmins** 
 - **ADSyncBrowse**
 - **ADSyncOperators**
@@ -384,66 +392,67 @@ The following services as been created :
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-44.png){: .align-center}
 
-The following account **Sync_CORPWADS1_067d2d0e6b9e@M365B856048.onmicrosoft.com** as been created. The account is created with a long and complex password that does not expire. It is given the role of Directory Synchronization Account.
+Le compte suivant **Sync_CORPWADS1_067d2d0e6b9e@M365B856048.onmicrosoft.com** a été créé. Le compte est créé avec un mot de passe long et complexe qui n'expire pas. Il a le rôle de compte de synchronisation d'annuaire.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-45.png){: .align-center}
 
-#### 4.3.2 Check synchronisation
 
-On the server on which **Azure AD Connect is installed** is installed, for me **"CORPWADS1"**.
-Open **"Start Menu"**, on the right open **"Windows Powershell"** console.
+#### 4.3.2 Vérifier la synchronisation
+
+Sur le serveur sur lequel est installé **Azure AD Connect is installed**, pour moi **"CORPWADS1"**.
+Ouvrez le **"Start Menu"**, sur la droite ouvrez la console **"Windows Powershell"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-46.png){: .align-center}
 
-In **"Windows Powershell Console"** type the following command.
+Dans **"Windows Powershell Console"** tapez la commande suivante.
 {: .text-justify}
 ```powershell
 PS C:\Users\Administrator> Get-ADSyncScheduler
 ```
-After running the code above, the result would show you the following:
-- **AllowedSyncCycleInterval :** the scheduled sync cycle interval.
-- **SyncCycleEnabled :** whether the sync cycle schedule is enabled.
-- **NextSyncCycleStartTimeInUTC :** when the next sync is scheduled.
-- **NextSyncCyclePolicyType :** the type of sync that is scheduled to run next.
+Après avoir exécuté le code ci-dessus, le résultat vous montrerait ce qui suit :
+- **AllowedSyncCycleInterval :** cycle d'intervalle de synchronisation programmé.
+- **SyncCycleEnabled :** si le cycle de synchronisation programmé est activé.
+- **NextSyncCycleStartTimeInUTC :** quand la prochaine synchronisation est programmée.
+- **NextSyncCyclePolicyType :** le type de synchronisation qui est programmé pour s'exécuter ensuite.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-47.png){: .align-center}
 
-In **"Windows Powershell Console"** type the following command.
+Dans **"Windows Powershell Console"** tapez la commande suivante.
 {: .text-justify}
 ```powershell
 PS C:\Users\Administrator> Start-ADSyncSyncCycle -PolicyType Delta
 ```
-After running the above command, wait for it to return the result, as shown in the image below.
+Après avoir exécuté la commande ci-dessus, attendez qu'elle renvoie le résultat, comme indiqué dans l'image ci-dessous.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-48.png){: .align-center}
 
-Open **"Start Menu"**, on the right open **"Synchronization Service"** console.
+Ouvrez le **"Start Menu"**, sur la droite ouvrez la console **"Synchronization Service"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-49.png){: .align-center}
 
-In **"Synchronization Service Manager"**, you can see the last operation and its associated status.
+Dans **"Synchronization Service Manager"**, vous pouvez voir la dernière opération et son statut associé.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-50.png){: .align-center}
 
-Open a **Browser**, go to **[https://aad.portal.azure.com/](https://aad.portal.azure.com/)** and logon.<br>
-In left, click on **"Users"**. On the **Users | All Users**, you can see your users synchronized with the status **"Yes"** in the column **"Directory synced"**.
+Ouvrez un **navigateur**, allez sur **[https://aad.portal.azure.com/](https://aad.portal.azure.com/)** et connectez-vous.<br>
+À gauche, cliquez sur **"Users"**. Sur la page **Users | All Users**, vous pouvez voir vos utilisateurs synchronisés avec le statut **"Yes"** dans la colonne **"Directory synced"**.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-51.png){: .align-center}
 
-In left, click on **"Sign-ins"**, you can see your last synchronization.
+A gauche, cliquez sur **"Sign-ins"**, vous pouvez voir votre dernière synchronisation.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-52.png){: .align-center}
 
-In left, click on **Azure Active Directory"**, click on **"Azure AD Connect"**, in right you can see your synchronization status.
+A gauche, cliquez sur **Azure Active Directory"**, cliquez sur **"Azure AD Connect"**, à droite vous pouvez voir votre statut de synchronisation.
 {: .text-justify}
 ![image-center](/assets/images/posts/2020-12-16-azure-sync-ad-with-azure-ad/2020-12-09-20_29_13-53.png){: .align-center}
 
 
-There you go ! You now have synchronization between **Active Directory** and **Azure Active Directory**.
+Et voilà ! Vous avez maintenant une synchronisation entre **Active Directory** et **Azure Active Directory**.
 {: .text-justify}
 
-**Sources :**
-{: .text-justify}
+
+## 5 Sources
 
 - [Tutorial: Create and configure an Azure Active Directory Domain Services managed domain](https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-create-instance)
 - [Tutorial: Integrate a single forest with a single Azure AD tenant](https://docs.microsoft.com/en-us/azure/active-directory/cloud-provisioning/tutorial-single-forest)

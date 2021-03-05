@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to configure Boundary Groups in System Center Configuration Manager"
+title:  "Comment configurer les Boundary Groups dans System Center Configuration Manager"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-444x240.png"
@@ -39,91 +39,98 @@ tags:
   - Active Directory Forest
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/logo-sccm-222x150.png" class="align-left"><strong>Boundary groups</strong> allow the logical organization of network locations. This allows clients to be directed to the nearest available SCCM server on the network. <strong>Boundary groups</strong> also increase availability by redirecting clients to another server in case of failure of the nearest server.</p>
+![image-left](/assets/images/posts/2019-06-15-sccm-install/logo-sccm-222x150.png){: .align-left}
+Les **Boundary groups** permettent l'organisation logique des emplacements réseau. Cela permet de diriger les clients vers le serveur SCCM disponible le plus proche sur le réseau. Les **Boundary groups** augmentent également la disponibilité en redirigeant les clients vers un autre serveur en cas de défaillance du serveur le plus proche.
+{: .text-justify}
 
-<p style="text-align: justify;">Clients use a <strong>boundary groups</strong> for :
-<ul>
-  <li>Automatic <strong>site assignment</strong></li>
-  <li>To find a <strong>site system server</strong> that can provide a service, including:</li>
-    <ul>
-      <li><strong>Distribution points</strong></li>
-      <li><strong>Software update points</strong></li>
-      <li><strong>State migration points</strong></li>
-      <li><strong>Management points</strong></li>
-      <li><strong>Cloud management gateway</strong></li>
-    </ul>
-</ul>
-</p>
+Les clients utilisent un groupe limite pour :
+{: .text-justify}
+- **Site assignment** automatique
+- Pour trouver un **site system server** qui peut fournir un service, y compris :
+  - **Distribution points**
+  - **Software update points**
+  - **State migration points**
+  - **Management points**
+  - **Cloud management gateway**
+{: .text-justify}
 
-
-## Before starting
-<p style="text-align: justify;">You can read the following articles :</p>
-<ol>
-  <li><a href="{{ site.baseurl }}/active%20directory/install-active-directory/">How to install a domain controller Active Directory on Windows Server</a></li>
-  <li><a href="{{ site.baseurl }}/sql/install-sql-server-2016/">How to installer Microsoft SQL Server 2016</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-install-prerequisites/">How to install the prerequisites for System Center Configuration Manager</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-install/">How to install System Center Configuration Manager</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-configure-discovery-methods/">How to configure Discovery Methods in System Center Configuration Manager</a></li>
-</ol>
+{% include toc icon="align-left" title="Table des matières" %}
 
 
-## Concept
+## 1 Avant de commencer
 
-<p style="text-align: justify;">The following diagram shows an example of use.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/diagram-boundary-groups.png" class="align-center">
-<ul>
-  <li><strong>Datacenter :</strong>
-    <ul>
-      <li><strong>Boundarie - Datacenter :</strong> a boundarie is based on the Active Directory Datacenter site.</li>
-      <li><strong>Boundary Group - Datacenter :</strong> a boundary group containing the boundarie datacenter, and referral for members, the primary site code S01 and site system server of the datacenter.</li>
-    </ul> 
-  </li>
-  <li><strong>Paris :</strong>
-    <ul>
-      <li><strong>Boundarie - Paris :</strong> a boundarie is based on the Active Directory Datacenter site.</li>
-      <li><strong>Boundary Group - Paris :</strong> a boundary group containing the boundarie cited, and reference for the members, the secondary site code S02 and system server site of Paris and in failback that of the Datacenter.</li>
-    </ul> 
-  </li>
-  <li><strong>VPN :</strong>
-    <ul>
-      <li><strong>Boundarie - VPN 1 :</strong> a boundarie based on a range of IP addresses of the VPN stations.</li>
-      <li><strong>Boundarie - VPN 2 :</strong> a boundarie based on a range of IP addresses of the VPN stations.</li>
-      <li><strong>Boundary Group - VPN :</strong> a boundary group containing the cited boundary, and reference for members, the primary site code S01 and site system server of the Datacenter.</li>
-    </ul> 
-  </li>
-</ul>
+Vous pouvez lire les articles suivants :
+{: .text-justify}
+1. [Comment installer un contrôleur de domaine Active Directory sur Windows Server](/active%20directory/install-active-directory)
+2. [Comment installer un serveur DHCP sur Windows Server](/dhcp/install-dhcp-server/)
+3. [Comment installer Microsoft SQL Server 2016](/sql/install-sql-server-2016/)
+4. [Comment installer les prérequis pour System Center Configuration Manager](/sccm/sccm-install-prerequisites/)
+5. [Comment installer System Center Configuration Manager](/sccm/sccm-install/)
+6. [Comment configurer les Discovery Methods dans System Center Configuration Manager](/sccm/sccm-configure-discovery-methods/)
+{: .text-justify}
 
 
-## Configuration
+## 2 Le fonctionnement
 
-<p style="text-align: justify;">The boundarie and boundary groups will be created following the example below.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/diagram-boundary-groups-labvl.png" class="align-center">
+Le schéma suivant montre un exemple d'utilisation.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/diagram-boundary-groups.png){: .align-center}
 
-<p style="text-align: justify;">In the <strong>"Configuration Manager Console"</strong>, in the bottom left panel, select <strong>"Administration"</strong>. Scroll down the <strong>"Hierachy Configuration"</strong> folder and select <strong>"Boundaries"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_06-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
 
-<p style="text-align: justify;">If you followed the article <a href="{{ site.baseurl }}/sccm/SCCM-configure-discovery-methods/">How to configure Discovery Methods in SCCM</a> and activate the <strong>"Active Directory Forest Discovery"</strong>, the <strong>Paris</strong> boundaries must have been created automatically.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_07-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+- **Datacenter :**
+  - **Boundarie - Datacenter :** une boundarie est basée sur le site Active Directory Datacenter.
+  - **Boundary Group - Datacenter :** un groupe limite contenant le centre de données boundarie, et la référence pour les membres, le code de site primaire S01 et le serveur système du site du centre de données.
+- **Paris :**
+  - **Boundarie - Paris :** une boundarie est basée sur le site du centre de données Active Directory.
+  - **Boundary Group - Paris :** un groupe frontière contenant la boundarie citée, et la référence pour les membres, le code de site secondaire S02 et le site serveur système de Paris et en failback celui du Datacenter.
+- **VPN :**
+  - **Boundarie - VPN 1 :** une boundarie basée sur une gamme d'adresses IP des stations VPN.
+  - **Boundarie - VPN 2 :** une boundarie basée sur une gamme d'adresses IP des stations VPN.
+  - **Boundary Group - VPN :** un groupe de frontière contenant la frontière citée, et la référence pour les membres, le code de site primaire S01 et le serveur de système de site du centre de données.
 
-<p style="text-align: justify;">In left panel, scroll down the <strong>"Hierachy Configuration"</strong> folder and select <strong>"Boundary Groups"</strong>. By default the boundary group <strong>"Default-Site-Boundary-Group&lt;COR&gt;"</strong> is the boundary group to which clients connect if no others are available.<br> In the ribbon click on <strong>"Create Bondary"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_08-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
 
-<p style="text-align: justify;">In the field <strong>"Name:"</strong> give a name to your boundary group, for me <strong>"SA - Paris"</strong>, in the field <strong>"Descripstion:"</strong> give a description <strong>"Boundary group Paris"</strong>. Then click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_09-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+## 3 La configuration
 
-<p style="text-align: justify;">Select the boundarie <strong>"Paris"</strong> and click <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_10-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Les groupes boundarie et boundary seront créés selon l'exemple ci-dessous.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/diagram-boundary-groups-labvl.png){: .align-center}
 
-<p style="text-align: justify;">Select the <strong>"References"</strong> tab, in the section <strong>"Site assignement"</strong> check the <strong>"Use this boundary group for site assignement"</strong> box, in the <strong>"Assigned site:"</strong> select your site, for me <strong>"COR-Corporate Site"</strong>. And click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_11-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans la **"Configuration Manager Console"**, dans le panneau inférieur gauche, sélectionnez **"Administration"**. Faites défiler le dossier **"Hierachy Configuration"** vers le bas et sélectionnez **"Boundaries"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_06-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Check the box of your site system to assign <strong>"\\CORPWSCM1.corp.priv"</strong> and clik on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_12-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Si vous avez suivi l'article [Comment configurer les Discovery Methods dans System Center Configuration Manager](/sccm/sccm-configure-discovery-methods/) et activer **"Active Directory Forest Discovery"**, le boundarie de **Paris** doivent avoir été créées automatiquement.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_07-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Clik on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_13-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans le panneau de gauche, faites défiler le dossier **"Hierachy Configuration"** et sélectionnez **"Boundary Groups"**. Par défaut, le groupe de limites **"Default-Site-Boundary-Group"** est le groupe de limites auquel les clients se connectent si aucun autre n'est disponible.<br/>
+Dans le ruban, cliquez sur **"Create Bondary"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_08-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Your boundary group is now created.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_14-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans le champ **"Nom :"** donnez un nom à votre groupe limite, pour moi **"SA - Paris"**, dans le champ **"Description :"** donnez une description **"Boundary group Paris"**. Cliquez ensuite sur **"Ajouter..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_09-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">There you go ! Your clients who are located in the Active Directory site <strong>"Paris"</strong> will be assigned the site code <strong>"COR"</strong> and will connect to the site system server <strong>"CORPWSCM1"</strong>.</p>
+Sélectionnez la frontière **"Paris"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_10-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Sélectionnez l'onglet **"Références"**, dans la section **"Site assignement"** cochez la case **"Use this boundary group for site assignement"**, dans le champ **"Assigned site:"** sélectionnez votre site, pour moi **"COR-Corporate Site"**. Et cliquez sur **"Ajouter..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_11-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cochez la case de votre système de site pour attribuer **"\\\CORPWSCM1.corp.priv"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_12-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_13-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Votre **boundary group** est maintenant créé.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-24-sccm-configure-boundary-groups/2020-11-24-17_47_14-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Et voilà ! Vos clients qui sont situés dans le site Active Directory **"Paris"** se verront attribuer le code de site **"COR"** et se connecteront au serveur site system **"CORPWSCM1"**.
+{: .text-justify}

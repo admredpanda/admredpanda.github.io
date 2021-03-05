@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to install Microsoft SQL Server 2016"
+title:  "Comment installer Microsoft SQL Server 2016"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2019-03-26-install-sql-server-2016/logo-sql-444x240.png"
@@ -38,194 +38,259 @@ tags:
   - SQL Server Management Studio
   - Authentification
   - Databases
-
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/logo-sql-222x150.png" class="align-left">SQL server designates a database server. The definition of the SQL server is closely linked to that of <strong>SQL (Structured Query Language)</strong>, a computer language that allows databases to be exploited. Microsoft SQL Server allows the operation of SQL and can create tables in a relational database, as well as add, modify or delete them.</p>
+![image-left](/assets/images/posts/2019-03-26-install-sql-server-2016/logo-sql-222x150.png){: .align-left}
+SQL server désigne un serveur de base de données. La définition du SQL server est étroitement liée à celle du langage **SQL (Structured Query Language)**, un langage informatique qui permet d'exploiter les bases de données. Microsoft SQL Server permet le fonctionnement de SQL et peut créer des tables dans une base de donnée relationnelle, ainsi que l'ajout,  la modification ou la suppression d’entrer a l’intérieur de celle-ci.
+{: .text-justify}
 
-## The principles
+{% include toc icon="align-left" title="Table des matières" %}
 
-<p style="text-align: justify;">Concretely, a SQL server is a tool that has all the characteristics to be able to accompany the user in the manipulation, the control, the sorting, the update, and many other actions still, of databases thanks to the language SQL .</p>
 
-<p style="text-align: justify;">The term also refers to the name given to the <strong>Relational Database Management System (RDBMS)</strong> marketed by Microsoft, or more precisely the name of the database engine of this RDBMS, SQL server offers multiple features.</p>
+## Les principes
 
-### Prerequisites
+Concrètement, un SQL server est un outil qui possède toutes les caractéristiques pour pouvoir accompagner l'utilisateur dans la manipulation, le contrôle, le tri, la mise à jour, et bien d'autres actions encore, de bases de données grâce au langage SQL.
+{: .text-justify}
 
-<p style="text-align: justify;">Here are the minimum prerequisites for a server that host SQL Server 2016.</p>
+Le terme désigne également le nom donné au **système de gestion de base de données (SGBD)** ou **relational database management system (RDBMS) en anglais**, commercialisé par Microsoft, ou plus précisément le nom du moteur de bases de données de ce SGDB, SQL server offre de multiples fonctionnalités.
+{: .text-justify}
 
-| Hardware     | Specification |
+
+### Prérequis
+
+Voici les prérequis minimum pour un serveur hébergent SQL Server 2016.
+{: .text-justify}
+
+| Hardware     | Spécification |
 |---------     | ----------- |
 | **CPU :** | 1.4 GHz 64-bit |
-| **Memory :** | 1024Mo |
-| **Hard disk :** | 40Go disk space |
-| **Network :** | A network connection |
+| **RAM :** | 1024Mo |
+| **Disque dur :** | 40Go d’espace disque |
+| **Réseau :** | Une connexion réseau |
 
-<p style="text-align: justify;">For this tutorial, I would use a virtual machine with <strong>Windows Server 2016 Standard</strong> with the following configuration :</p>
 
 ### Hardware
 
-| Hardware     | Specification |
+Pour ce tutoriel, j'utiliserais une machine virtuel avec **Windows Server 2016 Standard** intégré dans le domaine **corp.priv** créé précédemment avec la configuration suivante :
+{: .text-justify}
+
+| Hardware     | Spécification |
 |---------     | ----------- |
 | **CPU :** | 4 vCPU |
 | **RAM :** | 4Go |
 | **Disque dur :** | C:\System 40Go, D:\Data 20Go |
 | **Réseau :** | Host-only |
 
+
 ### Network
 
-| Champs     | Values |
+| Champs     | Valeurs |
 |---------     | ----------- |
 | **IP address :** | 192.168.100.101 |
 | **Subnet :** | 255.255.255.0 |
 | **Default gateway :** | 192.168.100.254 |
-| **DNS :** | 192.168.100.100 (Active Directory server ) |
+| **DNS :** | 192.168.100.100 (server Active Directory) |
 
 
-## Server preparation
+## Préparation du serveur
 
-<p style="text-align: justify;">Open the <strong>"Server Manager"</strong>, the program launches at startup.</p>
-<p style="text-align: justify;">Click on <strong>"Local Server"</strong> fill in the following settings.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-17-19_30_50.png" class="align-center">
-<ul>
-  <li><strong>Computer name :</strong> give a meaningful name to your server, for my part, I would take for example : <strong>CORPWSQL1</strong>.</li>
-  <li><strong>Windows Firewall :</strong> disable Windows Firewall.</li>
-  <li><strong>Remote Desktop :</strong> enable remote desktop.</li>
-  <li><strong>Ethernet0 :</strong> set a fixed IP address, I would take for example : <strong>192.168.10.3</strong></li>
-</ul>
-<p style="text-align: justify;">
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-17-19_32_02.png" class="align-center">
-</p>
-<span class="notice--warning">It is recommended by Microsot to perform all updates before any roles are installed.</span>
+Ouvrez le **"Server Manager"**, le programme se lance au démarrage.
+{: .text-justify}
 
+Cliquer sur **"Local Server"** remplissez les paramètres suivant.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-17-19_30_50.png){: .align-center}
 
-## Installing prerequisites
+- **Computer name :** donner un nom significatif à votre serveur, pour ma part, je prendrais pour exemple : **CORPWSQL1**.
+- **Windows Firewall :** désactiver le firewall de Windows.
+- **Remote Desktop :** activer le bureau à distance.
+- **Ethernet0 :** définissez une adresse IP fixe, je prendrais pour exemple : **192.168.100.101**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-17-19_32_02.png){: .align-center}
 
-### Preparing for access rights
-
-<p style="text-align: justify;">On your Active Directory server, for me <strong>CORPWADS1</strong>. And create a group and a user to administer the SQL server :
-<ul>
-  <li>Group : <strong>GRP_SQL_Admins</strong> : 
-    <ul>
-      <li>Group scope <strong>"Global"</strong></li> 
-      <li>Group type <strong>"Security"</strong></li>
-    </ul>
-  </li>
-  <li>Users : <strong>SVC_SQL_Adm</strong> : 
-    <ul>
-      <li>For security reasons activate options : <strong>"User cannot change password"</strong></li> 
-      <li>Check also this option : <strong>"Password never expires"</strong></li>
-    </ul>
-  </li>
-</ul></p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_03_11-1.png" class="align-center">
+<i class="fas fa-exclamation-triangle"></i> **Avertissement** <br>
+Il est recommandé par Microsot d'effectuer toutes les mises à jour avant toutes installations de rôles.
+{: .notice--warning .text-justify}
 
 
-### Server preparation
+## Installation des prérequis
 
-<p style="text-align: justify;">Then on your future SQL server, open the <strong>"Start Menu"</strong>. Click on <strong>"Windows PowerShell"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_03_11-1.png" class="align-center">
+### Préparation des droits d'accès 
 
-<p style="text-align: justify;">Run the following command to install the <strong>.NET Framework 3.5</strong> and the <strong>.NET Framework 4.6</strong> :</p>
+Sur votre serveur Active Directory, pour moi **CORPWADS1**. Et créez un groupe et un utilisateur pour administrer le serveur SQL: 
+{: .text-justify}
+
+- Groupe : **GRP_SQL_Admins** 
+  - Groupe scope **"Domain local"** 
+  - Group type **"Security"**
+- Utilisateur : **SVC_SQL_Adm** 
+  - Pour des raisons de sécuritées activer les options : **"User cannot change password"** 
+  - Cocher aussi l'option : **"Password never expires"**
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_03_11-1.png){: .align-center}
+
+
+### Préparation du serveur 
+
+Ouvrez le **"Start Menu"**. Cliquer sur **"Windows PowerShell"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_03_11-1.png){: .align-center}
+
+Exectuer la commande suivante pour installer **.NET Framework 3.5** et **.NET Framework 4.6** :
+{: .text-justify}
 ```powershell
-Install-WindowsFeature -Name NET-Framework-Features -Source D:\sources\sxs
+Install-WindowsFeature -Name NET-Framework-Features -Source Z:\sources\sxs
 ```
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_05_11-1.png" class="align-center">
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_05_11-1.png){: .align-center}
 
-<p style="text-align: justify;">To make sure the features are installed, run the next command :</p>
+Afin de vérifier que les fonctionnalitées sont bien installées, executer la commande suivante :
+{: .text-justify}
 ```powershell
 Get-WindowsFeature -Name "NET-Framework-Core", "NET-Framework-45-Features"
 ```
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_07_11-1.png" class="align-center">
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-21_07_11-1.png){: .align-center}
 
 
-## Installing SQL Server 2016
 
-<p style="text-align: justify;">Open the ISO of the SQL Server 2016 installation and click <strong>"setup"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_04_33-1.png" class="align-center">
+## Installation de SQL Server 2016
 
-<p style="text-align: justify;">In the menu on the left click <strong>"Install"</strong>. In the right window, click on <strong>"New SQL Server stand-alone installation or add features to an existing installation"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_05_50-1.png" class="align-center">
+Ouvrez l'ISO de l'installation de SQL Server 2016 et cliquer sur **"setup"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_04_33-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Product Key :</strong> select <strong>"Enter the product key:"</strong> and enter your <strong>Key</strong>. <br/>Then click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_19-1.png" class="align-center">
+Dans le menu de gauche cliquer sur **"Installation"**. Dans le la fenetre de droite, cliquer sur **"New SQL Server stand-alone installation or add features to an existing installation"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_05_50-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>License Terms :</strong> accept the license agreement by checking the box <strong>"I accept the license terms."</strong>. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_33-1.png" class="align-center">
+**Product Key :** sélectionner **"Enter the product key:"** et entrer votre **Key**. Puis cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_19-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Global Rules :</strong> the assistant checks the requirements. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_54-1.png" class="align-center">
+**License Terms :** accepter le contrat de licence en cochant la case **"I accept the license terms."**. <br/>Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_33-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Microsoft Update :</strong> check the <strong>"Use Microsoft Update to check for updates (recommended)"</strong> box to check for product updates. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_07_44-1.png" class="align-center">
+**Global Rules :** l'assistant vérifie les pré-requis. Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_06_54-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Product Updates :</strong> the assistant lists the updates that will be installed. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_08_10-1.png" class="align-center">
+**Microsoft Update :** cocher la case **"Use Microsoft Update to check for updates (recommended)"** pour vérifier les mises à jour du produit. Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_07_44-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Install Rules :</strong> if all the rules are complete, click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_10_05-1.png" class="align-center">
+**Product Updates :** l'assistant liste les mises à jour qui seront installés. <br/>Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_07_44-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Feature Selection : </strong> select the following options for <strong>"Database Engine Services"</strong>, <strong>"Reporting Services - Native"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_12_04-1.png" class="align-center">
+**Install Rules :** si toutes l'installation des règles est complète, cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_10_05-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Instance Configuration :</strong> in this part, you can edit the name of the instance if you wish. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_14_40-1.png" class="align-center">
+**Feature Selection :** séléctionner les options suivantes :
+{: .text-justify}
+- **"Database Engine Services"**
+- **"Reporting Services - Native"**
+{: .text-justify}
+Puis, effectuer les actions suivantes :
+{: .text-justify}
+- Dans le champs **"Instance root directory:"** par : **"D:\Program Files\Microsoft SQL Server\"**.
+- Dans le champs **"Shared feature directory:"** par : **"D:\Program Files\Microsoft SQL Server\"**.
+- Dans le champs **"Shared feature directory (x86):"** par : **"D:\Program Files (x86)\Microsoft SQL Server\"**
+{: .text-justify}
+Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_12_04-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Server Configuration :</strong> learn about the following fields with the previously created <strong>SVC_SQL_Adm</strong> account created previously :</p>
-<ul>
-  <li><strong>"SQL Server Agent"</strong></li>
-  <li><strong>"SQL Server Database Engine"</strong></li>
-  <li><strong>"SQL Server Reporting Services"</strong></li>
-</ul>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_18_40-1.png" class="align-center">
+**Instance Configuration :** dans cette partie, vous pouvez éditer le nom de l'instance si vous le souhaitez. Cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_14_40-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Database Engine Configuration :</strong> select the <strong>"Windows authentification mode"</strong> option and add the group created <strong>GRP_SQL_Admins</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_21_42-1.png" class="align-center">
+**Server Configuration :** renseigner les champs suivants avec le compte **SVC_SQL_Adm** créé précédemment :
+{: .text-justify}
+- **"SQL Server Agent"**
+- **"SQL Server Database Engine"**
+- **"SQL Server Reporting Services"**
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_18_40-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Reporting Services Configuration :</strong> select <strong>"Install and configure"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_06-1.png" class="align-center">
+**Database Engine Configuration :** sélectionner l'option **"Windows authentification mode"** et ajouter le groupe créé **GRP_SQL_Admins**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_21_42-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Feature Configuration Rules :</strong> once all the checks have been completed, click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_26-1.png" class="align-center">
+**Reporting Services Configuration :** sélectionner **"Install and configure"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_06-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Ready to Install :</strong> a summary of the components that will be installed will appear, click on <strong>"Install"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_42-1.png" class="align-center">
+**Feature Configuration Rules :** une fois toutes les vérifications passées, cliquer sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_26-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Installation Progress :</strong> the installation begins.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_36_12-1.png" class="align-center">
+**Ready to Install :** un résumé des composant qui serons installés s'affiche, cliquer sur **"Install"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_22_42-1.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Complete :</strong> the installation is finished, the assistant displays the setup information. Click on <strong>"Close"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_38_20-1.png" class="align-center">
+**Installation Progress :** l'installation commence.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_36_12-1.png){: .align-center}
 
-
-## Installing Microsoft SQL Server Management Studio
-
-<p style="text-align: justify;">Download SSMS from the Microsoft website at the following address : <a href="https://go.microsoft.com/fwlink/?linkid=2088649&clcid=0x409" alt="Lien SSMS">download</a></p>
-
-<p style="text-align: justify;">Run the setup <strong>"SSMS-Setup-ENU.exe"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_48_41-1.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"Install"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_49_00-1.png" class="align-center">
-
-<p style="text-align: justify;">The installation is progressing.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_56_14-1.png" class="align-center">
-
-<p style="text-align: justify;">Once the installation is complete, click on <strong>"Restart"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_57_42-1.png" class="align-center">
+**Complete :** l'installation est finie, l'assistant affiche les informations du setup. Cliquer sur **"Close"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_38_20-1.png){: .align-center}
 
 
-## Connect to Microsoft SQL Server 2016
+## Installation Microsoft SQL Server Management Studio
 
-<p style="text-align: justify;">Click on the icon <strong>"Microsoft SQL Server Management Studio 17"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_59_41-1.png" class="align-center">
+Télécharger SSMS sur le site de Microsoft a l'adresse suivante : [download](https://go.microsoft.com/fwlink/?linkid=2088649&clcid=0x409).
+{: .text-justify}
 
-<p style="text-align: justify;">Managment Studio starts.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_00_23-1.png" class="align-center">
+Exécuter le setup **"SSMS-Setup-ENU.exe"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_48_41-1.png){: .align-center}
 
-<p style="text-align: justify;">A connection window appears. As the login information was pre-filled with the information from the connected Windows account, all that remained was to click on <strong>"Connect"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_01_28-1.png" class="align-center">
 
-<p style="text-align: justify;">The connection to the server is now OK. In the <strong>"Object Explorer"</strong> and <strong>"Databases"</strong> window you will be able to see your server databases.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_03_33-1.png" class="align-center">
+Cliquer sur **"Install"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_49_00-1.png){: .align-center}
 
-<p style="text-align: justify;">There you go ! It's up to you to enjoy your Microsoft SQL Server 2016.</p>
+L'installation progresse.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_56_14-1.png){: .align-center}
+
+Une fois l'installation terminée, cliquer sur **"Restart"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_57_42-1.png){: .align-center}
+
+
+## Connexion a Microsoft SQL Server 2016
+
+Cliquer sur l'icone **"Microsoft SQL Server Management Studio 17"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-22_59_41-1.png){: .align-center}
+
+Managment Studio démarre.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_00_23-1.png){: .align-center}
+
+Une fenêtre de connexion apparaît. Les informations de connexion étant pré remplis avec les informations du compte Windows connecté, il ne resta plus qu'a cliquer sur **"Connect"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_01_28-1.png){: .align-center}
+
+La connexion au serveur est maintenant OK. Dans la fenêtre **"Object Explorer"** et **"Databases"** vous pourrez voir les bases de données de votre serveur.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_03_33-1.png){: .align-center}
+
+
+## Configurer SQL Server 2016 pour SCCM
+
+Ouvrez une fenêtre **"Command Prompt"** et placer vous sur le lecteur **"Z:\"** de l'ISO SQL Server 2016.
+{: .text-justify}
+
+Exécuter la commande suivante :
+{: .text-justify}
+```bash
+Setup.exe /QUIET /ACTION=REBUILDDATABASE /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /INSTANCENAME=MSSQLSERVER /SQLSYSADMINACCOUNTS=corp\SVC_SQL_Adm
+```
+![image-center](/assets/images/posts/2019-03-26-install-sql-server-2016/2019-02-26-23_03_33-2.png){: .align-center}
+
+Et voilà ! À vous de profiter de votre serveur Microsoft SQL Server 2016.
+{: .text-justify}

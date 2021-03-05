@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to install System Center Configuration Manager"
+title:  "Comment installer System Center Configuration Manager"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2019-06-15-sccm-install/logo-sccm-444x240.png"
@@ -35,106 +35,148 @@ tags:
   - SQL Server
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/logo-sccm-222x150.png" class="align-left"><strong>System Center Configuration Manager (SCCM)</strong> is a system management software published by Microsoft. It is intended for the management of large computer parks. It allows: remote control, management and deployment of updates and patches, automation of tasks, remote distribution of applications, hardware and software inventory, compliance management, administration of security policies, deployment of operating systems.</p>
+![image-left](/assets/images/posts/2019-06-15-sccm-install/logo-sccm-222x150.png){: .align-left}
+**System Center Configuration Manager (SCCM)** est un logiciel de gestion de système édité par Microsoft. Il est destiné la gestion de grands parcs informatique. Il permet : la prise de main à distance, la gestion et déploiement des mises à jour et correctifs, l’automatisation de tâches, la télédistribution d’applications, l’inventaire matériel et logiciel, la gestion de la conformité, l’administration des politiques de sécurité, le déploiement de systèmes d’exploitation.
+{: .text-justify}
 
-## Before starting
-<p style="text-align: justify;">You can read the following articles :</p>
-<ol>
-  <li><a href="{{ site.baseurl }}/active%20directory/install-active-directory/">How to install a domain controller Active Directory on Windows Server</a></li>
-  <li><a href="{{ site.baseurl }}/sql/install-sql-server-2016/">How to installer Microsoft SQL Server 2016</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-install-prerequisites/">How to install the prerequisites for System Center Configuration Manager</a></li>
-</ol>
+{% include toc icon="align-left" title="Table des matières" %}
 
-## Install System Center Configuration Manager
+## 1 Avant de commencer
+Avant de commencer à mettre en place les conditions préalables à la mise en place des SCCM, il est nécessaire d'avoir suivi les trois articles suivant :
+{: .text-justify}
 
-<p style="text-align: justify;">Go to <strong>"Z:\"</strong> on your SCCM installation CD, and run <strong>"splash.exe"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_54_15-mRemoteNG---confCons.png" class="align-center">
+- [Comment installer un contrôleur de domaine Active Directory sur Windows Server](/active%20directory/install-active-directory/)
+- [Comment installer un serveur DHCP sur Windows Server](/dhcp/install-dhcp-server/)
+- [Comment installer Microsoft SQL Server 2016](/sql/install-sql-server-2016/)
+- [Comment installer les prérequis pour System Center Configuration Manager](/sccm/sccm-install-prerequisites/)
+{: .text-justify}
 
-<p style="text-align: justify;">The Microsoft System Center Configuration Manager installation wizard starts.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_55_56-mRemoteNG---confCons.png" class="align-center">
 
-<p style="text-align: justify;">Click on <strong>"Install"</strong> to begin.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_57_01-mRemoteNG---confCons.png" class="align-center">
 
-<p style="text-align: justify;"><strong>Before You Begin :</strong> the wizard lists the prerequisites for installation. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_59_45-mRemoteNG---confCons.png" class="align-center">
+## 2 Installer System Center Configuration Manager
 
-<p style="text-align: justify;"><strong>Getting Started :</strong> select <strong>"Install a Configuration Manager primary site"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_00_10-mRemoteNG---confCons.png" class="align-center">
+Rendez-vous sur **"Z:\"** sur votre CD d'installation de SCCM, et exécutez **"splash.exe"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_54_15-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Product Key :</strong> select <strong>"Install the licensed edition of this product"</strong>, enter your product key in the field and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_01_27-mRemoteNG---confCons.png" class="align-center">
+L'assistant d'installation de Microsoft System Center Configuration Manager démarre.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_55_56-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Product License Terms :</strong> check the following boxes :
-<ul>
-  <li><strong>"I accept these License Terms and Privacy Statement."</strong></li>
-  <li><strong>"I accept these License Terms."</strong></li>
-  <li><strong>"I accept these License Terms."</strong></li>
-</ul>
-And click on <strong>"Next >"</strong>.
-</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_02_19-mRemoteNG---confCons.png" class="align-center">
+Cliquez sur **"Install"** pour commencer.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_57_01-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Prerequisite Downloads :</strong> select <strong>"Download required files"</strong>, enter the following path : <strong>"C:\Users\administrator.CORP\Downloads"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_02_46-mRemoteNG---confCons.png" class="align-center">
+**Before You Begin :** l'assistant énumère les conditions préalables à l'installation. Cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-16_59_45-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;">The wizard downloads the files required for the installation.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_03_08-mRemoteNG---confCons.png" class="align-center">
+**Getting Started :** séléctionnez **"Install a Configuration Manager primary site"** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_00_10-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Server Language Selection :</strong> select the languages you want to add for the configuration manager and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_10_30-mRemoteNG---confCons.png" class="align-center">
+**Product Key :** séléctionnez **"Install the licensed edition of this product"**, entrez votre clé de produit dans le champ et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_01_27-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Server Language Selection :</strong>  select the languages you want to add for the client part, for my part I would choose <strong>"French"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_11_38-mRemoteNG---confCons.png" class="align-center">
+**Product License Terms :** cochez les cases suivantes :
+{: .text-justify}
+- **"I accept these License Terms and Privacy Statement."**
+- **"I accept these License Terms."**
+- **"I accept these License Terms."**
+{: .text-justify}
+Et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_02_19-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Site and Installation Settings :</strong> fill in the <strong>"Site code:"</strong> with a 3 letter word, I would choose <strong>CORP</strong>.</p>
-<p style="text-align: justify;">Fill in the <strong>"Site name:"</strong> with the name of your site.</p>
-<p style="text-align: justify;">In the field <strong>"Installation folder:"</strong> indicate the following path : <strong>"D:\Program Files\Microsoft Configuration Manager"</strong>.</p>
-<p style="text-align: justify;">Check the box <strong>"Install the Configuration Manager console"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_13_59-mRemoteNG---confCons.png" class="align-center">
+**Prerequisite Downloads :** sélectionnez **"Download required files"**, entrez le chemin suivant : **"C:\Users\administrator.CORP\Downloads"** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_02_46-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Primary Site Installation :</strong> select <strong>"Install the primary site as a stand-alone site"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_14_30-mRemoteNG---confCons.png" class="align-center">
+L'assistant télécharge les fichiers nécessaires à l'installation.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_03_08-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Yes"</strong> to accept.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_14_56-mRemoteNG---confCons.png" class="align-center">
+**Server Language Selection :** sélectionnez les langues que vous souhaitez ajouter pour le gestionnaire de configuration et cliquez sur  **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_10_30-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Database Information :</strong> enter the name of your SQL server in the field <strong>"SQL Server name (FQDN):"</strong> for my part  <strong>corpwsql1.corp.priv</strong>.</p>
-<p style="text-align: justify;">Enter the name of your future database in the field <strong>"Database name:"</strong> for me <strong>CM_COR</strong>. Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_06-mRemoteNG---confCons.png" class="align-center">
+**Server Language Selection :** sélectionnez les langues que vous voulez ajouter pour la partie client, pour ma part je choisirais **"French"** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_11_38-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Database Information :</strong> Click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_33-mRemoteNG---confCons.png" class="align-center">
+**Site and Installation Settings :** remplissez les champs suivants :
+{: .text-justify}
+- Dans le champs **"Site code:"** avec un mot de 3 lettres, pour ma part je choisirais **CORP**. 
+- Remplissez le **"Site name:"** avec le nom de votre site.
+- Dans le champs **"Installation folder:"** indiquer le chemin suivant : **"D:\Program Files\Microsoft Configuration Manager"**.
+- Cochez la case **"Install the Configuration Manager console"**.
+{: .text-justify}
+Cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_13_59-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>SMS Provider Setting :</strong> in the field <strong>"SMS Provider (FQDN):"</strong> check that the full name of your SCCM server appears : SCCM : <strong>corpwscm1.corp.priv</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_56-mRemoteNG---confCons.png" class="align-center">
+**Primary Site Installation :** sélectionnez **"Install the primary site as a stand-aline site"** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_14_30-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Client Computer Communication Settings :</strong> check the option <strong>"Configure the communication method on each site system role"</strong> and click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_17_22-mRemoteNG---confCons.png" class="align-center">
+Cliquez sur **"Yes"** pour accepter.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_14_56-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Site System Roles :</strong> click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_17_42-mRemoteNG---confCons.png" class="align-center">
+**Database Information :** entrez le nom de votre serveur SQL dans le champ **"SQL Server name (FQDN):"** pour ma part **corpwsql1.corp.priv**.
+{: .text-justify}
+Entrez le nom de votre future base de données dans le champ **"Database name:"** pour ma part **CM_COR**. Cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_06-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Diagnostic and Usage Data :</strong> click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_18_14-mRemoteNG---confCons.png" class="align-center">
+**Database Information :** cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_33-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Service Connection Point Setup :</strong> click on <strong>"Next >"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_18_53-mRemoteNG---confCons.png" class="align-center">
+**SMS Provider Setting :** dans le champ **"SMS Provider (FQDN):"** vérifier qu'apparaît bien le nom complet de votre serveur SCCM : **corpwscm1.corp.priv** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_16_56-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Prerequisite Check :</strong> the wizard displays three warnings :
-<ul>
-  <li><strong>WSUS on site server :</strong> there is no WSUS server currently installed on the site.</li>
-  <li><strong>SQL Server Native Client version :</strong> the current version needs to be updated.</li>
-  <li><strong>SQL Server process memory allocation :</strong> the minimum memory reserve on the SQL server must be at least 8 GB.</li>
-</ul>
-Its various alerts are not blocking for the rest of the installation. You will find here the page listing <a href="https://docs.microsoft.com/en-us/mem/configmgr/core/servers/deploy/install/list-of-prerequisite-checks">the prerequisite checks for Configuration Manager</a>.</p>
-<p style="text-align: justify;">Click on <strong>"Begin Install"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_30_10-mRemoteNG---confCons.png" class="align-center">
+**Client Computer Communication Settings :** cocher l'option **"Configure the communication method on each site system role"** et cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_17_22-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;"><strong>Install :</strong> click on <strong>"Close"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-18_31_53-mRemoteNG---confCons.png" class="align-center">
+**Site System Roles :** cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_17_42-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;">The configuration manager console is now available.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-15-sccm-install/2019-06-16-18_33_05-mRemoteNG---confCons.png" class="align-center">
+**Diagnostic and Usage Data :** cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_18_14-mRemoteNG---confCons.png){: .align-center}
 
-<p style="text-align: justify;">There you go ! Your infrastructure is now ready for you to start using SCCM.</p>
+**Service Connection Point Setup :** cliquez sur **"Next >"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_18_53-mRemoteNG---confCons.png){: .align-center}
+
+
+**Prerequisite Check :** l'assistant affiche trois warnings :
+{: .text-justify}
+- **WSUS on site server :** il n'y a pas de serveur WSUS d'installer actuellement sur le site.
+- **SQL Server Native Client version :** la version actuellement dois être mise à jour.</li>
+- **SQL Server process memory allocation :** la réserve minimum de mémoire sur le serveur SQL doit être au moins de 8 Go.
+{: .text-justify}
+
+<i class="fas fa-info-circle"></i> **Information** <br>
+Ses différentes alertes ne sont pas bloquantes pour la suite de l'installation. Vous trouverez ici la page listant [les vérifications des prérequis pour Configuration Manager](https://docs.microsoft.com/en-us/configmgr/core/servers/deploy/install/list-of-prerequisite-checks).
+{: .notice--info .text-justify}
+
+Cliquez sur **"Begin Install"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-17_30_10-mRemoteNG---confCons.png){: .align-center}
+
+**Install :** cliquez sur **"Close"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-18_31_53-mRemoteNG---confCons.png){: .align-center}
+
+La console Configuration Manager est maintenant disponible.
+{: .text-justify}
+![image-center](/assets/images/posts/2019-06-15-sccm-install/2019-06-16-18_33_05-mRemoteNG---confCons.png){: .align-center}
+
+Et voilà ! Votre infrastructure est maintenant prête pour que vous puissiez commencer à utiliser SCCM.
+{: .text-justify}

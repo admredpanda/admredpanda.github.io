@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Create a application with Powershell in System Center Configuration Manager"
+title:  "Créer une application avec Powershell dans System Center Configuration Manager"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-444x240.png"
@@ -43,12 +43,18 @@ tags:
   - Package
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-222x150.png" class="align-left">When integrating applications into <strong>System Center Configuration Manager</strong>, it can be complicated to create uniformly applications that all have different parameters and specificities.
-The developed script allows to meet this need and to establish a silimar integration process for applications. Application packaging is developed with the <a href="https://psappdeploytoolkit.com/">PSAppDeployToolkit</a> utility, which allows to standardize packages.</p>
 
-## Working
+![image-left](/assets/images/posts/2020-11-08-powershell-create-sccm-application/logo-sccm-application-222x150.png){: .align-left}
+Lors de l'intégration d'applications dans **System Center Configuration Manager**, il peut être compliqué de créer uniformément des applications qui ont toutes des paramètres et des spécificités différents. Le script développé permet de répondre à ce besoin et d'établir un processus d'intégration silimar pour les applications. Le packaging des applications est développé avec l'utilitaire [PSAppDeployToolkit](https://psappdeploytoolkit.com/), qui permet de standardiser les paquets.
+{: .text-justify}
 
-<p style="text-align: justify;"><strong>The configuration :</strong> the configuration of the various parameters of the application is contained in the XML file called <strong>ApplicationConf.xml</strong>.</p>
+{% include toc icon="align-left" title="Table des matières" %}
+
+
+## 1 Fonctionnement
+
+**La configuration :** la configuration des différents paramètres de l'application est contenue dans le fichier XML appelé **ApplicationConf.xml**.
+{: .text-justify}
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -72,29 +78,31 @@ The developed script allows to meet this need and to establish a silimar integra
 </AppDetails>
 ```
 
-<p style="text-align: justify;"><strong>The function :</strong> The <strong>Add-Application</strong> function in the file <strong>Add-Application.ps1</strong> allows the creation of the following elements :</p>
-<ul>
-    <li>Creation of the application</li>
-    <li>Modification of the application</li>
-    <li>Creating the deployment type</li>
-    <li>Distribution of the application on the distribution point</li>
-    <li>Move the application to a specific folder</li>
-    <li>Creating an Active Directory group</li>
-    <li>Creating a user collection targeted to the Active Directory group</li>
-    <li>Move the user collection to a specific folder</li>
-    <li>Creating an application deployment on the user collection</li>
-    <li>Creating a peripheral collection</li>
-    <li>Move the peripheral collection to a specific folder</li>
-    <li>Creating an application deployment on the peripheral collection</li>
-</ul>
+**La fonction :** la fonction **Add-Application** dans le fichier **Add-Application.ps1** permet de créer les éléments suivants :
+{: .text-justify}
 
-<p style="text-align: justify;">To call the function, just specify with the argument <strong>-XMLFile</strong> the location of the XML file.</p>
+- Création de l'application
+- Modification de l'application
+- Création du deployment type
+- Distribution de l'application sur le distribution point
+- Déplacement de l'application vers un dossier spécifique
+- Création d'un groupe Active Directory
+- Création d'une collection utilisateurs ciblée sur le groupe Active Directory
+- Déplacement de la collection utilisateur vers un dossier spécifique
+- Création d'une déploiement d'application sur la collection utilisateur
+- Création d'une collection device
+- Déplacement de la collection device vers un dossier spécifique
+- Création d'un déploiement d'application sur la collection device
+{: .text-justify}
+
+Pour appeler la fonction, il suffit de spécifier l'argument **-XMLFile** avec l'emplacement du fichier XML.
+{: .text-justify}
 
 ```powershell
 PS C:\> Add-Application -XMLFile "C:\ApplicationConf.xml"
 ```
 
-## Add-Application function
+## 2 Fonction Add-Application
 
 ```powershell
 Function Add-Application
@@ -470,11 +478,11 @@ Function Add-Application
 } ## End of the Add-Application function ##
 ```
 
-## Download
-<p style="text-align: justify;">The code is available on <a href="https://github.com/vlepineadm/Add-Application">Github</a> repository.</p>
+## 3 Dépôts
+Le code est disponible sur [Github](https://github.com/vlepineadm/Add-Application).
+{: .text-justify}
 
-
-## Ressources
+## 4 Ressources
 
 <ul>
     <li><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c?redirectedfrom=MSDN">Langauage ID</a></li>

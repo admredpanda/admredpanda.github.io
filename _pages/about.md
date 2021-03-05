@@ -1,38 +1,40 @@
 ---
 layout : single
 permalink: /about/
-title: "About"
+title: "À propos"
 author_profile: true
 toc: true
 toc_sticky: true
-toc_label: "About Me"
+toc_label: "À propos de moi"
 toc_icon: "address-card"
 type: pages
 comments : false
 ---
 
-## Some Words About Me
+## Quelques mots sur moi
 
-- **Name :** Valentin Lépine
-- **Sexe :** Homme
-- **Hobbies :**
-  - Read all the tech news on Twitter
-  - Making Labs on new technologies
-  - Watch formations
-- **Localization :** [Paris](https://en.wikipedia.org/wiki/paris), [France](https://en.wikipedia.org/wiki/france)
-- **Favorite movies :** [Fracture](https://en.wikipedia.org/wiki/Fracture_(2007_film)), [Le Dîner de cons](https://en.wikipedia.org/wiki/The_Dinner_Game), [Limitless](https://en.wikipedia.org/wiki/Limitless_(film)) 
+- **Nom :** Valentin Lépine
+- **Genre :** Homme
+- **Passe-temps :**
+  - Lire toute l'actu technologique sur Twitter
+  - Faire des labs sur de nouvelles technologies
+  - Regarder des formations
+- **Localisation :** [Paris](https://fr.wikipedia.org/wiki/paris), [France](https://fr.wikipedia.org/wiki/france)
+- **Films favoris :** [La Faille](https://fr.wikipedia.org/wiki/La_Faille_(film,_2007)), [Le Dîner de cons](https://fr.wikipedia.org/wiki/Le_D%C3%AEner_de_cons), [Limitless](https://fr.wikipedia.org/wiki/Limitless_(film)) 
   
-## Contact details
+## Coordonnées
 
-<p style="text-align: justify;">Thank you for wanting to contact me :grin: ! f you have a question you would like to discuss one of my posts or other, do not hesitate. I will try to answer you as soon as possible.</p>
+Merci de vouloir me contacter :grin: ! Si vous avez une question, que vous souhaitez discuter d'un de mes posts ou autres, n'hésiter pas. J'essaierai de vous répondre dans les meilleurs délais.
+{: .text-justify}
 
 - **Email :** [vlepineadm@outlook.com](mailto:vlepineadm@outlook.com)
 - **Twitter :** [@vlepineadm](https://twitter.com/vlepineadm)
 - **GitHub :** [vlepineadm](https://github.com/vlepineadm) 
-- **LinkedIn :** [Public Profile](https://www.linkedin.com/in/valentin-lepine-78800/)
+- **LinkedIn :** [Profil public](https://www.linkedin.com/in/valentin-lepine-78800/)
 
-## Bio
-<p style="text-align: justify;">Valentin Lépine system engineer. I am very interested in IT, in particular l'Active Directory, Exchange, SCCM, Powershell, Hyper-V, 
-but also VMware vSphere. Currently I work as Infrastructure Consultant at <a href="https://www.capgemini.com/en-en/" alt="Capgemini">Capgemini</a>. During my free time, I build labs to test, documenting technology.</p>
+## Biographie
 
-- **Blog :** [https://blog.labvl.ovh](https://blog.labvl.ovh)
+Valentin Lépine Ingénieur Systèmes. Je m'interesse beaoucoup a l'IT, notament l'Active Directory, Exchange, SCCM, Powershell, Hyper-V, Azure, Microsoft 365 mais aussi VMware vSphere. Actuellement je travailles en tant que Consultant Infrastructure chez [Capgemini](https://www.capgemini.com/fr-fr/?georedirect_none=true).
+{: .text-justify}
+
+- **Blog :** [https://blog.labvl.net](https://blog.labvl.net)

@@ -1,6 +1,6 @@
 ---
 layout: categories
-title: "Posts by categories"
+title: "Articles par catégories"
 permalink: /categories/
 author_profile: true
 ---

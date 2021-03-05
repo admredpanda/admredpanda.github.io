@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Create a FakeCompany with Powershell"
+title:  "Créer une FakeCompany avec Powershell"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2019-06-02-powershell-create-fakecompany/logo-fakecompany-444x240.png"
@@ -36,18 +36,23 @@ tags:
   - Repo
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2019-06-02-powershell-create-fakecompany/logo-fakecompany-222x150.png" class="align-left">
-While fessing tests in my lab, I got tired of creating users User01 groups, etc ... So I decided to create a script Powershell to create a similar structure to that of a company, allowing me to automatically create OUs, users, groups, computers, from a CSV file.</p>
+![image-left](/assets/images/posts/2019-06-02-powershell-create-fakecompany/logo-fakecompany-222x150.png){: .align-left}
+En fessant des tests dans mon lab, j'en ai eu marre de créer des utilisateurs User01 des groupes, etc... J'ai donc décidé de créer un script Powershell permettant de créer une structure semblable a celle d'une entreprise, me permetant de créer automatiquement les OU, utilisateurs, groupes, ordinateurs, a partir d'un fichier CSV.
+{: .text-justify}
 
-## Company scheme
-<img src="{{ site.baseurl }}/assets/images/posts/2019-06-02-powershell-create-fakecompany/FakeCompany_Schema.jpg" class="align-center">
+{% include toc icon="align-left" title="Table des matières" %}
 
+## 1 Schéma de la Company
 
-## Working
+![image-center](/assets/images/posts/2019-06-02-powershell-create-fakecompany/FakeCompany_Schema.jpg){: .align-center}
 
-<p style="text-align: justify;"><strong>The data :</strong> The data is stored in a CSV file called <strong>new_FakeCompany.csv</strong>. Each field is named as follows : field01,field02...</p>
+## 2 Fonctionnement
 
-<p style="text-align: justify;"><strong>The function :</strong> The function for creating the structure is in the <strong>FakeCompany.ps1</strong> file. This function is based on a switch based on the first field of the CSV file.</p>
+**Les données :** les données sont stockées dans un fichier au format CSV appelé **new_FakeCompany.csv**. Chaque champ est nommé de la manière suivante : field01,field02...
+{: .text-justify}
+
+**La fonction :** la fonction permettant de créer la structure se trouve dans le fichier **FakeCompany.ps1**. Cette fonction est basée sur un switch qui s'appuie sur le premier champ du fichier CSV.
+{: .text-justify}
 
 ```powershell
 switch ($Content.('field01')) {
@@ -59,13 +64,14 @@ switch ($Content.('field01')) {
 }
 ```
 
-<p style="text-align: justify;">To call the function, just specify with the argument <strong>-CSVFile</strong> the location of the CSV file.</p>
+Pour appeler la fonction, il suffit de préciser avec l'argument **-CSVFile** l'emplacement du fichier CSV.
+{: .text-justify}
 
 ```powershell
 PS C:\> FakeCompany -CSVFile C:\new_FakeCompany.csv
 ```
 
-## FakeCompany
+## 3 FakeCompany
 
 ```powershell
 Function FakeCompany
@@ -378,4 +384,6 @@ Function FakeCompany
 } ## End to create Fake Company ##
 ```
 
-<p style="text-align: justify;"><strong>GitHub :</strong> <a href="https://github.com/vlepineadm/FakeCompany">Here is the link of the repository.</a></p>
+## 4 Dépôts
+
+**GitHub :** [voici le lien du dépôt](https://github.com/vlepineadm/FakeCompany).

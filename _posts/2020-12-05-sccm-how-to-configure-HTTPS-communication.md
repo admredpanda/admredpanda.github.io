@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to to configure HTTPS communication mode in System Center Configuration Manager"
+title:  "Comment configurer le mode de communication HTTPS dans System Center Configuration Manager"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-444x240.png"
@@ -35,486 +35,606 @@ tags:
   - System Center
   - Configuration Manager
   - System Center Configuration Manager
-toc: true
-toc_label: "Table of Content"
-toc_icon: "align-left"
-toc_sticky: true
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-222x150.png" class="align-left">In SCCM natively, communications between clients and servers, and between servers is not secure. <strong>System Center Configuration Manager</strong> allows to rely on a <strong>Public Key Infrastructure (PKI)</strong> to secure an enterprise <strong>Certification Authority (CA)</strong>. This mechanism may be required for security reasons in the implementation of a <strong>Cloud Management Gateway (CMG)</strong>, <strong>Internet Based Client Management (IBCM)</strong>, <strong>BitLocker management</strong>, communication with <strong>MacOS clients</strong>. In this article we configure the client-side HTTPS connection to the <strong>Management Point</strong>, <strong>Distribution Point</strong> and <strong>Software Update Point</strong>.</p>
+![image-left](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/logo-sccm-222x150.png){: .align-left}
+Dans SCCM nativement, les communications entre clients et serveurs, et entre les serveurs ne sont pas sécurisées. **System Center Configuration Manager** permet de s'appuyer sur une **infrastructure à clé publique (PKI)** pour sécuriser une **autorité de certification (CA)** d'entreprise. Ce mécanisme peut être nécessaire pour des raisons de sécurité lors de la mise en œuvre d'une **Cloud Management Gateway (CMG)**, **Internet Based Client Management (IBCM)**, **BitLocker management**, de la communication avec les **clients MacOS**. Dans cet article, nous configurons la connexion HTTPS côté client au **Management Point**, **Distribution Point** et au **Software Update Point**.
+{: .text-justify}
 
-## 1 Create Active Directory Security Group
+{% include toc icon="align-left" title="Table des matières" %}
 
-### 1.1 Group for SCCM Internet Information Services Servers
 
-<p style="text-align: justify;">In your <strong>Active Directory domain controller</strong>, for me <strong>"CORPWADS1"</strong>.
-<br> Open <strong>"Active Directory Users and Computers"</strong> console, in your OU when contain your groups, click on <strong>"Action</strong> on the top, and select <strong>"New"</strong> and click on <strong>"Group"</strong>.</p>
+## 1 Créer un groupe de sécurité Active Directory
 
-<p style="text-align: justify;">In <strong>"Group name:"</strong> field indicate the following name <strong>"GRP_SCCM_IIS_Servers"</strong> and in <strong>"Group name (pre-Windows 2000):"</strong> field indicate the following name <strong>"GRP_SCCM_IIS_Servers"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_00.png" class="align-center">
+### 1.1 Groupe pour les serveurs SCCM Internet Information Services
 
-<p style="text-align: justify;">Double click on the group <strong>"GRP_SCCM_IIS_Servers"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_01.png" class="align-center">
+Sur votre contrôleur de domaine Active Directory, pour moi **"CORPWADS1"**.<br/>
+Ouvrez la console **"Active Directory Users and Computers"**, dans votre OU quand vous avez vos groupes, cliquez sur **"Action"** en haut, et sélectionnez **"New"** et cliquez sur **"Group"**.
+{: .text-justify}
+Dans le champ **"Group name :"**, indiquez le nom suivant **"GRP_SCCM_IIS_Servers"** et dans le champ **"Group name (pre-Windows 2000) :"**, indiquez le nom suivant **"GRP_SCCM_IIS_Servers"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_00.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Members"</strong> tab on the top, in the bottom click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_02.png" class="align-center">
+Double-cliquez sur le groupe **"GRP_SCCM_IIS_Servers"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_01.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Object Types..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_03.png" class="align-center">
+Sélectionnez l'onglet **"Members"** en haut, en bas cliquez sur **"Add..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_02.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Computers"</strong> box and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_04.png" class="align-center">
+Cliquez sur **"Object Types..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_03.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Enter the object names to select (examples):"</strong> field indicate the name of your SCCM Server <strong>"CORPWSCM1"</strong> and click on <strong>"Check Names"</strong> button. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_05.png" class="align-center">
+Cochez la case **"Computers"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_04.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_06.png" class="align-center">
+Dans le champ **"Enter the object names to select (examples):"** indiquez le nom de votre serveur SCCM **"CORPWSCM1"** et cliquez sur le bouton **"Check Names"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_05.png){: .align-center}
 
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_06.png){: .align-center}
 
-### 1.2 Group for SCCM Distribution Point Server
+### 1.2 Groupe pour les serveurs SCCM Distribution Point
 
-<p style="text-align: justify;">In <strong>"Active Directory Users and Computers"</strong> console, in your OU when contain your groups, click on <strong>"Action</strong> on the top, and select <strong>"New"</strong> and click on <strong>"Group"</strong>.</p>
+Dans la console **"Active Directory Users and Computers"**, dans votre OU lorsque celui-ci contient vos groupes, cliquez sur **"Action"** en haut, et sélectionnez **"New"** et cliquez sur **"Group"**.
+{: .text-justify}
+Dans le champ **"Group name :"**, indiquez le nom suivant **"GRP_SCCM_DP_Servers"** et dans le champ **"Group name (pre-Windows 2000) :"**, indiquez le nom suivant **"GRP_SCCM_DP_Servers"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_07.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Group name:"</strong> field indicate the following name <strong>"GRP_SCCM_DP_Servers"</strong> and in <strong>"Group name (pre-Windows 2000):"</strong> field indicate the following name <strong>"GRP_SCCM_DP_Servers"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_07.png" class="align-center">
+Double-cliquez sur le groupe **"GRP_SCCM_DP_Servers"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_08.png){: .align-center}
 
-<p style="text-align: justify;">Double click on the group <strong>"GRP_SCCM_DP_Servers"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_08.png" class="align-center">
+Sélectionnez l'onglet **"Members"** en haut, en bas cliquez sur **"Add..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_09.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Members"</strong> tab on the top, in the bottom click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_09.png" class="align-center">
+Cliquez sur **"Object Types..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_10.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Object Types..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_10.png" class="align-center">
+Cochez la case **"Computers"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_11.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Computers"</strong> box and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_11.png" class="align-center">
+Dans le champ **"Enter the object names to select (examples):"** indiquez le nom de votre serveur SCCM **"CORPWSCM1"** et cliquez sur le bouton **"Check Names"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_12.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Enter the object names to select (examples):"</strong> field indicate the name of your SCCM Server <strong>"CORPWSCM1"</strong> and click on <strong>"Check Names"</strong> button. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_12.png" class="align-center">
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_13.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_13.png" class="align-center">
+Ensuite, redémarrez le serveur **CORPWSCM1**, pour que le changement prenne effet.
+{: .text-justify}
 
-<p style="text-align: justify;">After, reboot the <strong>CORPWSCM1</strong> server, for the change to take effect.</p>
 
+## 2 Créer des modèles de certificat sur l'autorité de certification
 
-## 2 Create certificate templates on the certification authority
+Sur votre server **Active Directory Certificate Service**, pour moi **"CORPWADS1"**.<br/>
+Ouvrez le **"Windows Start Menu"**, dans la barre de recherche, cherchez la console **"CertSrv.msc"** et ouvrez-la.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_14.png){: .align-center}
 
-<p style="text-align: justify;">In your <strong>Active Directory Certificate Service</strong>, for me <strong>"CORPWADS1"</strong>.
-<br> Open <strong>"Windows Start Menu"</strong>, in the search bar search <strong>"CertSrv.msc"</strong> console and open it.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_14.png" class="align-center">
+Dans la barre de gauche, développez **"corpRootCA"**, cliquez avec le bouton droit sur **"Certificate Templates"** et cliquez sur **"Manage"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_15.png){: .align-center}
 
-<p style="text-align: justify;">In the left bar, expand <strong>"corpRootCA"</strong>, right click on <strong>"Certificate Templates"</strong> and click on <strong>"Manage"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_15.png" class="align-center">
 
+### 2.1 Certificat Internet Information Services
 
-### 2.1 Internet Information Services Certificate
+Dans la console **"Certificate Templates Console"**, en bas, cliquez avec le bouton droit de la souris sur **"Web Server"** et sélectionnez **"Duplicate Template"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_16.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>Certificate Templates Console</strong>, at the bottom, right click on <strong>"Web Server"</strong> and select <strong>"Duplicate Template"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_16.png" class="align-center">
+Sélectionnez l'onglet **"General"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_17.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"General"</strong> tab.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_17.png" class="align-center">
+Dans le champ **"Template display name:"**, indiquez le nom suivant **"SCCM IIS Certificate"** et dans le champ **"Template name:"**, indiquez le nom suivant **"SCCMIISCertificate"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_18.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Template display name:"</strong> field indicate the following name <strong>"SCCM IIS Certificate"</strong> and in <strong>"Template name:"</strong> field indicate the following name <strong>"SCCMIISCertificate"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_18.png" class="align-center">
+Sélectionnez l'onglet **"Request Handling"**, vérifiez que **"Allow private key to be exported"** n'est pas sélectionné.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_19.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Request Handling"</strong> tab, verify that <strong>"Allow private key to be exported"</strong> is not selected.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_19.png" class="align-center">
+Sélectionnez l'onglet **"Subject Name"**, vérifiez que **"Supply in the Request"** est sélectionné.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_20.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Subject Name"</strong> tab, verify that <strong>"Supply in the Request"</strong> is selected.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_20.png" class="align-center">
+Sélectionnez l'onglet **"Security"**, cliquez sur **"Add..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_21.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Security"</strong> tab, click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_21.png" class="align-center">
+Dans le champ **"Enter the object names to select (examples):"** indiquez le nom suivant de votre groupe **"GRP_SCCM_IIS_Servers"** et cliquez sur **"Check Names"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_22.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Enter the object names to select (examples):"</strong> field indicate the following name of your group <strong>"GRP_SCCM_IIS_Servers"</strong> and click on <strong>"Check Names"</strong>. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_22.png" class="align-center">
+Pour le groupe **"GRP_SCCM_IIS_Servers"**, cochez les cases **"Read"** et **"Enroll"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_23.png){: .align-center}
 
-<p style="text-align: justify;">For the group <strong>"GRP_SCCM_IIS_Servers"</strong> check the <strong>"Read"</strong> and <strong>"Enroll"</strong> box. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_23.png" class="align-center">
 
+### 2.2 Certificat Distribution Point
 
-### 2.2 Distribution Point Certificate
+Dans la console **"Certificate Templates Console"**, en bas, cliquez avec le bouton droit de la souris sur **"Workstation Authentification"** et sélectionnez **"Duplicate Template"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_24.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>Certificate Templates Console</strong>, at the bottom, right click on <strong>"Workstation Authentification"</strong> and select <strong>"Duplicate Template"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_24.png" class="align-center">
+Sélectionnez l'onglet **"General"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_25.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"General"</strong> tab.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_25.png" class="align-center">
+Dans le champ **"Template display name:"**, indiquez le nom suivant **"SCCM DP Certificate"** et dans le champ **"Template name:"**, indiquez le nom suivant **"SCCMDPCertificate"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_26.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Template display name:"</strong> field indicate the following name <strong>"SCCM DP Certificate"</strong> and in <strong>"Template name:"</strong> field indicate the following name <strong>"SCCMDPCertificate"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_26.png" class="align-center">
+Sélectionnez l'onglet **"Request Handling"**, cochez la case **"Allow private key to be exported"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_27.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Request Handling"</strong> tab, checl the box <strong>"Allow private key to be exported"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_27.png" class="align-center">
+Sélectionnez l'onglet **"Security"**, cliquez sur **"Add..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_28.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Security"</strong> tab, click on <strong>"Add..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_28.png" class="align-center">
+Dans le champ **"Enter the object names to select (examples):"**, indiquez le nom suivant de votre groupe **"GRP_SCCM_DP_Servers"** et cliquez sur **"Check Names"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_29.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Enter the object names to select (examples):"</strong> field indicate the following name of your group <strong>"GRP_SCCM_DP_Servers"</strong> and click on <strong>"Check Names"</strong>. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_29.png" class="align-center">
+Pour le groupe **"GRP_SCCM_DP_Servers"**, cochez les cases **"Read"** et **"Enroll"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_30.png){: .align-center}
 
-<p style="text-align: justify;">For the group <strong>"GRP_SCCM_DP_Servers"</strong> check the <strong>"Read"</strong> and <strong>"Enroll"</strong> box.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_30.png" class="align-center">
+Sélectionnez le groupe **"Entreprise Admins (CORP\Entreprise Admins)"** et cliquez sur le bouton **"Remove"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_31.png){: .align-center}
 
-<p style="text-align: justify;">Select the group <strong>"Entreprise Admins (CORP\Entreprise Admins)"</strong> and click to <strong>"Remove"</strong> button. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_31.png" class="align-center">
 
+### 2.3 Certificat Client 
 
-### 2.3 Client Certificate
+Dans la console **"Certificate Templates Console"**, en bas, cliquez avec le bouton droit de la souris sur **"Workstation Authentification"** et sélectionnez **"Duplicate Template"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_32.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>Certificate Templates Console</strong>, at the bottom, right click on <strong>"Workstation Authentification"</strong> and select <strong>"Duplicate Template"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_32.png" class="align-center">
+Sélectionnez l'onglet **"General"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_33.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"General"</strong> tab.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_33.png" class="align-center">
+Dans le champ **"Template display name:"**, indiquez le nom suivant **"SCCM Client Certificate"** et dans le champ **"Template name:"**, indiquez le nom suivant **"SCCMClientCertificate"**, dans le champ **"Validity period:"**, indiquez **"3"** ans.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_34.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Template display name:"</strong> field indicate the following name <strong>"SCCM Client Certificate"</strong> and in <strong>"Template name:"</strong> field indicate the following name <strong>"SCCMClientCertificate"</strong>, in <strong>"Validity period:"</strong> field indicate <strong>"3"</strong> years.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_34.png" class="align-center">
+Sélectionnez l'onglet **"Subject Name"**, puis cochez la case **"Build from this Active Directory information"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_35.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Subject Name"</strong> tab, checl the box <strong>"Build from this Active Directory information"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_35.png" class="align-center">
+Sélectionnez l'onglet **"Request Handling"**, vérifiez que **"Allow private key to be exported"** n'est pas sélectionné.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_36.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Request Handling"</strong> tab, verify that <strong>"Allow private key to be exported"</strong> is not selected.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_36.png" class="align-center">
+Sélectionnez l'onglet **"Security"**, pour le groupe **"Domain Computers (CORP\Domain Computers)"**, cochez les cases **"Read"**, **"Enroll"** et **"Autoenroll"**. Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_37.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Security"</strong> tab, for the group <strong>"Domain Computers (CORP\Domain Computers)"</strong>, check the <strong>"Read"</strong>, <strong>"Enroll"</strong> and <strong>"Autoenroll"</strong> box. Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_37.png" class="align-center">
+Les trois modèles de SCCM sont maintenant affichés ci-dessous, fermez la console **Certificate Templates Console**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_38.png){: .align-center}
 
-<p style="text-align: justify;">The three SCCM templates are now shown below, close the <strong>Certificate Templates Console</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_38.png" class="align-center">
 
+## 3 Déployer les certificats
 
-## 3 Deploy certificates
+### 3.1 Publier les Certificates Templates
 
-### 3.1 Publishing Certificates Templates
+De retour sur la console **"certsrv"**, dans la barre de gauche, cliquez à droite sur **"Certificate Templates"** et cliquez sur **"New"** et sur **"Certificate Template to Issue"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_39.png){: .align-center}
 
-<p style="text-align: justify;">Back on <strong>"certsrv"</strong> console, in the left bar, right click on <strong>"Certificate Templates"</strong> and click on <strong>"New"</strong> and on <strong>"Certificate Template to Issue"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_39.png" class="align-center">
+Sélectionnez vos trois modèles de certificat, **"SCCM Client Certificate"**, **"SCCM DP Certificate"**, **"SCCM IIS Certificate"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_40.png){: .align-center}
 
-<p style="text-align: justify;">Select your three Certificate Templates, <strong>"SCCM Client Certificate"</strong>, <strong>"SCCM DP Certificate"</strong>, <strong>"SCCM IIS Certificate"</strong> and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_40.png" class="align-center">
 
+### 3.2 Créer une GPO d'inscription automatique pour les ordinateurs
 
-### 3.2 Create GPO autoenroll for computers
+Sur votre **contrôleur de domaine Active Directory**, pour moi **"CORPWADS1"**.<br/>
+Ouvrez la console **"Group Policy Management"**, développez **"Forest : corp.priv"**, **"Domains"**, cliquez à droite sur **"corp.priv"** et sélectionnez **"Create a GPO in this domain, and Link it here..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_41.png){: .align-center}
 
-<p style="text-align: justify;">In your <strong>Active Directory domain controller</strong>, for me <strong>"CORPWADS1"</strong>.
-<br> Open <strong>"Group Policy Management"</strong> console, expand <strong>"Forest: corp.priv"</strong>, <strong>"Domains"</strong>, click right on <strong>"corp.priv"</strong> and select <strong>"Create a GPO in this domain, and Link it here..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_41.png" class="align-center">
+Dans le champ **"Nom :"**, indiquez le nom suivant **"C-Cert_Auto_Enrollment"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_42.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Name:"</strong> field indicate the following name <strong>"C-Cert_Auto_Enrollment"</strong> and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_42.png" class="align-center">
+Cliquez à droite sur votre GPO **"C-Cert_Auto_Enrollment"** et cliquez sur **"Edit..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_43.png){: .align-center}
 
-<p style="text-align: justify;">Click right on your GPO <strong>"C-Cert_Auto_Enrollment"</strong> and click on <strong>"Edit..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_43.png" class="align-center">
+Dans la console **"Group Policy Management Editor"**, dans la barre de gauche, développez **"Computer Configuration"**, **"Policies"**, **"Windows Settings"**, **"Security Settings"**, **"Public Key Policies"** et dans la barre de droite, double-cliquez sur **"Certificate Services Client - Auto-Enrollment"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_44.png){: .align-center}
 
-<p style="text-align: justify;">On <strong>"Group Policy Management Editor"</strong> console, in the left bar, expand <strong>"Computer Configuration"</strong>, <strong>"Policies"</strong>, <strong>"Windows Settings"</strong>, <strong>"Security Settings"</strong>, <strong>"Public Key Policies"</strong> and on the right bar double click on <strong>"Caertificate Services Client - Auto-Enrollment"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_44.png" class="align-center">
+Sur le **"Configuration Model:"** sélectionnez **"Enabled"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_45.png){: .align-center}
 
-<p style="text-align: justify;">On the <strong>"Configuration Model:"</strong> select <strong>"Enabled"</strong> and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_45.png" class="align-center">
 
+### 3.3 Demandez le certificat du client dans votre serveur SCCM
 
-### 3.3 Request client certificate in your SCCM Server
+Sur votre **serveur SCCM**, pour moi **"CORPWSCM1"**.
+Ouvrez le **"Windows Start Menu"**, puis **"Command Prompt"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_46.png){: .align-center}
 
-<p style="text-align: justify;">In your <strong>SCCM Server</strong>, for me <strong>"CORPWSCM1"</strong>.
-<br> Open <strong>"Windows Start Menu"</strong>, open <strong>"Command Prompt"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_46.png" class="align-center">
+Dans l'invite de commande, tapez la commande **"certlm.msc"** et tapez **"Enter"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_47.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>Command Prompt</strong>, type the command <strong>"certlm.msc"</strong> and type <strong>"Enter"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_47.png" class="align-center">
+Dans la console certlm, dans la barre de gauche, développez **"Personal"** et double-cliquez sur **"Certificates"**.
+Vous pouvez voir les certificats publiés par défaut pour les serveurs.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_48.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>certlm</strong> console, in the left bar, expand <strong>"Personal"</strong> and double click on <strong>"Certificates"</strong>. <br>You can see the certificates published by default for the servers.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_48.png" class="align-center">
+Passez à l'invite de commande, tapez la commande **"gpupdate /force"** et tapez **"Enter"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_49.png){: .align-center}
 
-<p style="text-align: justify;">Switch in <strong>Command Prompt</strong>, type the command <strong>"gpupdate /force"</strong> and type <strong>"Enter"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_49.png" class="align-center">
+Retournez à la console **certlm**, rafraîchissez la vue, vous pouvez voir que le modèle **"SCCM Client Certificate"** a généré le certificat d'authentification du certificat du client.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_50.png){: .align-center}
 
-<p style="text-align: justify;">Return to <strong>certlm</strong> console, refresh the view, you can see the <strong>"SCCM Client Certificate"</strong> template have generate the client certificat authentification certificate.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_50.png" class="align-center">
 
+### 3.4 Générer les certificats sur les serveurs SCCM
 
-### 3.4 Request New certificates in SCCM Server
+Dans la console certlm, dans la barre de gauche, cliquez sur **"Certificates"**, cliquez sur **"All Tasks"**, cliquez sur **"Request New Certificate..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_51.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>certlm</strong> console, in the left bar, click on <strong>"Certificates"</strong>, click on <strong>"All Tasks"</strong> , click on <strong>"Request New Certificate..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_51.png" class="align-center">
+Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_52.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_52.png" class="align-center">
+Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_53.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_53.png" class="align-center">
+Cochez les cases **"SCCM DP Certificate"** et **"SCCM IIS Certificate"**. Et cliquez sur le lien **"More information is required to enroll for this certificate. Click here to configure settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_54.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"SCCM DP Certificate"</strong> and <strong>"SCCM IIS Certificate"</strong> box. And click on <strong>"More information is required to enroll for this certificate. Click here to configure settings"</strong> link.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_54.png" class="align-center">
+Dans **"Alternative name :"**, dans **"Type :"** sélectionnez **"DNS"**, dans **"Value :"** remplissez le nom DNS de votre serveur et cliquez sur **"Add >"**. Répétez l'opération avec le nom FQDN de votre serveur.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_55.png){: .align-center}
 
-<p style="text-align: justify;">In <strong>"Alternative name:"</strong>, in <strong>"Type:"</strong> select <strong>"DNS"</strong>, in <strong>"Value:"</strong> fill in the DNS name of your server and click on <strong>"Add >"</strong>. Repeat the operation with the FQDN name of your server.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_55.png" class="align-center">
+Sélectionnez l'onglet **"General"**. Dans **"Friendly name :"** remplissez le nom suivant **"SCCM IIS Cert"**.<br/>
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_56.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"General"</strong> tab. In <strong>"Friendly name:"</strong> fill in the following name <strong>"SCCM IIS Cert"</strong>. 
-<br>Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_56.png" class="align-center">
+Cliquez sur **"Enroll"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_57.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Enroll"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_57.png" class="align-center">
+Cliquez sur **"Finish"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_58.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Finish"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_58.png" class="align-center">
+Vous pouvez voir les modèles de **"SCCM DP Certificate"** et de **"SCCM IIS Certificate"** qui ont été générés.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_59.png){: .align-center}
 
-<p style="text-align: justify;">You can see the <strong>"SCCM DP Certificate"</strong> adn <strong>"SCCM IIS Certificate"</strong> templates have generated.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_59.png" class="align-center">
 
+### 3.5 Export du certificat du distribution point
 
-### 3.5 Export Distribution Point Certificate
+Cliquez à droite sur votre **"SCCM DP Certificate"**, sélectionnez **"All Tasks"** et cliquez sur **"Export..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_60.png){: .align-center}
 
-<p style="text-align: justify;">Click right on your <strong>"SCCM DP Certificate"</strong>, select <strong>"All Tasks"</strong> and click to <strong>"Export..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_60.png" class="align-center">
+Cliquez sur "Next".
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_61.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_61.png" class="align-center">
+Sélectionnez **"Yes, export the private key"** et cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_62.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"Yes, export the private key"</strong> and click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_62.png" class="align-center">
+Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_63.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_63.png" class="align-center">
+Cochez la case **"Password:"**, entrez un **"Password:"** et confirmez-le, cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_64.png){: .align-center}
 
-<p style="text-align: justify;">Check the <strong>"Password:"</strong> box, enter a <strong>"Password"</strong> and confirm it, click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_64.png" class="align-center">
+Cliquez sur le bouton **"Browse..."** et remplissez le champ, pour moi **"D:\Cert\OSD Cert.pfx"**. Cliquez sur **"Suivant"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_65.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Browse..."</strong> button and fill in the field, for me <strong>"D:\Cert\OSD Cert.pfx"</strong>. Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_65.png" class="align-center">
+Cliquez sur **"Finish"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_66.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Finish"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_66.png" class="align-center">
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_67.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_67.png" class="align-center">
 
+## 4 Modification de la configuration des Internet Information Services
 
-## 4 Changing the Internet Information Services configuration
+Sur votre **serveur SCCM**, pour moi **"CORPWSCM1"**.
+Ouvrez le **"Windows Start Menu"**, à droite, cliquez sur **"Windows Administrative Tools"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_68.png){: .align-center}
 
-<p style="text-align: justify;">In your <strong>SCCM Server</strong>, for me <strong>"CORPWSCM1"</strong>.<br>
-Open <strong>"Windows Start Menu"</strong>, on the right, click on <strong>"Windows Administrative Tools"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_68.png" class="align-center">
+Ouvrez la console **"Internet Information Services (IIS) Manager"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_69.png){: .align-center}
 
-<p style="text-align: justify;">Open the <strong>"Internet Information Services (IIS) Manager"</strong> console.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_69.png" class="align-center">
+Dans la console **"Internet Information Services (IIS) Manager"**, cliquez sur **"CORPWSCM1 (CORP\administrator)"**, cliquez sur **"Sites"**, cliquez à droite sur **"Default Web Site"** et sélectionnez **"Edit Bindings..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_70.png){: .align-center}
 
-<p style="text-align: justify;">On <strong>"Internet Information Services (IIS) Manager"</strong> console, click on <strong>"CORPWSCM1 (CORP\administrator)"</strong>, click on <strong>"Sites"</strong>, click right on <strong>"Default Web Site"</strong> and select <strong>"Edit Bindings..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_70.png" class="align-center">
+Sélectionnez la ligne **"https"** et cliquez sur **"Edit..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_71.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"https"</strong> line and click on <strong>"Edit..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_71.png" class="align-center">
+Cliquez sur **"Select..."** et sélectionnez sur **"SSL Certificate"** le certificat **"SCCM IIS Cert"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_72.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Select..."</strong> and select on <strong>"SSL Certificate"</strong> the <strong>"SCCM IIS Cert"</strong> certificate and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_72.png" class="align-center">
+Cliquez sur **"Close"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_73.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Close"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_73.png" class="align-center">
+Ouvrez **"Internet Explorer"**, allez sur le site **"https://corpwscm1.corp.priv"**. Dans la partie droite, cliquez sur l'icône **"lock"**, vous pouvez voir que votre certificat racine est corpRootCA et que le certificat est pour le serveur **"corpwscm1.corp.priv"**. Après avoir fermé **"Internet Explorer"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_74.png){: .align-center}
 
-<p style="text-align: justify;">Open <strong>"Internet Explorer"</strong>, go to the <strong>"https://corpwscm1.corp.priv"</strong> site. In the right, click on <strong>"lock icon"</strong>, you can see, your root certificate is <strong>corpRootCA</strong> and the certificate is for server <strong>"corpwscm1.corp.priv"</strong>. After close <strong>"Internet Explorer"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_74.png" class="align-center">
 
+### 4.1 Certificat pour WSUS
 
-### 4.1 Certificate for WSUS
+Sur votre **serveur WSUS**, pour moi, c'est le même que le serveur SCCM.
+Ouvrez la console **"Internet Information Services (IIS) Manager"**, cliquez à droite sur **"WSUS Administration"** et sélectionnez **"Edit Bindings..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_75.png){: .align-center}
 
-<p style="text-align: justify;">In your <strong>WSUS Server</strong>, for me, it is the same as the SCCM server. <br>Open <strong>"Internet Information Services (IIS) Manager"</strong> console, click right on <strong>"WSUS Administration"</strong> and select <strong>"Edit Bindings..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_75.png" class="align-center">
+Sélectionnez la ligne **"https"** et cliquez sur **"Edit..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_76.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"https"</strong> line and click on <strong>"Edit..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_76.png" class="align-center">
+Cliquez sur **"Select..."** et sélectionnez sur **"SSL Certificate"** le certificat **"SCCM IIS Cert"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_77.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Select..."</strong> and select on <strong>"SSL Certificate"</strong> the <strong>"SCCM IIS Cert"</strong> certificate and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_77.png" class="align-center">
+Cliquez sur **"Close"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_78.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Close"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_78.png" class="align-center">
 
+### 4.2 Modifier les paramètres SSL des services d'information sur Internet du WSUS
 
-### 4.2 Modify WSUS Internet Information Services SSL Settings
+Dépensez **"WSUS Administration"**, sélectionnez **"ApiRemoting30"**, double-cliquez sur **"SSL Settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_79.png){: .align-center}
 
-<p style="text-align: justify;">Expend <strong>"WSUS Administration"</strong>, select <strong>"ApiRemoting30"</strong>, double click on <strong>"SSL Settings"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_79.png" class="align-center">
+Cochez la case **"Require SSL"** et cliquez à droite sur **"Apply"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_80.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"Require SSL"</strong> box and on right, click on <strong>"Apply"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_80.png" class="align-center">
+Sélectionnez **"ClientWebService"**, double-cliquez sur **"SSL Settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_81.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"ClientWebService"</strong>, double click on <strong>"SSL Settings"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_81.png" class="align-center">
+Cochez la case **"Require SSL"** et cliquez à droite sur **"Apply"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_82.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"Require SSL"</strong> box and on right, click on <strong>"Apply"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_82.png" class="align-center">
+Sélectionnez **"DssAuthWebService"**, double-cliquez sur **"SSL Settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_83.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"DssAuthWebService"</strong>, double click on <strong>"SSL Settings"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_83.png" class="align-center">
+Cochez la case **"Require SSL"** et cliquez à droite sur **"Apply"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_84.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"Require SSL"</strong> box and on right, click on <strong>"Apply"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_84.png" class="align-center">
+Sélectionnez **"ServerSyncWebService"**, double-cliquez sur **"SSL Settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_85.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"ServerSyncWebService"</strong>, double click on <strong>"SSL Settings"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_85.png" class="align-center">
+Cochez la case **"Require SSL"** et cliquez à droite sur **"Apply"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_86.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"Require SSL"</strong> box and on right, click on <strong>"Apply"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_86.png" class="align-center">
+Sélectionnez **"SimpleAuthWebService"**, double-cliquez sur **"SSL Settings"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_87.png){: .align-center}
 
-<p style="text-align: justify;">Select <strong>"SimpleAuthWebService"</strong>, double click on <strong>"SSL Settings"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_87.png" class="align-center">
+Cochez la case **"Require SSL"** et cliquez à droite sur **"Apply"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_88.png){: .align-center}
 
-<p style="text-align: justify;">Check <strong>"Require SSL"</strong> box and on right, click on <strong>"Apply"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_88.png" class="align-center">
 
+## 5 Configurer WSUS pour l'utilisation de SSL
 
-## 5 Configure WSUS for use SSL
+Ouvrez le **"Windows Start Menu"**, à gauche, développez **"Windows System"**, cliquez sur **"Command Prompt"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_89.png){: .align-center}
 
-<p style="text-align: justify;">Open <strong>"Windows Start Menu"</strong>, on the left, expand <strong>"Windows System"</strong>, click on <strong>"Command Prompt"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_89.png" class="align-center">
-
-<p style="text-align: justify;">On <strong>"Command Prompt"</strong>, use the following command :</p>
+Dans le **"Command Prompt"**, utilisez la commande suivante :
+{: .text-justify}
 ```powershell
 C:\Users\administrator.CORP>cd C:\Program Files\Update Services\Tools
 ```
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_90.png" class="align-center">
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_90.png){: .align-center}
 
-<p style="text-align: justify;">On <strong>"Command Prompt"</strong>, use the following command :</p>
+Dans le **"Command Prompt"**, utilisez la commande suivante :
+{: .text-justify}
 ```powershell
 C:\Program Files\Update Services\Tools>WsusUtil.exe configuressl corpwscm1.corp.priv
 ```
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_91.png" class="align-center">
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_91.png){: .align-center}
 
 
-## 6 Export your RootCA
+## 6 Exportez votre RootCA
 
-<p style="text-align: justify;">In your <strong>Active Directory Certificate Service</strong>, for me <strong>"CORPWADS1"</strong>.
-<br> Open <strong>"Windows Start Menu"</strong>, in the search bar search <strong>"CertSrv.msc"</strong> console and open it.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_92.png" class="align-center">
+Sur votre **Active Directory Certificate Service**, pour moi **"CORPWADS1"**.
+Ouvrez le **"Windows Start Menu"**, dans la barre de recherche, cherchez la console **"CertSrv.msc"** et ouvrez-la.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_92.png){: .align-center}
 
-<p style="text-align: justify;">In the left bar, right click on <strong>"corpRootCA"</strong> and select <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_93.png" class="align-center">
+Dans la barre de gauche, faites un clic droit sur **"corpRootCA"** et sélectionnez **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_93.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"View Cartificate"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_94.png" class="align-center">
+Cliquez sur **"View Cartificate"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_94.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Details"</strong> tab and click on <strong>"Copy to File..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_95.png" class="align-center">
+Cliquer sur l'onglet **"Details"** et cliquer sur **"Copy to File..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_95.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_96.png" class="align-center">
+Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_96.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_97.png" class="align-center">
+Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_97.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Browse..."</strong> and fill in the <strong>"File name:"</strong> field your certificate file name <strong>C:\Users\Administrator\Documents\corpRootCA.cer</strong>. Click on <strong>"Next"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_98.png" class="align-center">
+Cliquez sur **"Browse..."** et remplissez le champ **"File name:"** en indiquant le nom du fichier de votre certificat **C:\Users\Administrator\Documents\corpRootCA.cer** Cliquez sur **"Next"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_98.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Finish"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_99.png" class="align-center">
+Cliquez sur **"Finish"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_99.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_100.png" class="align-center">
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_100.png){: .align-center}
 
-<p style="text-align: justify;">Copy your <strong>corpRootCA.cer</strong> in your SCCM Server.</p>
-
-
-## 7 Configure SCCM to use HTTPS client communication
-
-<p style="text-align: justify;">In your <strong>SCCM Server</strong>, for me <strong>"CORPWSCM1"</strong>. Open <strong>"Microsoft Endpoint Configuration Manager"</strong> console .<br>
-Open <strong>"Windows Start Menu"</strong>, on the right, click on <strong>"Windows Administrative Tools"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_101.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"Communication Security"</strong> tab and click on <strong>"Set..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_102.png" class="align-center">
-
-<p style="text-align: justify;">Click on the <strong>Sun icon</strong> and select your <strong>corpRootCA.cer</strong> file, click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_103.png" class="align-center">
-
-<p style="text-align: justify;">Check <strong>"HTTPS Only"</strong> and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_104.png" class="align-center">
+Copiez votre fichier **corpRootCA.cer** sur votre serveur SCCM.
 
 
-### 7.1 Configure the Distribution Point for using SSL
+## 7 Configurer SCCM pour utiliser la communication client HTTPS
 
-<p style="text-align: justify;">In left panel select <strong>"Servers and Site System Roles"</strong>, on right side select your server <strong>"\\CORPWSCM1.corp.priv"</strong>, click on <strong>"Distribution point"</strong> and click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_105.png" class="align-center">
+Sur votre serveur SCCM, pour moi **"CORPWSCM1"**. Ouvrez la console **"Microsoft Endpoint Configuration Manager"**.
+Ouvrez le **"Windows Start Menu"**, à droite, cliquez sur **"Windows Administrative Tools"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_101.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Communication"</strong> tab, check the <strong>"Import certificate"</strong> box. Click on <strong>"Browse..."</strong> and select the OSD certificate <strong>D:\Cert\OSD Cert.pxf</strong> in the <strong>"Certificate:"</strong>, fill in the <strong>"Password:"</strong> field your certificate password and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_106.png" class="align-center">
+Cliquez sur l'onglet **"Communication Security"** et cliquez sur **"Set..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_102.png){: .align-center}
 
+Cliquez sur **l'icône en forme soleil** et sélectionnez votre fichier **corpRootCA.cer**, cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_103.png){: .align-center}
 
-### 7.2 Configure the Management Point for using SSL
-
-<p style="text-align: justify;">Click on <strong>"Distribution point"</strong> and click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_107.png" class="align-center">
-
-<p style="text-align: justify;">Verify if the <strong>HTTPS</strong> box is selected and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_108.png" class="align-center">
-
-
-### 7.3 Configure the Software update Point for using SSL
-
-<p style="text-align: justify;">Click on <strong>"Software update point"</strong> and click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_109.png" class="align-center">
-
-<p style="text-align: justify;">Check the <strong>"Require SSL communication to the WSUS server"</strong> box and click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_110.png" class="align-center">
+Cochez **"HTTPS Only"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_104.png){: .align-center}
 
 
-### 7.4 Check the logs
+### 7.1 Configurer le Distribution Point pour l'utilisation de SSL
 
-<p style="text-align: justify;">Open <strong>"D:\Program Files\Microsoft Configuration Manager\Logs\sitecomp.log"</strong>.
-In <strong>sitecomp.log</strong> you can see this initiated the Management Point to reinstall itself with the new settings.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_111.png" class="align-center">
+Dans le panneau de gauche, sélectionnez **"Servers and Site System Roles"**, dans le panneau de droite, sélectionnez votre serveur **"\\\CORPWSCM1.corp.priv"**, cliquez sur **"Distribution point"** et cliquez sur **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_105.png){: .align-center}
 
-<p style="text-align: justify;">Open <strong>"D:\Program Files\Microsoft Configuration Manager\Logs\MPSetup.log"</strong>.
-In <strong>MPSetup.log</strong> you can see the communication is in SSL mode.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_112.png" class="align-center">
-
-<p style="text-align: justify;">Open <strong>"D:\Program Files\Microsoft Configuration Manager\Logs\mpcontrol.log"</strong>.
-In <strong>mpcontrol.log</strong> you can see the communication in HTTPS is OK.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_113.png" class="align-center">
-
-<p style="text-align: justify;">Open <strong>"D:\Program Files\Microsoft Configuration Manager\Logs\WCM.log"</strong>.
-In <strong>WCM.log</strong> you can see Software Update Point reconfigure to use the communication in HTTPS.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_114.png" class="align-center">
+Cliquez sur l'onglet **"Communication"**, cochez la case **"Import certificate"**. Cliquez sur **"Browse..."** et sélectionnez le certificat OSD **D:\Cert\OSD Cert.pxf** dans le champ **"Certificate:"**, remplissez le champ **"Password:"** de votre mot de passe de certificat et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_106.png){: .align-center}
 
 
-## 8 Verify client certificate and SSL communication with SCCM
+### 7.2 Configurer le Management Point pour l'utilisation de SSL
 
-<p style="text-align: justify;">In your <strong>Client</strong>, for me <strong>"WD01"</strong>.
-<br> Open <strong>"Windows Start Menu"</strong>, in the search bar search <strong>"certlm.msc"</strong> console and open it.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_115.png" class="align-center">
+Cliquez sur **"Distribution point"** et cliquez sur **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_107.png){: .align-center}
 
-<p style="text-align: justify;">In the left bar, expand <strong>"Personal"</strong>, click on <strong>"Certificates"</strong>. <br>You can see the certificate <strong>"SCCM Client Certificate"</strong> have requested by the client.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_116.png" class="align-center">
-
-<p style="text-align: justify;">Open <strong>"Control Panel"</strong>, and open the <strong>"Configuration Manager Client agent"</strong>.
-<br>In your <strong>"Client certificate:"</strong> Property, you will see for the moment is <strong>"Selft-signed"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_117.png" class="align-center">
-
-<p style="text-align: justify;">Close <strong>"Configuration Manager Client agent"</strong> and after couple of minutes repopen it.
-<br>In your <strong>"Client certificate:"</strong> Property, you will see now is <strong>"PKI"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_118.png" class="align-center">
-
-<p style="text-align: justify;">Open <strong>"C:\Windows\CCM\Logs\ClientIDManagerStartup.log"</strong>.<br>
-In <strong>ClientIDManagerStartup.log</strong> you can see Client PKI Certificate is available.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_119.png" class="align-center">
-
-<p style="text-align: justify;">Open <strong>"C:\Windows\CCM\Logs\CcmMessaging.log"</strong>.<br>
-In <strong>CcmMessaging.log</strong> you can see the communication is successfuly.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_120.png" class="align-center">
+Vérifiez si la case HTTPS est sélectionnée et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_108.png){: .align-center}
 
 
-<p style="text-align: justify;">There you go ! Your SCCM infrastructure now uses PKI to communicate.</p>
+### 7.3 Configurer le Software update Point pour l'utilisation de SSL
 
-<p style="text-align: justify;"><strong>Sources :</strong></p>
-<ul>
-  <li><a href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/network/pki-certificate-requirements">PKI certificate requirements for Configuration Manager</a></li>
-  <li><a href="https://www.windows-noob.com/forums/topic/16300-how-can-i-configure-system-center-configuration-manager-in-https-mode-pki-part-1/">How can I configure System Center Configuration Manager in HTTPS mode (PKI) - Part 1</a></li>
-  <li><a href="https://www.windows-noob.com/forums/topic/16301-how-can-i-configure-system-center-configuration-manager-in-https-mode-pki-part-2/">How can I configure System Center Configuration Manager in HTTPS mode (PKI) - Part 2</a></li>
-  <li><a href="https://www.prajwaldesai.com/deploy-pki-certificates-for-sccm-2012-r2/">Deploy PKI Certificates for SCCM 2012 R2 Step by Step Guide</a></li>
-  <li><a href="https://gmarculescu.com/?p=81">Set up HTTPS client communication with SCCM</a></li>
-  <li><a href="https://danikuci.wordpress.com/2014/03/26/configuring-sccm-for-managing-macs/">Configuring SCCM 2012 for PKI and SSL: Setting up HTTPS communication</a></li>
-</ul>
+Cliquez sur **"Software update point"** et cliquez sur **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_109.png){: .align-center}
+
+Cochez la case **"Require SSL communication to the WSUS server"** et cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_110.png){: .align-center}
+
+
+### 7.4 Vérifiez les logs
+
+Ouvrez **"D:\Program Files\Microsoft Configuration Manager\Logs\sitecomp.log"**. Dans **sitecomp.log**, vous pouvez voir que le point de gestion a été initié pour se réinstaller avec les nouveaux paramètres.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_111.png){: .align-center}
+
+Ouvrez **"D:\Program Files\Microsoft Configuration Manager\Logs\MPSetup.log"**. Dans **MPSetup.log**, vous pouvez voir que la communication est en mode SSL.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_112.png){: .align-center}
+
+Ouvrez **"D:\Program Files\Microsoft Configuration Manager\Logs\mpcontrol.log"**. Dans **mpcontrol.log**, vous pouvez voir que la communication en HTTPS est OK.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_113.png){: .align-center}
+
+Ouvrez **"D:\Program Files\Microsoft Configuration Manager\Logs\WCM.log"**. Dans le fichier **WCM.log**, vous pouvez voir le point de mise à jour du logiciel reconfiguré pour utiliser la communication en HTTPS.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_114.png){: .align-center}
+
+
+## 8 Vérifier le certificat client et la communication SSL avec le SCCM
+
+Sur votre client, pour moi **"WD01"**.
+Ouvrez le **"Windows Start Menu"**, dans la barre de recherche, cherchez la console **"certlm.msc"** et ouvrez-la.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_115.png){: .align-center}
+
+Dans la barre de gauche, développez **"Personal"**, cliquez sur **"Certificates"**.
+Vous pouvez voir le certificat **"SCCM Client Certificate"** demandé par le client.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_116.png){: .align-center}
+
+Ouvrez le **"Control Panel"**, et ouvrez le **"Configuration Manager Client agent"**.
+Dans votre **"Client certificate:"**. Propriété, vous verrez pour le moment est **"Selft-signed"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_117.png){: .align-center}
+
+Fermez le **"Configuration Manager Client agent"** et après quelques minutes, rouvrez-le.
+Dans votre **"Client certificate:"**, vous verrez Property, vous verrez maintenant est **"PKI"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_118.png){: .align-center}
+
+Ouvrez **"C:\Windows\CCM\Logs\ClientIDManagerStartup.log"**.<br/>
+Dans **ClientIDManagerStartup.log**, vous pouvez voir que le certificat PKI du client est disponible.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_119.png){: .align-center}
+
+Ouvrez **"C:\Windows\CCM\Logs\CcmMessaging.log"**.<br/>
+Dans le fichier **CcmMessaging.log**, vous pouvez voir que la communication est réussie.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-12-05-sccm-how-to-configure-https-communication/2020-04-25-08_46_120.png){: .align-center}
+
+Et voilà ! Votre infrastructure SCCM utilise maintenant votre PKI pour communiquer.
+
+
+## 9 Sources
+
+- [PKI certificate requirements for Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/network/pki-certificate-requirements)
+- [How can I configure System Center Configuration Manager in HTTPS mode (PKI) - Part 1](https://www.windows-noob.com/forums/topic/16300-how-can-i-configure-system-center-configuration-manager-in-https-mode-pki-part-1/)
+- [How can I configure System Center Configuration Manager in HTTPS mode (PKI) - Part 2](https://www.windows-noob.com/forums/topic/16301-how-can-i-configure-system-center-configuration-manager-in-https-mode-pki-part-2/)
+- [Deploy PKI Certificates for SCCM 2012 R2 Step by Step Guide](https://www.prajwaldesai.com/deploy-pki-certificates-for-sccm-2012-r2/)
+- [Set up HTTPS client communication with SCCM](https://gmarculescu.com/?p=81)
+- [Configuring SCCM 2012 for PKI and SSL: Setting up HTTPS communication](https://danikuci.wordpress.com/2014/03/26/configuring-sccm-for-managing-macs/)

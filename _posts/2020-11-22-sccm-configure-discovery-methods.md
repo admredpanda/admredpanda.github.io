@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "How to configure Discovery Methods in System Center Configuration Manager"
+title:  "Comment configurer les Discovery Methods dans System Center Configuration Manager"
 last_modified_at: 2020-12-07
 header:
   teaser: "/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/logo-sccm-444x240.png"
@@ -44,89 +44,117 @@ tags:
   - Active Directory Users Discovery
 ---
 
-<p style="text-align: justify;"><img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/logo-sccm-222x150.png" class="align-left">Configuration manager's discovery methods allow several Active Directory objects or network resources to be imported into SCCM automatically. In the following article, I will detail the following methods of discovery : Active Directory Forest Discovery, Active Directory Group Discovery, Active Directory System Discovery, Active Directory Users Discovery.</p>
+![image-left](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/logo-sccm-222x150.png){: .align-left}
+Les **discovery methods** de configuration manager permettent d'importer automatiquement plusieurs objets Active Directory ou ressources réseau dans SCCM. Dans l'article suivant, je détaillerai les discovery methods suivants : **Active Directory Forest Discovery**, **Active Directory Group Discovery**, **Active Directory System Discovery**, **Active Directory Users Discovery**.
+{: .text-justify}
+
+{% include toc icon="align-left" title="Table des matières" %}
 
 
-## Before starting
-<p style="text-align: justify;">You can read the following articles :</p>
-<ol>
-  <li><a href="{{ site.baseurl }}/active%20directory/install-active-directory/">How to install a domain controller Active Directory on Windows Server</a></li>
-  <li><a href="{{ site.baseurl }}/sql/install-sql-server-2016/">How to installer Microsoft SQL Server 2016</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-install-prerequisites/">How to install the prerequisites for System Center Configuration Manager</a></li>
-  <li><a href="{{ site.baseurl }}/sccm/sccm-install/">How to install System Center Configuration Manager</a></li>
-</ol>
+## 1 Avant de commencer
+
+Vous pouvez lire les articles suivants :
+{: .text-justify}
+1. [Comment installer un contrôleur de domaine Active Directory sur Windows Server](/active%20directory/install-active-directory)
+2. [Comment installer un serveur DHCP sur Windows Server](/dhcp/install-dhcp-server/)
+3. [Comment installer Microsoft SQL Server 2016](/sql/install-sql-server-2016/)
+4. [Comment installer les prérequis pour System Center Configuration Manager](/sccm/sccm-install-prerequisites/)
+5. [Comment installer System Center Configuration Manager](/sccm/sccm-install/)
+{: .text-justify}
 
 
-## Discovery Methods
+## 2 Discovery Methods
 
-### Active Directory Forest Discovery
+### 2.1 Active Directory Forest Discovery
 
-<p style="text-align: justify;">In the <strong>"Configuration Manager Console"</strong>, in the bottom left panel, select <strong>"Administration"</strong>. Scroll down the <strong>"Hierachy Configuration"</strong> folder and select <strong>"Discovery Methods"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_18-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans la **"Configuration Manager Console"**, dans le panneau inférieur gauche, sélectionnez **"Administration"**. Faites dérouler le dossier **"Hierachy Configuration"** vers le bas et sélectionnez **"Discovery Methods"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_18-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">On the right hand part, select <strong>"Active Directory Forest Discovery"</strong> and in the ribbon, click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_19-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans la partie droite, sélectionnez **"Active Directory Forest Discovery"** et dans le ruban, cliquez sur **"Propriétés"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_19-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Check the <strong>"Enable Active Directory Forest Discovery"</strong> box, and the <strong>"Automatically create Active Directory site boundaries when they are discovered"</strong> box.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_20-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Cochez la case **"Activer Active Directory Forest Discovery"** et la case **"Créer automatiquement les limites du site Active Directory lorsqu'elles sont découvertes"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_20-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Yes"</strong> to run the discovery immediately.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_21-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-
-### Active Directory Group Discovery
-
-<p style="text-align: justify;">On the right hand part, select <strong>"Active Directory Group Discovery"</strong> and in the ribbon, click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_22-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Check the box <strong>"Enable Active Directory Group Discovery"</strong>, at the bottom click on <strong>"Add"</strong> then <strong>"Location..."</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_23-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">In the <strong>"Name:"</strong> field enter the name of the location, for me <strong>"Corp - Groups Users"</strong>, in the <strong>"Location:"</strong> section. Click on <strong>"Browse..."</strong> and select your OU, I would use for my part <strong>"LDAP://OU=Groups,OU=Paris,OU=Site,OU=CORP,DC=corp,DC=priv"</strong>. <br>Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_24-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_25-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"Yes"</strong> to execute the discovery immediately.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Cliquez sur **"Oui"** pour lancer la découverte immédiatement.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_21-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
 
-### Active Directory System Discovery
+### 2.2 Active Directory Group Discovery
 
-<p style="text-align: justify;">On the right hand part, select <strong>"Active Directory System Discovery"</strong> and in the ribbon, click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_27-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans la partie droite, sélectionnez **"Active Directory Group Discovery"** et dans le ruban, cliquez sur **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_22-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Check the box <strong>"Enable Active Directory System Discovery"</strong>, click on the button with the <strong>"sun symbol"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_28-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Cochez la case **"Activer la découverte du groupe Active Directory"**, en bas cliquez sur **"Ajouter"** puis **"Localisation..."**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_23-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">In the <strong>"Path:"</strong> field, click on <strong>"Browse..."</strong> and select your OU, I would use for my part <strong>"LDAP://DC=corp,DC=priv"</strong>. <br>Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_29-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Dans le champ **"Name :"**, entrez le nom de l'emplacement, pour moi **"Corp - Groups Users"**, dans la section **"Location :"**. Cliquez sur **"Browse..."** et sélectionnez votre OU, j'utiliserais pour ma part **"LDAP://OU=Groupes,OU=Paris,OU=Site,OU=CORP,DC=corp,DC=priv"**.<br/>
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_24-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_30-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_25-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
-<p style="text-align: justify;">Click on <strong>"Yes"</strong> to execute the discovery immediately.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-
-### Active Directory Users Discovery
-
-<p style="text-align: justify;">On the right hand part, select <strong>"Active Directory Users Discovery"</strong> and in the ribbon, click on <strong>"Properties"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_31-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Check the box <strong>"Enable Active Directory Users Discovery"</strong>, click on the button with the <strong>"sun symbol"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_32-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">In the <strong>"Path:"</strong> field, click on <strong>"Browse..."</strong> and select your OU, I would use for my part <strong>"LDAP://DC=corp,DC=priv"</strong>. <br>Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_33-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"OK"</strong>.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_34-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
-
-<p style="text-align: justify;">Click on <strong>"Yes"</strong> to execute the discovery immediately.</p>
-<img src="{{ site.baseurl }}/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png" class="align-center">
+Cliquez sur **"Oui"** pour exécuter la découverte immédiatement.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
 
 
+### 2.3 Active Directory System Discovery
 
-<p style="text-align: justify;">There you go ! The discovery is now configured, you can now find all your Active Directory objects in SCCM.</p>
+Dans la partie droite, sélectionnez **"Active Directory System Discovery"** et dans le ruban, cliquez sur **"Propriétés"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_27-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+
+Cochez la case **"Activer la découverte du système Active Directory"**, cliquez sur le bouton avec le **"symbole en forme de soleil"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_28-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Dans le champ **"Path :", cliquez sur "Browse..."** et sélectionnez votre OU, j'utiliserais pour ma part **"LDAP://DC=corp,DC=priv"**.<br/>
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_29-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_30-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cliquez sur **"Oui"** pour exécuter la découverte immédiatement.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+
+### 2.4 Active Directory Users Discovery
+
+Dans la partie droite, sélectionnez **"Active Directory Users Discovery"** et dans le ruban, cliquez sur **"Properties"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_31-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cochez la case **"Activer la découverte des utilisateurs d'Active Directory"**, cliquez sur le bouton avec le **"symbole du soleil"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_32-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Dans le champ **"Path :"**, cliquez sur **"Browse..."** et sélectionnez votre OU, j'utiliserais pour ma part **"LDAP://DC=corp,DC=priv"**.<br/>
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_33-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cliquez sur **"OK"**.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_34-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Cliquez sur **"Oui"** pour exécuter la découverte immédiatement.
+{: .text-justify}
+![image-center](/assets/images/posts/2020-11-22-sccm-configure-discovery-methods/2020-06-06-20_37_26-mRemoteNG---confCons.xml---CORPWSCM1.png){: .align-center}
+
+Et voilà ! La découverte est maintenant configurée, vous pouvez maintenant trouver tous vos objets Active Directory dans SCCM.
+{: .text-justify}
