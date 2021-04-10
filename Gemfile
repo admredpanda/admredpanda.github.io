@@ -28,7 +28,7 @@ group :jekyll_plugins do
   gem 'jekyll-include-cache'
   gem 'jekyll-analytics'
   gem 'jekyll-asciidoc', '~> 2.1.1'
-  gem "kramdown", ">= 2.3.0"
+  gem "kramdown", ">= 2.3.1"
   gem "kramdown-parser-gfm"
   gem "nokogiri", ">= 1.11.0"
 end
