@@ -41,3 +41,5 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # Active support
 gem "activesupport", ">= 4.1.11"
+
+gem "hosted-git-info", ">=2.8.9" if Gem.win_platform?
