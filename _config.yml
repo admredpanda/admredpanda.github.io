@@ -86,15 +86,10 @@ social:
 
 # Analytics
 analytics:
-  provider               : "custom" # false (default), "google", "google-universal", "google-gtag", "custom"
+  provider               : "google" # false (default), "google", "google-universal", "google-gtag", "custom"
   google:
-    tracking_id          : #"UA-135500277-2"
-    anonymize_ip         : # true, false (default)
-# Jekyll Analytic
-#jekyll_analytics:
-#  Matomo:                   # Add, if you want to track with Matomo (former Piwik Analytics)
-#    url: analytics.labvl.net # Required - url to Matomo installation without trailing /
-#    siteId: "1"  
+    tracking_id          : "UA-135500277-2"
+    anonymize_ip         : true # true, false (default)
 
 # Site Author
 author:
