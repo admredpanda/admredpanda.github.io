@@ -57,7 +57,7 @@ tags:
 **Azure Active Directory** (Azure AD) est le service de gestion des identités et des accès de Microsoft basé sur le cloud. Il permet à vos employés de se connecter et d'accéder aux ressources suivantes telles que **Microsoft 365**, **Azure portal**, **SaaS applications**. Il permet notamment de mettre en place une authentification unique et simplifiée pour l'accès aux ressources de l'entreprise, de mettre en place un **conditional access** et le **multi-factor authentication (MFA)**.
 {: .text-justify}
 
-{% include toc icon="align-left" title="Table of Content" %}
+{% include toc icon="align-left" title="Table des matières" %}
 
 ## 1 Concept
 
