@@ -1,4 +1,4 @@
-# LABVL Blog : blog.labvl.net
+# LabVL Blog : blog.labvl.net
 
 - Web Hosting : [GitHub](https://pages.github.com/)
 - Theme: [Minimal Mistakes 4.22.0](https://github.com/mmistakes/minimal-mistakes)
