@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.4)
+    activesupport (6.1.7.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -12,10 +12,11 @@ GEM
     asciidoctor (2.0.15)
     coderay (1.1.3)
     colorator (1.1.0)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    eventmachine (1.2.7)
     eventmachine (1.2.7-x64-mingw32)
     faraday (1.5.0)
       faraday-em_http (~> 1.0)
@@ -34,6 +35,7 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
     faraday-patron (1.0.0)
+    ffi (1.15.3)
     ffi (1.15.3-x64-mingw32)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
@@ -41,7 +43,7 @@ GEM
       activesupport (>= 2)
       nokogiri (>= 1.4)
     http_parser.rb (0.6.0)
-    i18n (1.8.10)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jekyll (4.2.0)
       addressable (~> 2.4)
@@ -97,9 +99,11 @@ GEM
       jekyll-include-cache (~> 0.1)
       jekyll-paginate (~> 1.1)
       jekyll-sitemap (~> 1.3)
-    minitest (5.14.4)
+    minitest (5.17.0)
     multipart-post (2.1.1)
     nokogiri (1.11.7-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.11.7-x86_64-linux)
       racc (~> 1.4)
     octokit (4.21.0)
       faraday (>= 0.9)
@@ -115,6 +119,8 @@ GEM
     rouge (3.26.0)
     ruby2_keywords (0.0.4)
     safe_yaml (1.0.5)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
     sawyer (0.8.2)
@@ -122,16 +128,16 @@ GEM
       faraday (> 0.8, < 2.0)
     terminal-table (2.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    tzinfo (2.0.4)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (1.7.0)
-    wdm (0.1.1)
-    zeitwerk (2.4.2)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   activesupport (>= 4.1.11)
@@ -151,7 +157,6 @@ DEPENDENCIES
   minimal-mistakes-jekyll
   nokogiri (>= 1.11.4)
   tzinfo-data
-  wdm (~> 0.1.0)
 
 BUNDLED WITH
    2.2.17
