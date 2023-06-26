@@ -27,7 +27,7 @@ repository               : "vlepineadm/vlepineadm.github.io" # GitHub username/r
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/Desktop-153x88.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
-# breadcrumbs            : false # true, false (default)
+#breadcrumbs              : #true, false (default)
 words_per_minute         : 100
 comments:
   provider               : "utterances" # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
@@ -86,10 +86,10 @@ social:
 
 # Analytics
 analytics:
-  provider               : "google" # false (default), "google", "google-universal", "google-gtag", "custom"
-  google:
-    tracking_id          : "UA-135500277-2"
-    anonymize_ip         : false # true, false (default)
+  provider               : "custom" # false (default), "google", "google-universal", "google-gtag", "custom"
+#  google:
+#    tracking_id          : "UA-135500277-2"
+#    anonymize_ip         : false # true, false (default)
 
 # Site Author
 author:
@@ -277,7 +277,7 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: false # true
+      comments: true
       share: true
       related: true
 
