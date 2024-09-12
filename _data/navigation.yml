@@ -1,8 +1,0 @@
-# main links
-main:
-  - title: "Articles"
-    url: /posts/
-  - title: "Catégories "
-    url: /categories/
-  - title: "À propos"
-    url: /about/
