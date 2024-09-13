@@ -1,7 +1,9 @@
-# LabVL Blog : blog.labvl.net
+# LabVL Blog : adminredpanda.github.io
+
+[![Deploy static content to Pages](https://github.com/AdminRedPanda/adminredpanda.github.io/actions/workflows/mkdocs-build-sanity-check.yml/badge.svg)](https://github.com/AdminRedPanda/adminredpanda.github.io/actions/workflows/mkdocs-build-sanity-check.yml)
 
 - Web Hosting : [GitHub](https://pages.github.com/)
-- Theme: [Minimal Mistakes 4.22.0](https://github.com/mmistakes/minimal-mistakes)
-- Jekyll : [4.2.0](https://github.com/jekyll/jekyll)
+- MkDocs Material: [Github](https://github.com/squidfunk/mkdocs-material)
+- MkDocs : [GitHub](https://github.com/mkdocs/mkdocs)
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40vlepineadm)](https://twitter.com/vlepineadm)

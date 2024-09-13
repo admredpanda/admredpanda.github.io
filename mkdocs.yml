@@ -27,7 +27,7 @@ site_description: >-
   minutes – searchable, customizable, in 60+ languages, for all devices
 
 # Repository
-repo_name: AdminRedPanda/adminredpanda.github.io
+repo_name: AdminRedPanda/adminredpanda
 repo_url: https://github.com/AdminRedPanda/adminredpanda.github.io
 
 # Copyright
@@ -98,7 +98,7 @@ plugins:
       date_from_meta:
         as_creation: date.created
         as_update: date.updated
-  - git-authors
+#  - git-authors
   - git-committers:
       repository: AdminRedPanda/adminredpanda.github.io
       branch: main
@@ -121,7 +121,7 @@ extra:
       name: send me an email
       link: mailto:vlepineadm@outlook.com 
     - icon: material/rss
-      link: 'https://adminredpanda.github.io/rss/'
+      link: 'https://adminredpanda.github.io/feed_rss_created.xml'
     - icon: fontawesome/brands/github
       link: https://github.com/AdminRedPanda/
     - icon: fontawesome/brands/x-twitter
