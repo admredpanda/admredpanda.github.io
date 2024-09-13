@@ -19,7 +19,7 @@
 # IN THE SOFTWARE.
 
 # Project information
-site_name: PandAdmin
+site_name: AdminRedPanda
 site_url: https://adminredpanda.github.io/
 site_author: Valentin Lépine
 site_description: >-
@@ -27,7 +27,7 @@ site_description: >-
   minutes – searchable, customizable, in 60+ languages, for all devices
 
 # Repository
-repo_name: AdminRedPanda/adminredpanda
+repo_name: adminredpanda.github.io
 repo_url: https://github.com/AdminRedPanda/adminredpanda.github.io
 
 # Copyright
@@ -38,6 +38,8 @@ theme:
   name: material
   language: fr
   custom_dir: material/overrides
+  logo: 'assets/favicon.png'
+  favicon: 'assets/favicon.png'
   features:
     #- announce.dismiss
     - content.action.edit
@@ -50,7 +52,7 @@ theme:
     - content.tooltips
     - header.autohide
     - navigation.expand
-    #- navigation.footer
+    - navigation.footer
     - navigation.indexes
     - navigation.instant
     - navigation.instant.prefetch
@@ -99,9 +101,9 @@ plugins:
         as_creation: date.created
         as_update: date.updated
 #  - git-authors
-  - git-committers:
-      repository: AdminRedPanda/adminredpanda.github.io
-      branch: main
+#  - git-committers:
+#      repository: AdminRedPanda/adminredpanda.github.io
+#      branch: main
 
 # Hooks
 hooks:

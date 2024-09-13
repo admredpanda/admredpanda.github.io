@@ -8,6 +8,8 @@ description: >
 categories:
   - Search
 comments: true
+hide:
+  - feedback
 ---
 
 # Chinese search support – 中文搜索​支持
