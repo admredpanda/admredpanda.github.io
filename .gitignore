@@ -62,8 +62,8 @@ example.zip
 TODO
 tmp
 
-# Visual Studio Code
-.code-workspace
+# Visual Studdio Code
+*.code-workspace
 
 # IDEs & Editors
 .idea

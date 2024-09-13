@@ -20,15 +20,15 @@
 
 # Project information
 site_name: PandAdmin
-site_url: https://vlepineadm.github.io/
+site_url: https://adminredpanda.github.io/
 site_author: Valentin Lépine
 site_description: >-
   Write your documentation in Markdown and create a professional static site in
   minutes – searchable, customizable, in 60+ languages, for all devices
 
 # Repository
-#repo_name: squidfunk/mkdocs-material
-#repo_url: https://github.com/squidfunk/mkdocs-material
+repo_name: AdminRedPanda/adminredpanda.github.io
+repo_url: https://github.com/AdminRedPanda/adminredpanda.github.io
 
 # Copyright
 copyright: Copyright &copy; 2016 - 2024 PandAdmin
@@ -121,7 +121,7 @@ extra:
       name: send me an email
       link: mailto:vlepineadm@outlook.com 
     - icon: material/rss
-      link: 'http://127.0.0.1:8000/rss/'
+      link: 'https://adminredpanda.github.io/rss/'
     - icon: fontawesome/brands/github
       link: https://github.com/vlepineadm
     - icon: fontawesome/brands/x-twitter
