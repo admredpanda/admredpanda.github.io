@@ -1,8 +1,11 @@
 name: 'mkdocs sanity check'
-on: 
-  pull_request:
-    types: [opened, synchronize]
-
+on:
+    push:
+      branches:
+        - main
+#on: 
+#  pull_request:
+#    types: [opened, synchronize]
 jobs:
   mkdocs-sanity-check:
     name: Check mkdocs builds successfully
