@@ -100,7 +100,7 @@ plugins:
         as_update: date.updated
   - git-authors
   - git-committers:
-      repository: squidfunk/mkdocs-material
+      repository: AdminRedPanda/adminredpanda.github.io
       branch: main
 
 # Hooks
@@ -123,7 +123,7 @@ extra:
     - icon: material/rss
       link: 'https://adminredpanda.github.io/rss/'
     - icon: fontawesome/brands/github
-      link: https://github.com/vlepineadm
+      link: https://github.com/AdminRedPanda/
     - icon: fontawesome/brands/x-twitter
       link: https://twitter.com/val0ch3
     - icon: fontawesome/brands/linkedin
