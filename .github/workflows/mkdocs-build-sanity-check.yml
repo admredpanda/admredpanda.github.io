@@ -29,3 +29,17 @@ jobs:
 
     - name: Test mkdocs builds
       run: python3 -m mkdocs build
+
+    - name: Checkout main
+      uses: actions/checkout@v2
+
+    - name: Deploy docs
+      uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CUSTOM_DOMAIN: adminredpanda.github.io
+        CONFIG_FILE: mkdocs.yml
+        EXTRA_PACKAGES: build-base
+        # GITHUB_DOMAIN: github.myenterprise.com
+        REQUIREMENTS: requirements.txt
