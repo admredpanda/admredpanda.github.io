@@ -1,45 +1,62 @@
-name: 'mkdocs sanity check'
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
 on:
-    push:
-      branches:
-        - main
-#on: 
-#  pull_request:
-#    types: [opened, synchronize]
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  mkdocs-sanity-check:
-    name: Check mkdocs builds successfully
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        architecture: x64
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Install requirements
-      run: python3 -m pip install -r requirements.txt
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
 
-    - name: Install mkdocs-material
-      run: python3 -m pip install mkdocs-material
+      - name: Install requirements
+        run: python3 -m pip install -r requirements.txt
 
-    - name: Test mkdocs builds
-      run: python3 -m mkdocs build
+      - name: Install mkdocs-material
+        run: python3 -m pip install mkdocs-material
 
-    - name: Checkout main
-      uses: actions/checkout@v2
+      - name: Test mkdocs builds
+        run: python3 -m mkdocs build
 
-    - name: Deploy docs
-      uses: AdminRedPanda/adminredpanda.github.io@main
-      # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        CUSTOM_DOMAIN: adminredpanda.github.io
-        CONFIG_FILE: mkdocs.yml
-        EXTRA_PACKAGES: build-base
-        # GITHUB_DOMAIN: github.myenterprise.com
-        REQUIREMENTS: requirements.txt
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: './site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
