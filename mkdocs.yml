@@ -19,7 +19,7 @@
 # IN THE SOFTWARE.
 
 # Project information
-site_name: AdminRedPanda
+site_name: AdmRedPanda
 site_url: https://adminredpanda.github.io/
 site_author: Valentin Lépine
 site_description: >-
@@ -27,7 +27,7 @@ site_description: >-
   minutes – searchable, customizable, in 60+ languages, for all devices
 
 # Repository
-repo_name: adminredpanda.github.io
+repo_name: AdmRedPanda/admredpanda.github.io
 repo_url: https://github.com/AdminRedPanda/adminredpanda.github.io
 
 # Copyright
@@ -186,7 +186,9 @@ markdown_extensions:
 # Page tree
 nav:
   - Home: index.md
-  - ⛴ Kubernetes:
+  - Docker:
+    - Docker: docker/index.md
+  - Kubernetes:
     - Kubernetes: kubernetes/index.md
     - Cluster:
       - Hardware: kubernetes/hardware.md
