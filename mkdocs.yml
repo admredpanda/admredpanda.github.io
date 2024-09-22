@@ -20,7 +20,7 @@
 
 # Project information
 site_name: AdmRedPanda
-site_url: https://adminredpanda.github.io/
+site_url: https://admredpanda.github.io/
 site_author: Valentin
 site_description: >-
   Write your documentation in Markdown and create a professional static site in
@@ -28,10 +28,13 @@ site_description: >-
 
 # Repository
 repo_name: AdmRedPanda/admredpanda.github.io
-repo_url: https://github.com/AdminRedPanda/adminredpanda.github.io
+repo_url: https://github.com/AdmRedPanda/admredpanda.github.io
 
 # Copyright
-copyright: Copyright &copy; 2016 - 2024 PandAdmin
+copyright: Copyright &copy; 2024 - 2025 AdmRedPanda
+
+extra_css:
+  - stylesheets/extra.css
 
 # Configuration
 theme:
@@ -75,15 +78,15 @@ theme:
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: indigo
+      primary: deep orange
+      accent: deep orange
       toggle:
         icon: material/toggle-switch
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: indigo
+      primary: custom
+      accent: deep orange
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
@@ -102,7 +105,7 @@ plugins:
         as_update: date.updated
 #  - git-authors
 #  - git-committers:
-#      repository: AdminRedPanda/adminredpanda.github.io
+#      repository: admredpanda/admredpanda.github.io
 #      branch: main
 
 # Hooks
@@ -123,9 +126,9 @@ extra:
       name: send me an email
       link: mailto:vlepineadm@outlook.com 
     - icon: material/rss
-      link: 'https://adminredpanda.github.io/feed_rss_created.xml'
+      link: 'https://admredpanda.github.io/feed_rss_created.xml'
     - icon: fontawesome/brands/github
-      link: https://github.com/AdminRedPanda/
+      link: https://github.com/admredpanda/
     - icon: fontawesome/brands/x-twitter
       link: https://twitter.com/val0ch3
     - icon: fontawesome/brands/linkedin

@@ -12,13 +12,13 @@ Welcome, fellow geek :wave: If you're impatient, just start here :point_down:
 
 <div class="grid cards" markdown>
 
-- **Dive into :material-docker:{ .docker .lg .middle } [Docker Swarm](/docker-swarm/design/)**
+- **Dive into :material-docker:{ .docker .lg .middle } [Docker](docker/index.md)**
 
     ---
 
     The quickest way to get started, and to get your head around the basics.
 
-- **Kick it with :material-kubernetes:{ .kubernetes .lg .middle } [Kubernetes](/kubernetes/)**
+- **Kick it with :material-kubernetes:{ .kubernetes .lg .middle } [Kubernetes](kubernetes/index.md)**
 
     ---
 
@@ -34,54 +34,4 @@ Welcome, fellow geek :wave: If you're impatient, just start here :point_down:
 
 ## What to expect
 
-The "*Geek Cookbook*" is a collection of how-to guides for establishing your own container-based awesome selfhosted platform, using either [Docker Swarm](/docker-swarm/design/) or [Kubernetes](/kubernetes/).
-
-Running such a platform enables you to run selfhosted services such as the [AutoPirate](/recipes/autopirate/) (*Radarr, Sonarr, NZBGet and friends*) stack, [Plex](https://www.plex.tv/), [NextCloud](https://nextcloud.com/) etc, and includes elements such as:
-
-- [Automatic SSL-secured access](/docker-swarm/traefik/) to all services (*with LetsEncrypt*)
-- [SSO / authentication layer](/docker-swarm/traefik-forward-auth/) to protect unsecured / vulnerable services
-- [Automated backup](/recipes/elkarbackup/) of configuration and data
-- [Monitoring and metrics](/recipes/swarmprom/) collection, graphing and alerting
-
-Recent updates and additions are posted on the [blog](/blog/), and there's a friendly community of like-minded geeks in the [Discord server](http://chat.funkypenguin.co.nz).
-
-## How will this benefit me?
-
-You already have a familiarity with concepts such as virtual machines, [Docker](https://www.docker.com/) containers, [LetsEncrypt SSL certificates](https://letsencrypt.org/), databases, and command-line interfaces.
-
-You've probably played with self-hosting some mainstream apps yourself, like [Plex](https://www.plex.tv/), [NextCloud](https://nextcloud.com/), [Wordpress](https://wordpress.org/) or [Ghost](https://ghost.io/).
-
-So if you're familiar enough with the concepts above, and you've done self-hosting before, why would you read any further?
-
-1. You want to upskill. You want to work with container orchestration, Prometheus and Grafana, Kubernetes
-2. You want to play. You want a safe sandbox to test new tools, keeping the ones you want and tossing the ones you don't.
-3. You want reliability. Once you go from **playing** with a tool to actually **using** it, you want it to be available when you need it. Having to "*quickly ssh into the basement server and restart plex*" doesn't cut it when you finally convince your wife to sit down with you to watch sci-fi :robot:
-
-## Who made this?
-
-### 👋 Hi, I'm David
-
-I’ve spent 20+ years working with technology. I’m a solution architect, with a broad range of experience and skills. I'm a full-time [AWS Certified Solution Architect (Professional)][cert_aws], a [CNCF-Certified Kubernetes Administrator][cert_cka], [Application Developer][cert_ckad] and [Security Specialist][cert_cks].
-
-### Get in touch 💬
-
-- Come and say hi to me and the friendly geeks in the [Discord](http://chat.funkypenguin.co.nz) chat or the [Discourse](https://forum.funkypenguin.co.nz/) forums - say hi, ask a question, or suggest a new recipe!
-- Toot me up, I'm [@funkypenguin](https://so.fnky.nz/@funkypenguin)! 🐘
-- [Contact me](https://www.funkypenguin.co.nz/contact/) by a variety of channels
-
-### [Sponsor](https://github.com/sponsors/funkypenguin) me ❤️
-
-The best way to support this work is to become a [GitHub Sponsor](https://github.com/sponsors/funkypenguin) / [Patreon patron](https://www.patreon.com/bePatron?u=6982506). You get:
-
-- warm fuzzies,
-- access to the pre-mix repo,
-- an anonymous plug you can pull at any time,
-- and a bunch more loot based on tier
-
-.. and I get some pocket money every month to buy wine, cheese, and cryptocurrency! 🍷 💰
-
-Impulsively **[click here (NOW quick do it!)](https://github.com/sponsors/funkypenguin)** to [sponsor me](https://github.com/sponsors/funkypenguin) via GitHub, or [patronize me via Patreon](https://www.patreon.com/bePatron?u=6982506)!
-
-### Work with me 🤝
-
-Need some Cloud / Microservices / DevOps / Infrastructure design work done? This stuff is my bread and butter! :bread: :fork_and_knife: [Get in touch][contact], and let's talk!
+The "*Geek Cookbook*" is a collection of how-to guides for establishing your own container-based awesome selfhosted platform, using either [Docker](docker/index.md) or [Kubernetes](kubernetes/index.md).

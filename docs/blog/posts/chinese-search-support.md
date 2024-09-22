@@ -34,7 +34,7 @@ _This article explains how to set up Chinese language support for the built-in
 search plugin in a few minutes._
 { style="display: inline" }
 
-  [built-in search plugin]: ../../plugins/search.md
+  [built-in search plugin]: #
   [lunr-languages]: https://github.com/MihaiValentin/lunr-languages
 
 ## Configuration
@@ -77,6 +77,6 @@ improved, please [open an issue].
 
   [jieba]: https://pypi.org/project/jieba/
   [zero-width whitespace]: https://en.wikipedia.org/wiki/Zero-width_space
-  [separator]: ../../setup/setting-up-site-search.md#separator
-  [q=支持]: ?q=支持
+  [separator]: #
+  [q=支持]: #
   [open an issue]: https://github.com/squidfunk/mkdocs-material/issues/new/choose
