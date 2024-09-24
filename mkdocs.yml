@@ -103,10 +103,10 @@ plugins:
       date_from_meta:
         as_creation: date.created
         as_update: date.updated
-#  - git-authors
-#  - git-committers:
-#      repository: admredpanda/admredpanda.github.io
-#      branch: main
+  - git-authors
+  - git-committers:
+      repository: admredpanda/admredpanda.github.io
+      branch: main
 
 # Hooks
 hooks:

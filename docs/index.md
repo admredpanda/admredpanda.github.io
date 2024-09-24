@@ -2,8 +2,9 @@
 title: How I do "awesome selfhosted"
 description: My collection of how-to guides and tutorials for establishing your own container-based awesome selfhosted platform, using either Docker or Kubernetes.
 hide:
-  - navigation # Hide navigation
-  - toc        # Hide table of contents
+  - navigation
+  - toc
+  - feedback
 ---
 
 # Let's build your awesome selfhosted platform together!
