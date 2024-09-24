@@ -27,11 +27,11 @@ site_description: >-
   minutes – searchable, customizable, in 60+ languages, for all devices
 
 # Repository
-repo_name: AdmRedPanda/admredpanda.github.io
+repo_name: admredpanda.github.io
 repo_url: https://github.com/AdmRedPanda/admredpanda.github.io
 
 # Copyright
-copyright: Copyright &copy; 2024 - 2025 AdmRedPanda
+copyright: Copyright &copy; 2024 AdmRedPanda
 
 extra_css:
   - stylesheets/extra.css
@@ -41,7 +41,7 @@ theme:
   name: material
   language: fr
   custom_dir: material/overrides
-  logo: 'assets/favicon.png'
+  logo: 'assets/logo.png'
   favicon: 'assets/favicon.png'
   features:
     #- announce.dismiss
@@ -119,8 +119,8 @@ extra:
     new: Recently added
     deprecated: Deprecated
   analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
+    provider: custom
+    property: foobar
   social:   
     - icon: /fontawesome/regular/envelope
       name: send me an email
