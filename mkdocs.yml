@@ -121,8 +121,8 @@ extra:
     new: Recently added
     deprecated: Deprecated
   analytics:
-    provider: custom
-    property: foobar
+    provider: google
+    property: G-RJECLNJYG0
     feedback:
       title: Was this page helpful?
       ratings:
