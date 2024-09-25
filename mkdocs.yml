@@ -107,7 +107,9 @@ plugins:
   - git-committers:
       repository: admredpanda/admredpanda.github.io
       branch: main
-
+  - git-revision-date-localized:
+      enable_creation_date: true
+      
 # Hooks
 hooks:
   - material/overrides/hooks/shortcodes.py
