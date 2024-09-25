@@ -21,7 +21,7 @@
 # Project information
 site_name: AdmRedPanda
 site_url: https://admredpanda.github.io/
-site_author: Valentin
+site_author: Valentin LÉPINE
 site_description: >-
   Write your documentation in Markdown and create a professional static site in
   minutes – searchable, customizable, in 60+ languages, for all devices
@@ -103,7 +103,6 @@ plugins:
       date_from_meta:
         as_creation: date.created
         as_update: date.updated
-  - git-authors
   - git-committers:
       repository: admredpanda/admredpanda.github.io
       branch: main
@@ -117,6 +116,7 @@ hooks:
 
 # Additional configuration
 extra:
+  homepage: https://admredpanda.github.io/
   status:
     new: Recently added
     deprecated: Deprecated

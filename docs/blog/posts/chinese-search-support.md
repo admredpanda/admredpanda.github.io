@@ -1,6 +1,6 @@
 ---
 date: 2022-05-05
-authors: [adminredpanda]
+authors: [admredpanda]
 title: Chinese search support
 description: >
   Insiders adds Chinese language support for the built-in search plugin – a
@@ -8,8 +8,6 @@ description: >
 categories:
   - Search
 comments: true
-hide:
-  - feedback
 ---
 
 # Chinese search support – 中文搜索​支持
