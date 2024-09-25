@@ -39,9 +39,9 @@ extra_css:
 # Configuration
 theme:
   name: material
-  language: fr
+  language: en
   custom_dir: material/overrides
-  logo: 'assets/logo.png'
+  logo: 'assets/logo.webp'
   favicon: 'assets/favicon.png'
   features:
     #- announce.dismiss
@@ -90,6 +90,8 @@ theme:
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github
 
 # Plugins
 plugins:
@@ -144,7 +146,7 @@ extra:
       as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
       make our documentation better.
-      
+
   social:   
     - icon: /fontawesome/regular/envelope
       name: send me an email
