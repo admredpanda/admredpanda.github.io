@@ -5,4 +5,4 @@ hide:
   - feedback
 ---
 
-# À propos
+# About

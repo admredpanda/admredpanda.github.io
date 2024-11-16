@@ -95,7 +95,9 @@ theme:
 
 # Plugins
 plugins:
-  - blog
+  - blog:
+      post_date_format: full
+      post_url_format: "{slug}"
   - search:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - minify:
@@ -109,8 +111,9 @@ plugins:
       repository: admredpanda/admredpanda.github.io
       branch: main
   - git-revision-date-localized:
-      enable_creation_date: true
-      
+      #enable_creation_date: true
+      type: date
+
 # Hooks
 hooks:
   - material/overrides/hooks/shortcodes.py
@@ -174,7 +177,7 @@ markdown_extensions:
   - footnotes
   - md_in_html
   - toc:
-      permalink: true
+     permalink: true
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
